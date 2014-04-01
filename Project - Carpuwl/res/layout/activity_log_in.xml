@@ -1,0 +1,46 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ActivityLogIn" >
+
+    <ImageView
+        android:id="@+id/log_in_image_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:contentDescription="@string/app_name"
+        android:scaleType="fitXY"
+        android:src="@drawable/image_log_in_background" />
+    
+    <Button
+        android:id="@+id/log_in_button_facebook"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ui_widget_height"
+        android:layout_above="@+id/log_in_edittext_phone_input"
+        android:layout_marginBottom="@dimen/activity_margin"
+        android:layout_marginLeft="@dimen/activity_margin"
+        android:layout_marginRight="@dimen/activity_margin"
+        android:background="@drawable/btn_facebook_selector"
+        android:text="@string/log_in_button_facebook"
+        android:textColor="@drawable/btn_facebook_text_color_selector" />
+
+
+    <EditText
+        android:id="@+id/log_in_edittext_phone_input"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ui_widget_height"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="@dimen/activity_margin"
+        android:layout_marginLeft="@dimen/activity_margin"
+        android:layout_marginRight="@dimen/activity_margin"
+        android:background="@drawable/edittext_phone_input_shape"
+        android:gravity="center"
+        android:hint="@string/log_in_phone_input_hint"
+        android:inputType="phone"
+        android:textColor="@android:color/white"
+        android:textColorHint="@color/white_transparent" />
+
+</RelativeLayout>

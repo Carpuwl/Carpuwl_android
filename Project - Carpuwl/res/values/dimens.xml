@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_margin">16dp</dimen>
+
+    <!-- Generic -->
+    <dimen name="touchable_ui_spacing">8dp</dimen>
+    <dimen name="dialog_width">280dp</dimen>
+    <dimen name="dialog_title_height">56dp</dimen>
+
+    <!-- Find Ride -->
+    <dimen name="find_ride_listview_price_size">96dp</dimen>
+
+    <!-- Navigation Drawer -->
+    <dimen name="nav_drawer_width">240dp</dimen>
+    <dimen name="nav_drawer_list_item_height">48dp</dimen>
+    <dimen name="nav_drawer_list_item_vertical_padding">20dp</dimen>
+    <dimen name="nav_drawer_divider_height">1dp</dimen>
+
+    <!-- Events Page -->
+    <dimen name="event_user_profile_size">125dp</dimen>
+
+    <!-- Profile Page -->
+    <dimen name="profile_picture_size">200dp</dimen>
+
+    <!-- Generic UI widgets -->
+    <dimen name="ui_widget_height">48dp</dimen>
+    <dimen name="button_rounding">3dp</dimen>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+</resources>

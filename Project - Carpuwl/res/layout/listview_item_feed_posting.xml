@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/find_ride_listview_item_parent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/activity_margin"
+    android:background="@drawable/google_now_style_card" >
+
+    <ImageView
+        android:id="@+id/find_ride_listview_item_price_background"
+        android:layout_width="@dimen/find_ride_listview_price_size"
+        android:layout_height="@dimen/find_ride_listview_price_size"
+        android:contentDescription="@string/app_name" />
+
+    <com.dreamteam.hackwaterloo.fontedviews.textviews.RobotoRegular
+        android:id="@+id/find_ride_listview_item_price"
+        android:layout_width="@dimen/find_ride_listview_price_size"
+        android:layout_height="@dimen/find_ride_listview_price_size"
+        android:gravity="center"
+        android:text="@string/find_ride_price_filler"
+        android:textColor="@android:color/white"
+        android:textSize="26sp" />
+
+    <LinearLayout
+        android:id="@+id/find_ride_listview_item_location_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/find_ride_listview_item_price" >
+
+        <com.dreamteam.hackwaterloo.fontedviews.textviews.RobotoRegular
+            android:id="@+id/find_ride_listview_item_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/touchable_ui_spacing"
+            android:text="@string/app_name"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/find_ride_listview_item_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/ic_action_next_item" />
+
+        <com.dreamteam.hackwaterloo.fontedviews.textviews.RobotoRegular
+            android:id="@+id/find_ride_listview_item_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:ellipsize="marquee"
+            android:singleLine="true"
+            android:text="@string/app_name"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <RatingBar
+        android:id="@+id/find_ride_rating_bar"
+        style="?android:attr/ratingBarStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/find_ride_listview_item_location_container"
+        android:layout_toRightOf="@id/find_ride_listview_item_price"
+        android:layout_marginLeft="@dimen/touchable_ui_spacing"
+        android:isIndicator="true"
+        android:numStars="5" />
+
+    <com.dreamteam.hackwaterloo.fontedviews.textviews.RobotoLight
+        android:id="@+id/find_ride_listview_item_seats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/find_ride_rating_bar"
+        android:layout_marginTop="@dimen/touchable_ui_spacing"
+        android:layout_marginLeft="@dimen/touchable_ui_spacing"
+        android:layout_toRightOf="@id/find_ride_listview_item_price"
+        android:text="@string/find_ride_seats" />
+
+    <com.dreamteam.hackwaterloo.fontedviews.textviews.RobotoLight
+        android:id="@+id/find_ride_listview_item_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/find_ride_listview_item_seats"
+        android:layout_marginLeft="@dimen/touchable_ui_spacing"
+        android:layout_toRightOf="@id/find_ride_listview_item_price_background"
+        android:text="@string/find_ride_time" />
+
+    <com.dreamteam.hackwaterloo.fontedviews.textviews.RobotoCondensedRegular
+        android:id="@+id/find_ride_listview_item_time_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/find_ride_listview_item_seats"
+        android:layout_toRightOf="@id/find_ride_listview_item_time"
+        android:text="@string/app_name"
+        android:textColor="@color/red" />
+
+</RelativeLayout>
