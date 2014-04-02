@@ -11,14 +11,15 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name="com.dreamteam.hackwaterloo.App"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/Theme.Sherlock.Light.DarkActionBar" >
+        android:theme="@style/Theme.Dreamteamtheme" >
         <activity
             android:name="com.dreamteam.hackwaterloo.activities.ActivitySplashPage"
-            android:theme="@style/Theme.Sherlock.Light.NoActionBar"
-            android:noHistory = "true" >
+            android:noHistory="true"
+            android:theme="@style/Theme.Sherlock.Light.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,8 +28,8 @@
         </activity>
         <activity
             android:name="com.dreamteam.hackwaterloo.activities.ActivityLogIn"
-            android:theme="@style/Theme.Sherlock.Light.NoActionBar"
-            android:noHistory = "true" >
+            android:noHistory="true"
+            android:theme="@style/Theme.Sherlock.Light.NoActionBar" >
         </activity>
         <activity android:name="com.dreamteam.hackwaterloo.activities.ActivityMain" />
         <activity android:name="com.dreamteam.hackwaterloo.activities.ActivityDetailedEvent" />
@@ -42,7 +43,6 @@
             android:name="com.facebook.LoginActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.Sherlock.NoActionBar" />
-        
     </application>
 
 </manifest>
