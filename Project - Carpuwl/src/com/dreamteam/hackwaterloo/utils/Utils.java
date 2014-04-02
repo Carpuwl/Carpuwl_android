@@ -3,7 +3,25 @@ package com.dreamteam.hackwaterloo.utils;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import android.app.Dialog;
+import android.content.Context;
+import android.view.Window;
+import android.widget.TextView;
+
+import com.dreamteam.carpuwl.R;
+
 public class Utils {
+    
+    public static Dialog customProgressDialog (Context context, int messageId) {
+        Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_loading);
+        dialog.setCancelable(false);
+        
+        TextView textView = (TextView) dialog.findViewById(R.id.dialog_loading_text_message);
+        textView.setText(messageId);
+        return dialog;
+    }
     
     public static String multiCaseDateFormat(long epochTime) {
         Calendar calendar = Calendar.getInstance();

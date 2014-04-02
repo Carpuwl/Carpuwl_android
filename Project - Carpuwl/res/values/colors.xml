@@ -4,6 +4,7 @@
     <!-- Generic -->
     <color name="app_theme_color">#FF96AA39</color>
     <color name="app_theme_color_tint">#669900</color>
+    <color name="app_theme_color_background">#D6D6D6</color>
     <color name="gray_light">#80C4C4C4</color>
     <color name="gray_google_now">#FFE5E5E5</color>
     <color name="black_transparent">#80000000</color>

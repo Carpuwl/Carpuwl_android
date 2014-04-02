@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/activity_margin"
+    android:orientation="vertical" >
+
+    <com.dreamteam.hackwaterloo.fontedviews.textviews.RobotoMedium
+        android:id="@+id/post_ride_text_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/touchable_ui_spacing"
+        android:text="@string/post_ride_title" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+
+        <LinearLayout
+            android:id="@+id/post_ride_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/google_now_style_card"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:id="@+id/post_ride_location_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <Spinner
+                    android:id="@+id/post_ride_spinner_depart_from"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:prompt="@string/post_ride_spinner_start_prompt" />
+
+                <ImageView
+                    android:id="@+id/post_ride_image_location_separator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/ic_action_next_item" />
+
+                <Spinner
+                    android:id="@+id/post_ride_spinner_arrive_at"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:prompt="@string/post_ride_spinner_end_prompt" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <com.dreamteam.hackwaterloo.fontedviews.textviews.RobotoLight
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/currency_symbol" />
+
+                <com.dreamteam.hackwaterloo.fontedviews.edittexts.RobotoLight
+                    android:id="@+id/post_ride_edittext_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/post_ride_hint_ride_cost" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <com.dreamteam.hackwaterloo.fontedviews.textviews.RobotoLight
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/currency_symbol"
+                    android:visibility="invisible" />
+
+                <com.dreamteam.hackwaterloo.fontedviews.edittexts.RobotoLight
+                    android:id="@+id/post_ride_edittext_seats"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/post_ride_hint_seats" />
+            </LinearLayout>
+            
+            <Button
+                android:id="@+id/post_ride_button_submit_event"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/submit" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

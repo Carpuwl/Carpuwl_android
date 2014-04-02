@@ -49,6 +49,17 @@ public class Feed {
         private String description;
         private String phone;
         
+        public Event (String startPoint, String endPoint, float price, int seatsRemaining, long departDate, long eta, int facebookForeignKey, String description) {
+            this.startPoint = startPoint;
+            this.endPoint = endPoint;
+            this.price = price;
+            this.seatsRemaining = seatsRemaining;
+            this.departDate = departDate;
+            this.arrivalTime = eta;
+            this.userId = facebookForeignKey;
+            this.description = description;
+        }
+        
         public long getDepartDate() {
             return departDate;
         }

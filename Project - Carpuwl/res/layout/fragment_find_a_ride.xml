@@ -16,7 +16,7 @@
     <Button
         android:id="@+id/find_ride_button_filter"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/ui_widget_height"
+        android:layout_height="@dimen/generic_item_height"
         android:layout_marginBottom="@dimen/touchable_ui_spacing"
         android:background="@drawable/btn_search_filter_selector"
         android:drawableLeft="@drawable/ic_action_search"

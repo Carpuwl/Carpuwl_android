@@ -20,23 +20,23 @@ public class CreateUserTask extends BaseTask<Void, Void, String> {
     
     private final String mUserName;
     private final String mPhone;
-    private final int mfacebook_key;
+    private final String facebookPrivateKey;
     
-    public CreateUserTask(String userName, String mPhone, int mfacebook_key) {
+    public CreateUserTask(String userName, String mPhone, String facebookPrivateKey) {
         mUserName = userName;
         this.mPhone = mPhone;
-        this.mfacebook_key = mfacebook_key;
+        this.facebookPrivateKey = facebookPrivateKey;
     }
 
     @Override
     protected String doInBackground(Void... arg0) {
-        List<NameValuePair> requestParams = new ArrayList<NameValuePair>(1);
+        List<NameValuePair> requestParams = new ArrayList<NameValuePair>(3);
         requestParams.add(new BasicNameValuePair(PARAMETER_NAME, mUserName));
         requestParams.add(new BasicNameValuePair(PARAMETER_PHONE, mPhone));
-        requestParams.add(new BasicNameValuePair(PARAMETER_FB_KEY, Integer.toString(mfacebook_key)));
+        requestParams.add(new BasicNameValuePair(PARAMETER_FB_KEY, facebookPrivateKey));
         
         String jsonResult = NetworkHelper.post(ENDPOINT, requestParams);
-        Log.i(TAG, "[create User Task]: " + jsonResult);
+        Log.i(TAG, "[create user task]: " + jsonResult);
         
         return jsonResult;
     }

@@ -1,30 +1,20 @@
 package com.dreamteam.hackwaterloo.activities;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.RatingBar;
-import android.widget.TextView;
 
-import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;
 import com.dreamteam.carpuwl.R;
 import com.dreamteam.hackwaterloo.App;
 import com.dreamteam.hackwaterloo.Constants;
-import com.dreamteam.hackwaterloo.User;
 import com.dreamteam.hackwaterloo.adapters.Feed.Event;
 import com.dreamteam.hackwaterloo.fragments.FragmentDetailedEvent;
-import com.facebook.widget.ProfilePictureView;
 
 public class ActivityDetailedPager extends SherlockFragmentActivity {
 
