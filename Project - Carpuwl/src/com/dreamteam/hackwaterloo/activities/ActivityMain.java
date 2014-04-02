@@ -40,8 +40,6 @@ public class ActivityMain extends SherlockFragmentActivity {
 
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setBackgroundDrawable(
-                new ColorDrawable(getResources().getColor(R.color.app_theme_color)));
 
         if (savedInstanceState == null) {
             getSupportActionBar().setTitle("Find A Ride");

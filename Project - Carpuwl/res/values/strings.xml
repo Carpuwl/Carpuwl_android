@@ -4,6 +4,9 @@
     <string name="app_name">HackWaterloo</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    
+    <!-- Action Bar Titles -->
+    <string name="actionbar_title_find_a_ride">Find a Ride</string>
 
     <!-- Splash Page Activity -->
     <string name="splash_page">The Best Splash Page</string>
