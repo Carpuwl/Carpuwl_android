@@ -4,7 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
-import com.dreamteam.hackwaterloo.fontedviews.Typefaces;
+import com.dreamteam.hackwaterloo.Typefaces;
 
 public class RobotoLight extends TextView {
     public RobotoLight(Context context, AttributeSet attrs) {

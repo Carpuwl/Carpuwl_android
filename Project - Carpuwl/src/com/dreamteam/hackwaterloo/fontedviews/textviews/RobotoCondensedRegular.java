@@ -1,6 +1,6 @@
 package com.dreamteam.hackwaterloo.fontedviews.textviews;
 
-import com.dreamteam.hackwaterloo.fontedviews.Typefaces;
+import com.dreamteam.hackwaterloo.Typefaces;
 
 import android.content.Context;
 import android.util.AttributeSet;

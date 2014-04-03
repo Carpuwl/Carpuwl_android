@@ -46,13 +46,13 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
 
-            <com.dreamteam.hackwaterloo.fontedviews.textviews.RobotoLight
+            <TextView.RobotoLight
                 android:id="@+id/post_ride_currency_symbol"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/currency_symbol" />
 
-            <com.dreamteam.hackwaterloo.fontedviews.edittexts.RobotoLight
+            <EditText.RobotoLight
                 android:id="@+id/post_ride_edittext_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -63,13 +63,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
 
-            <com.dreamteam.hackwaterloo.fontedviews.textviews.RobotoLight
+            <TextView.RobotoLight
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/currency_symbol"
                 android:visibility="invisible" />
 
-            <com.dreamteam.hackwaterloo.fontedviews.edittexts.RobotoLight
+            <EditText.RobotoLight
                 android:id="@+id/post_ride_edittext_seats"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -81,7 +81,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
 
-            <com.dreamteam.hackwaterloo.fontedviews.buttons.RobotoLight
+            <Button.RobotoLight
                 android:id="@+id/post_ride_button_start_date"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -89,7 +89,7 @@
                 android:gravity="center"
                 android:text="@string/post_ride_button_start_date" />
 
-            <com.dreamteam.hackwaterloo.fontedviews.textviews.RobotoLight
+            <TextView.RobotoLight
                 android:id="@+id/post_ride_text_start_date"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -103,7 +103,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
 
-            <com.dreamteam.hackwaterloo.fontedviews.buttons.RobotoLight
+            <Button.RobotoLight
                 android:id="@+id/post_ride_button_end_date"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -111,7 +111,7 @@
                 android:gravity="center"
                 android:text="@string/post_ride_button_end_date" />
 
-            <com.dreamteam.hackwaterloo.fontedviews.textviews.RobotoLight
+            <TextView.RobotoLight
                 android:id="@+id/post_ride_text_end_date"
                  android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -120,7 +120,7 @@
                 android:hint="@string/post_ride_text_location_hint" />
         </LinearLayout>
 
-        <com.dreamteam.hackwaterloo.fontedviews.edittexts.RobotoLight
+        <EditText.RobotoLight
             android:id="@+id/post_ride_edittext_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
