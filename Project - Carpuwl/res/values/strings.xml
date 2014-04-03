@@ -48,6 +48,7 @@
     
     <!-- Filter -->
     <string-array name="cities">
+        <item>Select One</item>
         <item>Toronto</item>
         <item>Etobicoke</item>
         <item>Brampton</item>

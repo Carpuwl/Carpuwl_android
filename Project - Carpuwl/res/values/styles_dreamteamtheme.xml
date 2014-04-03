@@ -30,6 +30,11 @@
         <item name="actionModeBackground">@drawable/cab_background_top_dreamteamtheme</item>
         <item name="actionModeSplitBackground">@drawable/cab_background_bottom_dreamteamtheme</item>
         <item name="actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Dreamteamtheme</item>
+        <item name="android:editTextStyle">@style/EditTextDreamTeamTheme</item>
+        <item name="android:seekBarStyle">@style/SeekBarDreamTeamTheme</item>
+        <item name="android:ratingBarStyle">@style/RatingBarDreamTeamTheme</item>
+        <item name="android:ratingBarStyleIndicator">@style/RatingBarBigDreamTeamTheme</item>
+        <item name="android:ratingBarStyleSmall">@style/RatingBarSmallDreamTeamTheme</item>
 
                 <!-- Light.DarkActionBar specific -->
         <item name="actionBarWidgetTheme">@style/Theme.Dreamteamtheme.Widget</item>
@@ -78,6 +83,41 @@
     <style name="Theme.Dreamteamtheme.Widget" parent="@style/Theme.Sherlock">
         <item name="popupMenuStyle">@style/PopupMenu.Dreamteamtheme</item>
         <item name="dropDownListViewStyle">@style/DropDownListView.Dreamteamtheme</item>
+    </style>
+    
+    <style name="EditTextDreamTeamTheme" parent="android:Widget.EditText">
+        <item name="android:background">@drawable/dreamteamtheme_edit_text_holo_light</item>
+        <item name="android:textColor">#000000</item>
+    </style>
+
+    <style name="SeekBarDreamTeamTheme" parent="android:Widget.SeekBar">
+        <item name="android:progressDrawable">@drawable/dreamteamtheme_scrubber_progress_horizontal_holo_light</item>
+        <item name="android:indeterminateDrawable">@drawable/dreamteamtheme_scrubber_progress_horizontal_holo_light</item>
+        <item name="android:minHeight">13dip</item>
+        <item name="android:maxHeight">13dip</item>
+        <item name="android:thumb">@drawable/dreamteamtheme_scrubber_control_selector_holo_light</item>
+        <item name="android:thumbOffset">16dip</item>
+        <item name="android:paddingLeft">16dip</item>
+        <item name="android:paddingRight">16dip</item>
+    </style>
+
+    <style name="RatingBarDreamTeamTheme" parent="android:Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/dreamteamtheme_ratingbar_full_holo_light</item>
+        <item name="android:indeterminateDrawable">@drawable/dreamteamtheme_ratingbar_full_holo_light</item>
+    </style>
+
+    <style name="RatingBarBigDreamTeamTheme">
+        <item name="android:progressDrawable">@drawable/dreamteamtheme_ratingbar_holo_light</item>
+        <item name="android:indeterminateDrawable">@drawable/dreamteamtheme_ratingbar_holo_light</item>
+        <item name="android:minHeight">35dip</item>
+        <item name="android:maxHeight">35dip</item>
+    </style>
+
+    <style name="RatingBarSmallDreamTeamTheme">
+        <item name="android:progressDrawable">@drawable/dreamteamtheme_ratingbar_small_holo_light</item>
+        <item name="android:indeterminateDrawable">@drawable/dreamteamtheme_ratingbar_small_holo_light</item>
+        <item name="android:minHeight">16dip</item>
+        <item name="android:maxHeight">16dip</item>
     </style>
 
 </resources>

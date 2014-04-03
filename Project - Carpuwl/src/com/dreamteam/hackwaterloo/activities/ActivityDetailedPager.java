@@ -27,8 +27,8 @@ public class ActivityDetailedPager extends SherlockFragmentActivity {
         super.onCreate(arg0);
         setContentView(R.layout.fragment_detailed_event);
 
-        mEvents = getIntent().getParcelableArrayListExtra(Constants.Extra.Event);
-        int position = getIntent().getIntExtra(Constants.Extra.EventPosition, 0);
+        mEvents = getIntent().getParcelableArrayListExtra(Constants.Extra.EVENT);
+        int position = getIntent().getIntExtra(Constants.Extra.EVENT_POSITION, 0);
 
         mAdapter = new EventDetailAdapter(getSupportFragmentManager(), mEvents);
         mPager = (ViewPager) findViewById(R.id.event_pager);

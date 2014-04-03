@@ -118,8 +118,8 @@ public class FeedAdapter extends BaseAdapter {
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(mContext.get(), ActivityDetailedPager.class);
-            intent.putParcelableArrayListExtra(Constants.Extra.Event, mEvents);
-            intent.putExtra(Constants.Extra.EventPosition, position);
+            intent.putParcelableArrayListExtra(Constants.Extra.EVENT, mEvents);
+            intent.putExtra(Constants.Extra.EVENT_POSITION, position);
             mContext.get().startActivity(intent);
         }
     }

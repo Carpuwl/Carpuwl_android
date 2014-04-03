@@ -30,6 +30,11 @@
         <item name="android:actionModeBackground">@drawable/cab_background_top_dreamteamtheme</item>
         <item name="android:actionModeSplitBackground">@drawable/cab_background_bottom_dreamteamtheme</item>
         <item name="android:actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Dreamteamtheme</item>
+        <item name="android:editTextBackground">@drawable/dreamteamtheme_edit_text_holo_light</item>
+        <item name="android:seekBarStyle">@style/SeekBarDreamTeamTheme</item>
+        <item name="android:ratingBarStyle">@style/RatingBarDreamTeamTheme</item>
+        <item name="android:ratingBarStyleIndicator">@style/RatingBarBigDreamTeamTheme</item>
+        <item name="android:ratingBarStyleSmall">@style/RatingBarSmallDreamTeamTheme</item>
         
                 <!-- Light.DarkActionBar specific -->
         <item name="android:actionBarWidgetTheme">@style/Theme.Dreamteamtheme.Widget</item>
@@ -52,6 +57,27 @@
     <style name="Theme.Dreamteamtheme.Widget" parent="@style/Theme.Sherlock">
         <item name="android:popupMenuStyle">@style/PopupMenu.Dreamteamtheme</item>
         <item name="android:dropDownListViewStyle">@style/DropDownListView.Dreamteamtheme</item>
+    </style>
+    
+    <style name="SeekBarDreamTeamTheme" parent="android:Widget.Holo.Light.SeekBar">
+        <item name="android:progressDrawable">@drawable/dreamteamtheme_scrubber_progress_horizontal_holo_light</item>
+        <item name="android:indeterminateDrawable">@drawable/dreamteamtheme_scrubber_progress_horizontal_holo_light</item>
+        <item name="android:thumb">@drawable/dreamteamtheme_scrubber_control_selector_holo_light</item>
+    </style>
+
+    <style name="RatingBarDreamTeamTheme" parent="android:Widget.Holo.Light.RatingBar">
+        <item name="android:progressDrawable">@drawable/dreamteamtheme_ratingbar_full_holo_light</item>
+        <item name="android:indeterminateDrawable">@drawable/dreamteamtheme_ratingbar_full_holo_light</item>
+    </style>
+
+    <style name="RatingBarBigDreamTeamTheme" parent="android:Widget.Holo.Light.RatingBar.Indicator">
+        <item name="android:progressDrawable">@drawable/dreamteamtheme_ratingbar_holo_light</item>
+        <item name="android:indeterminateDrawable">@drawable/dreamteamtheme_ratingbar_holo_light</item>
+    </style>
+
+    <style name="RatingBarSmallDreamTeamTheme" parent="android:Widget.Holo.Light.RatingBar.Small">
+        <item name="android:progressDrawable">@drawable/dreamteamtheme_ratingbar_small_holo_light</item>
+        <item name="android:indeterminateDrawable">@drawable/dreamteamtheme_ratingbar_small_holo_light</item>
     </style>
 
 </resources>

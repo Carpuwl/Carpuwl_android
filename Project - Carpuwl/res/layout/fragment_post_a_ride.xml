@@ -11,6 +11,12 @@
         android:background="@drawable/google_now_style_card"
         android:orientation="vertical" >
 
+        <RatingBar
+            android:id="@+id/ratingBar1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:rating="3.0" />
+
         <LinearLayout
             android:id="@+id/post_ride_location_container"
             android:layout_width="match_parent"
@@ -113,7 +119,7 @@
 
             <TextView.RobotoLight
                 android:id="@+id/post_ride_text_end_date"
-                 android:layout_width="0dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
@@ -125,8 +131,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="bottom"
-            android:minHeight="@dimen/post_ride_description_min_height"
-            android:hint="@string/post_ride_edittext_hint_description" />
+            android:hint="@string/post_ride_edittext_hint_description"
+            android:minHeight="@dimen/post_ride_description_min_height" />
 
         <Button
             android:id="@+id/post_ride_button_submit_event"

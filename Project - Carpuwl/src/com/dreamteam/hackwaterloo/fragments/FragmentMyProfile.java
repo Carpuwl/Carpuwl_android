@@ -46,7 +46,7 @@ import com.facebook.widget.ProfilePictureView;
 //        GetEventsTask getEventsTask = new GetEventsTask();
 //        getEventsTask.setOnPostExecuteListener(new OnPostExecuteListener<Feed.Event[]>() {
 //            @Override
-//            public void onFinish(Event[] returnItem) {
+//            public void onFinish(EVENT[] returnItem) {
 //            }
 //        });
 //        getEventsTask.executeParallel();

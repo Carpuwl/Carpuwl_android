@@ -2,7 +2,8 @@
 <resources>
     
     <!-- Generic -->
-    <color name="app_theme_color">#FF96AA39</color>
+    <color name="dreamteamtheme_color">#96aa39</color>
+    <color name="app_theme_color">#96AA39</color>
     <color name="app_theme_color_tint">#669900</color>
     <color name="app_theme_color_background">#D6D6D6</color>
     <color name="gray_light">#80C4C4C4</color>
