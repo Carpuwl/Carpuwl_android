@@ -2,7 +2,6 @@ package com.dreamteam.hackwaterloo.activities;
 
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentManager;
@@ -17,6 +16,7 @@ import com.dreamteam.carpuwl.R;
 import com.dreamteam.hackwaterloo.adapters.DrawerLayoutAdapter;
 import com.dreamteam.hackwaterloo.fragments.FragmentFindARide;
 import com.dreamteam.hackwaterloo.fragments.FragmentMyProfile;
+import com.facebook.Session;
 
 public class ActivityMain extends SherlockFragmentActivity {
 
@@ -105,7 +105,13 @@ public class ActivityMain extends SherlockFragmentActivity {
                 break;
                 
             case 3: // Sign out
-            
+            	Session session = Session.getActiveSession();
+            	if (session.isOpened()) {
+            		session.closeAndClearTokenInformation();
+            		Intent intent = new Intent(ActivityMain.this, ActivityLogIn.class);
+            		startActivity(intent);
+            	}
+            	break;
         }
 
         mDrawerLayout.closeDrawer(mDrawerList);

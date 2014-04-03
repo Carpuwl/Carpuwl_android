@@ -14,19 +14,16 @@
         android:scaleType="fitXY"
         android:src="@drawable/image_log_in_background" />
     
-    <Button
-        android:id="@+id/log_in_button_facebook"
+    <com.facebook.widget.LoginButton
+        android:id="@+id/authButton"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/ui_widget_height"
         android:layout_above="@+id/log_in_edittext_phone_input"
-        android:layout_marginBottom="@dimen/activity_margin"
+        android:layout_height="@dimen/ui_widget_height"
+		android:layout_marginBottom="@dimen/activity_margin"
         android:layout_marginLeft="@dimen/activity_margin"
         android:layout_marginRight="@dimen/activity_margin"
-        android:background="@drawable/btn_facebook_selector"
-        android:text="@string/log_in_button_facebook"
-        android:textColor="@drawable/btn_facebook_text_color_selector" />
-
-
+        />
+    
     <EditText
         android:id="@+id/log_in_edittext_phone_input"
         android:layout_width="match_parent"
