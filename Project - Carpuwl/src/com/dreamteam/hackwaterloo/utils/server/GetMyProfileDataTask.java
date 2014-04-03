@@ -8,25 +8,19 @@ import org.apache.http.message.BasicNameValuePair;
 
 import android.util.Log;
 
+import com.dreamteam.hackwaterloo.AppData;
 import com.dreamteam.hackwaterloo.utils.NetworkHelper;
 
-public class GetUserDataTask extends BaseTask <Void, Void, String> {
+public class GetMyProfileDataTask extends BaseTask <Void, Void, String> {
     
-    private static final String TAG = GetUserDataTask.class.getSimpleName();
-    public static final String ENDPOINT = "get_user_data";
-    private static final String PARAMETER_NAME = "name";
+    private static final String TAG = GetMyProfileDataTask.class.getSimpleName();
+    public static final String ENDPOINT = "user";
+    private static final String PARAMETER_NAME = "fb_fk";
     
-    private String mUserName;
-    
-    public GetUserDataTask(String userName) {
-        mUserName = userName;
-    }
-
     @Override
     protected String doInBackground(Void... params) {
         List<NameValuePair> requestParams = new ArrayList<NameValuePair>(1);
-        requestParams.add(new BasicNameValuePair(PARAMETER_NAME, mUserName));
-        
+        requestParams.add(new BasicNameValuePair(PARAMETER_NAME, Integer.toString(AppData.getFacebookForeginKey())));
         String jsonResult = NetworkHelper.get(ENDPOINT, requestParams);
         Log.i(TAG, "[json]: " + jsonResult);
         

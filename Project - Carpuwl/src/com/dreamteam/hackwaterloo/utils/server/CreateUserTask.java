@@ -13,7 +13,7 @@ import com.dreamteam.hackwaterloo.utils.NetworkHelper;
 public class CreateUserTask extends BaseTask<Void, Void, String> {
     
     private static final String TAG = CreateUserTask.class.getSimpleName();
-    private static final String ENDPOINT = "create_user";
+    private static final String ENDPOINT = "user";
     private static final String PARAMETER_NAME = "name";
     private static final String PARAMETER_PHONE = "phone";
     private static final String PARAMETER_FB_KEY = "fb_fk";
@@ -36,8 +36,7 @@ public class CreateUserTask extends BaseTask<Void, Void, String> {
         requestParams.add(new BasicNameValuePair(PARAMETER_FB_KEY, facebookPrivateKey));
         
         String jsonResult = NetworkHelper.post(ENDPOINT, requestParams);
-        Log.i(TAG, "[create user task]: " + jsonResult);
-        
+        Log.i("ryan", "[create user task] " + jsonResult);
         return jsonResult;
     }
 

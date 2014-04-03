@@ -1,8 +1,5 @@
 package com.dreamteam.hackwaterloo.fragments;
 
-import java.util.Calendar;
-
-import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,45 +14,48 @@ import android.widget.Spinner;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.dreamteam.carpuwl.R;
 import com.dreamteam.hackwaterloo.AppData;
-import com.dreamteam.hackwaterloo.Constants.FragmentTag;
 import com.dreamteam.hackwaterloo.adapters.Feed.Event;
+import com.dreamteam.hackwaterloo.utils.DateTimePickerHelper;
+import com.dreamteam.hackwaterloo.utils.DateTimePickerHelper.OnDateTimeSelectedListener;
 import com.dreamteam.hackwaterloo.utils.server.CreateEventTask;
-import com.zenkun.datetimepicker.date.DatePickerDialog;
-import com.zenkun.datetimepicker.date.DatePickerDialog.OnDateSetListener;
-import com.zenkun.datetimepicker.time.TimePickerDialog;
 
 public class FragmentPostARide extends SherlockFragment implements OnClickListener {
+
+    private DateTimePickerHelper mDateTimePickerHelper;
 
     private Button mButtonSubmit;
     private Button mButtonDatePicker;
     private Button mButtonTimePicker;
-    private DatePickerDialog mDatePicker;
-    private TimePickerDialog mTimePicker;
     private Spinner mSpinnerStart;
     private Spinner mSpinnerEnd;
     private EditText mEditPrice;
     private EditText mEditSeatsRemaining;
+    private EditText mEditDescription;
+
+    private long mStartTime;
+    private long mEndTime;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_post_a_ride, container, false);
-        
+
         initUi(rootView);
-        
+
         mButtonDatePicker.setOnClickListener(this);
         mButtonTimePicker.setOnClickListener(this);
-        
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.cities, android.R.layout.simple_spinner_item);
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
+                R.array.cities, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        
+
         mSpinnerStart.setAdapter(adapter);
         mSpinnerEnd.setAdapter(adapter);
-        
+
         mButtonSubmit.setOnClickListener(this);
 
         return rootView;
     }
-    
+
     private void initUi(View context) {
         mButtonSubmit = (Button) context.findViewById(R.id.post_ride_button_submit_event);
         mButtonDatePicker = (Button) context.findViewById(R.id.post_ride_button_start_date);
@@ -64,16 +64,7 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
         mSpinnerEnd = (Spinner) context.findViewById(R.id.post_ride_spinner_arrive_at);
         mEditPrice = (EditText) context.findViewById(R.id.post_ride_edittext_price);
         mEditSeatsRemaining = (EditText) context.findViewById(R.id.post_ride_edittext_seats);
-        
-        Calendar calendar = Calendar.getInstance();
-        
-        mDatePicker = DatePickerDialog.newInstance(new OnDateSetListener() {
-            
-            @Override
-            public void onDateSet(DatePickerDialog datePickerDialog, int year, int month, int day) {
-                Log.d("ryan", "date selected: " + year + " " + month + " " + day);
-            }
-        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+        mEditDescription = (EditText) context.findViewById(R.id.post_ride_edittext_description);
     }
 
     @Override
@@ -82,20 +73,52 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
             case R.id.post_ride_button_submit_event:
                 Event event = new Event(
                         mSpinnerStart.getSelectedItem().toString(), 
-                        mSpinnerEnd.getSelectedItem().toString(), 
+                        mSpinnerEnd
+                        .getSelectedItem().toString(), 
                         Float.valueOf(mEditPrice.getText().toString()), 
-                        Integer.valueOf(mEditSeatsRemaining.getText().toString()), 
-                        System.currentTimeMillis(),
-                        System.currentTimeMillis(), 
-                        AppData.getFacebookForeginKey(),
-                        "This is a description");
+                        Integer.valueOf(mEditSeatsRemaining.getText().toString()),
+                        mStartTime, 
+                        mEndTime,
+                        AppData.getFacebookForeginKey(), 
+                        mEditDescription.getText().toString());
                 new CreateEventTask(event).executeParallel();
-                
+                break;
+
             case R.id.post_ride_button_start_date:
-                mDatePicker.show(getActivity().getSupportFragmentManager(), FragmentTag.DIALOG_DATE_PICKER);
+            case R.id.post_ride_button_end_date:
+                mDateTimePickerHelper = new DateTimePickerHelper(getActivity()
+                        .getSupportFragmentManager());
+                mDateTimePickerHelper.setOnDateTimeSelectedListener(
+                        new DateTimePickerListener(view.getId()));
+                mDateTimePickerHelper.show();
+                break;
         }
     }
     
-    
-    
+    private class DateTimePickerListener implements OnDateTimeSelectedListener {
+
+        int mButtonId;
+
+        public DateTimePickerListener(int buttonId) {
+            mButtonId = buttonId;
+        }
+
+        @Override
+        public void onDateTimeSelected(long timeInMillis) {
+            Log.d("ryan", "time In Millis: " + timeInMillis);
+            
+            switch (mButtonId) {
+                case R.id.post_ride_button_start_date:
+                    mStartTime = timeInMillis;
+                    break;
+
+                case R.id.post_ride_button_end_date:
+                    mEndTime = timeInMillis;
+                    break;
+
+                default:
+                    assert false : "Unhandled datepicker for view with id " + mButtonId;
+            }
+        }
+    }
 }
