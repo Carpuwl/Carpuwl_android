@@ -17,6 +17,7 @@ import com.dreamteam.hackwaterloo.AppData;
 import com.dreamteam.hackwaterloo.adapters.Feed.Event;
 import com.dreamteam.hackwaterloo.utils.DateTimePickerHelper;
 import com.dreamteam.hackwaterloo.utils.DateTimePickerHelper.OnDateTimeSelectedListener;
+import com.dreamteam.hackwaterloo.utils.TextWatcherPrice;
 import com.dreamteam.hackwaterloo.utils.server.CreateEventTask;
 
 public class FragmentPostARide extends SherlockFragment implements OnClickListener {
@@ -40,19 +41,6 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
         View rootView = inflater.inflate(R.layout.fragment_post_a_ride, container, false);
 
         initUi(rootView);
-
-        mButtonDatePicker.setOnClickListener(this);
-        mButtonTimePicker.setOnClickListener(this);
-
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
-                R.array.cities, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        mSpinnerStart.setAdapter(adapter);
-        mSpinnerEnd.setAdapter(adapter);
-
-        mButtonSubmit.setOnClickListener(this);
-
         return rootView;
     }
 
@@ -65,23 +53,52 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
         mEditPrice = (EditText) context.findViewById(R.id.post_ride_edittext_price);
         mEditSeatsRemaining = (EditText) context.findViewById(R.id.post_ride_edittext_seats);
         mEditDescription = (EditText) context.findViewById(R.id.post_ride_edittext_description);
+        
+        mEditPrice.addTextChangedListener(new TextWatcherPrice(mEditPrice));
+        
+        mButtonDatePicker.setOnClickListener(this);
+        mButtonTimePicker.setOnClickListener(this);
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
+                R.array.cities, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        mSpinnerStart.setAdapter(adapter);
+        mSpinnerEnd.setAdapter(adapter);
+
+        mButtonSubmit.setOnClickListener(this);
+    }
+    
+    private boolean dataIsValid() {
+        boolean isValid;
+        
+        if (mSpinnerStart.getSelectedItemPosition() == mSpinnerEnd.getSelectedItemPosition()) {
+            isValid = false;
+        } else if (mSpinnerStart.getSelectedItemPosition() == 0
+                || mSpinnerEnd.getSelectedItemPosition() == 0) {
+            isValid = false;
+        } 
+        
+        return false;
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.post_ride_button_submit_event:
-                Event event = new Event(
-                        mSpinnerStart.getSelectedItem().toString(), 
-                        mSpinnerEnd
-                        .getSelectedItem().toString(), 
-                        Float.valueOf(mEditPrice.getText().toString()), 
-                        Integer.valueOf(mEditSeatsRemaining.getText().toString()),
-                        mStartTime, 
-                        mEndTime,
-                        AppData.getFacebookForeginKey(), 
-                        mEditDescription.getText().toString());
-                new CreateEventTask(event).executeParallel();
+                if (dataIsValid()) {
+                    Event event = new Event(
+                            mSpinnerStart.getSelectedItem().toString(), 
+                            mSpinnerEnd
+                            .getSelectedItem().toString(), 
+                            Float.valueOf(mEditPrice.getText().toString()), 
+                            Integer.valueOf(mEditSeatsRemaining.getText().toString()),
+                            mStartTime, 
+                            mEndTime,
+                            AppData.getFacebookForeginKey(), 
+                            mEditDescription.getText().toString());
+                    new CreateEventTask(event).executeParallel();
+                }
                 break;
 
             case R.id.post_ride_button_start_date:
@@ -105,8 +122,6 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
 
         @Override
         public void onDateTimeSelected(long timeInMillis) {
-            Log.d("ryan", "time In Millis: " + timeInMillis);
-            
             switch (mButtonId) {
                 case R.id.post_ride_button_start_date:
                     mStartTime = timeInMillis;

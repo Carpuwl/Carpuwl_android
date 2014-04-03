@@ -1,7 +1,5 @@
 package com.dreamteam.hackwaterloo;
 
-import android.util.Log;
-
 public enum AppData {
     INSTANCE;
 

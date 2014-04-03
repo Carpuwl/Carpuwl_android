@@ -6,6 +6,7 @@ import java.util.Calendar;
 import android.app.Dialog;
 import android.content.Context;
 import android.view.Window;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.dreamteam.carpuwl.R;
@@ -45,5 +46,11 @@ public class Utils {
         } else {
             return new SimpleDateFormat("MMM dd, h a").format(epochTime); 
         }
+    }
+    
+    public static float getFloatFromPriceEditText(EditText editText) {
+        String stringcontext = editText.getText().toString();
+        stringcontext.replaceAll("$", "");
+        return Float.parseFloat(stringcontext);
     }
 }
