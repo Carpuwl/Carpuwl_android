@@ -65,6 +65,15 @@ public class ActivityLogIn extends SherlockFragmentActivity implements OnClickLi
         }
         logKeyHash();
     }
+    
+    @Override
+    protected void onResume() {
+        if (mSharedPref.getBoolean(KEY_LOGGED_IN, false)) {
+            mPhoneInput = mSharedPref.getString(KEY_PHONE_NUMBER, "0000000000");
+            submiteFacebookRequest();
+        }
+        super.onResume();
+    }
 
     private void logKeyHash() {
         PackageInfo info;

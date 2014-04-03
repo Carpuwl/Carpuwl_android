@@ -22,9 +22,7 @@
             android:layout_height="wrap_content"
             android:text="Shamak Dutta"
             android:height="0dp"
-            android:layout_weight="1"    
-       	>  
-        </TextView>
+            android:layout_weight="1" />
         
         <TextView
             android:id="@+id/phone_number"

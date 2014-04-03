@@ -17,10 +17,10 @@
      limitations under the License.
 -->
 
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="Theme.Dreamteamtheme" parent="@style/Theme.Sherlock.Light.DarkActionBar">
-        <item name="android:windowBackground">@color/app_theme_color_background</item>
+        <item name="android:background">@color/app_theme_color_background</item>
         <item name="actionBarItemBackground">@drawable/selectable_background_dreamteamtheme</item>
         <item name="popupMenuStyle">@style/PopupMenu.Dreamteamtheme</item>
         <item name="dropDownListViewStyle">@style/DropDownListView.Dreamteamtheme</item>
