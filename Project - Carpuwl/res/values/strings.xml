@@ -30,6 +30,10 @@
     <string name="post_ride_spinner_end_prompt">Destination</string>
     <string name="post_ride_hint_ride_cost">Ride cost</string>
     <string name="post_ride_hint_seats">Seats available</string>
+    <string name="post_ride_button_start_date">Start date</string>
+    <string name="post_ride_button_end_date">End date</string>
+    <string name="post_ride_edittext_hint_description">Write a description</string>
+    <string name="post_ride_text_location_hint">------</string>
     
     <!-- Find A Ride Fragment -->
     <string name="find_ride_filter">Filter results</string>
@@ -44,7 +48,6 @@
     
     <!-- Filter -->
     <string-array name="cities">
-        <item></item>
         <item>Toronto</item>
         <item>Etobicoke</item>
         <item>Brampton</item>

@@ -1,7 +1,5 @@
 package com.dreamteam.hackwaterloo.fragments;
 
-import android.annotation.TargetApi;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +7,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 
@@ -31,6 +28,7 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_post_a_ride, container, false);
 
+        
         mButtonSubmit = (Button) rootView.findViewById(R.id.post_ride_button_submit_event);
         mSpinnerStart = (Spinner) rootView.findViewById(R.id.post_ride_spinner_depart_from);
         mSpinnerEnd = (Spinner) rootView.findViewById(R.id.post_ride_spinner_arrive_at);
@@ -43,7 +41,7 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
         mSpinnerStart.setAdapter(adapter);
         mSpinnerEnd.setAdapter(adapter);
         
-        mSpinnerStart.setSelection(0);
+        mSpinnerStart.setSelection(1);
         mSpinnerEnd.setSelection(5);
 
         mButtonSubmit.setOnClickListener(this);
