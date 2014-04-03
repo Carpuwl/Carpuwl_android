@@ -25,8 +25,8 @@
     <color name="numbers_text_color">#8c8c8c</color>
 
     <color name="transparent_black">#7F000000</color>
-    <color name="blue">#33b5e5</color>
-    <color name="darker_blue">#0099CC</color>
+    <color name="green">#96aa39</color>
+    <color name="darker_green">#669900</color>
     <color name="date_picker_text_normal">#FF999999</color>
 
     <color name="calendar_header">#999999</color>
