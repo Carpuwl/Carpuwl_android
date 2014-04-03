@@ -1,7 +1,6 @@
 package com.dreamteam.hackwaterloo.fragments;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -9,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Spinner;
 
 import com.actionbarsherlock.app.SherlockFragment;
@@ -18,6 +19,7 @@ import com.dreamteam.hackwaterloo.adapters.Feed.Event;
 import com.dreamteam.hackwaterloo.utils.DateTimePickerHelper;
 import com.dreamteam.hackwaterloo.utils.DateTimePickerHelper.OnDateTimeSelectedListener;
 import com.dreamteam.hackwaterloo.utils.TextWatcherPrice;
+import com.dreamteam.hackwaterloo.utils.Utils;
 import com.dreamteam.hackwaterloo.utils.server.CreateEventTask;
 
 public class FragmentPostARide extends SherlockFragment implements OnClickListener {
@@ -27,6 +29,7 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
     private Button mButtonSubmit;
     private Button mButtonDatePicker;
     private Button mButtonTimePicker;
+    private SeekBar mSeekbarSeats;
     private Spinner mSpinnerStart;
     private Spinner mSpinnerEnd;
     private EditText mEditPrice;
@@ -48,38 +51,37 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
         mButtonSubmit = (Button) context.findViewById(R.id.post_ride_button_submit_event);
         mButtonDatePicker = (Button) context.findViewById(R.id.post_ride_button_start_date);
         mButtonTimePicker = (Button) context.findViewById(R.id.post_ride_button_end_date);
+        mSeekbarSeats = (SeekBar) context.findViewById(R.id.post_ride_seekbar_seats);
         mSpinnerStart = (Spinner) context.findViewById(R.id.post_ride_spinner_depart_from);
         mSpinnerEnd = (Spinner) context.findViewById(R.id.post_ride_spinner_arrive_at);
         mEditPrice = (EditText) context.findViewById(R.id.post_ride_edittext_price);
         mEditSeatsRemaining = (EditText) context.findViewById(R.id.post_ride_edittext_seats);
         mEditDescription = (EditText) context.findViewById(R.id.post_ride_edittext_description);
         
-        mEditPrice.addTextChangedListener(new TextWatcherPrice(mEditPrice));
-        
         mButtonDatePicker.setOnClickListener(this);
         mButtonTimePicker.setOnClickListener(this);
-
+        mButtonSubmit.setOnClickListener(this);
+        
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
                 R.array.cities, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         mSpinnerStart.setAdapter(adapter);
         mSpinnerEnd.setAdapter(adapter);
-
-        mButtonSubmit.setOnClickListener(this);
+        
+        mSeekbarSeats.setOnSeekBarChangeListener(new SeekbarListener());
+        
+        mEditPrice.addTextChangedListener(new TextWatcherPrice(mEditPrice));        
     }
     
     private boolean dataIsValid() {
-        boolean isValid;
-        
-        if (mSpinnerStart.getSelectedItemPosition() == mSpinnerEnd.getSelectedItemPosition()) {
-            isValid = false;
-        } else if (mSpinnerStart.getSelectedItemPosition() == 0
-                || mSpinnerEnd.getSelectedItemPosition() == 0) {
-            isValid = false;
-        } 
-        
-        return false;
+        return (
+                mSpinnerStart.getSelectedItemPosition() != mSpinnerEnd.getSelectedItemPosition() && 
+                mSpinnerStart.getSelectedItemPosition() != 0 &&
+                mSpinnerEnd.getSelectedItemPosition() != 0 &&
+                mStartTime < mEndTime &&
+                Utils.getFloatFromPriceEditText(mEditPrice) != 0d &&
+                !mEditSeatsRemaining.getText().toString().equals("0"));
     }
 
     @Override
@@ -110,6 +112,22 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
                 mDateTimePickerHelper.show();
                 break;
         }
+    }
+    
+    private class SeekbarListener implements OnSeekBarChangeListener {
+        @Override
+        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+            mEditSeatsRemaining.setText(String.valueOf(progress));
+        }
+
+        @Override
+        public void onStartTrackingTouch(SeekBar seekBar) {
+        }
+
+        @Override
+        public void onStopTrackingTouch(SeekBar seekBar) {
+        }
+        
     }
     
     private class DateTimePickerListener implements OnDateTimeSelectedListener {

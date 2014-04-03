@@ -16,6 +16,8 @@
     
     <!-- Action Bar Titles -->
     <string name="actionbar_title_find_a_ride">Find a Ride</string>
+    <string name="actionbar_title_post_a_ride">Post a Ride</string>
+    <string name="actionbar_title_my_profile">My Profile</string>
 
     <!-- Splash Page Activity -->
     <string name="splash_page">The Best Splash Page</string>
@@ -28,8 +30,8 @@
     <string name="post_ride_title">Post a Ride</string>
     <string name="post_ride_spinner_start_prompt">Starting location</string>
     <string name="post_ride_spinner_end_prompt">Destination</string>
-    <string name="post_ride_hint_ride_cost">Ride cost</string>
-    <string name="post_ride_hint_seats">Seats available</string>
+    <string name="post_ride_edittext_hint_price">Price</string>
+    <string name="post_ride_edittext_hint_seats">Seats</string>
     <string name="post_ride_button_start_date">Start date</string>
     <string name="post_ride_button_end_date">End date</string>
     <string name="post_ride_edittext_hint_description">Write a description</string>

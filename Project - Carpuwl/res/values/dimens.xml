@@ -14,7 +14,7 @@
     <dimen name="dialog_loading_height">72dp</dimen>    
     
     <!-- Post A Ride -->
-    <dimen name="post_ride_description_min_height">96dp</dimen>
+    <dimen name="post_ride_description_min_height">72dp</dimen>
 
     <!-- Find Ride -->
     <dimen name="find_ride_listview_price_size">96dp</dimen>
