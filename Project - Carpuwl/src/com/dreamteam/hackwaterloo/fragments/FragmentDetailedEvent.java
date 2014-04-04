@@ -11,8 +11,10 @@ import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.dreamteam.carpuwl.R;
+import com.dreamteam.hackwaterloo.AppData;
 import com.dreamteam.hackwaterloo.User;
 import com.dreamteam.hackwaterloo.adapters.Feed.Event;
+import com.dreamteam.hackwaterloo.utils.Utils;
 import com.facebook.widget.ProfilePictureView;
 
 public class FragmentDetailedEvent extends SherlockFragment {
@@ -47,7 +49,7 @@ public class FragmentDetailedEvent extends SherlockFragment {
 
         ProfilePictureView profilePicture = (ProfilePictureView) rootView
                 .findViewById(R.id.event_user_profile_picture);
-        profilePicture.setProfileId(String.valueOf(User.getInstance().get_fb_fk()));
+        profilePicture.setProfileId(String.valueOf(AppData.getFacebookForeginKey()));
 
         mRatingBar = (RatingBar) rootView.findViewById(R.id.event_user_rating_bar);
         mTextViewUserName = (TextView) rootView.findViewById(R.id.event_user_name);
@@ -68,10 +70,8 @@ public class FragmentDetailedEvent extends SherlockFragment {
         mTextViewPrice.setText(String.format("$%.2f", mEvent.getPrice()));
         mTextViewSeats
                 .setText(String.format("Seats Remaining: %s", mEvent.getSeatsRemaining()));
-        mTextViewStartTime.setText(new SimpleDateFormat("MMM dd, h a").format(mEvent
-                .getDepartDate()));
-        mTextViewArrivalTime.setText(new SimpleDateFormat("MMM dd, h a").format(mEvent
-                .getArrivalTime()));
+        mTextViewStartTime.setText(Utils.multiCaseDateFormat((mEvent.getDepartDate())));
+        mTextViewArrivalTime.setText(Utils.multiCaseDateFormat((mEvent.getArrivalTime())));
         mTextViewDescription.setText(mEvent.getDescription());
 
         return rootView;

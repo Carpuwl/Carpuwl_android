@@ -56,8 +56,8 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
         mSpinnerStart = (Spinner) context.findViewById(R.id.post_ride_spinner_depart_from);
         mSpinnerEnd = (Spinner) context.findViewById(R.id.post_ride_spinner_arrive_at);
         mEditPrice = (EditText) context.findViewById(R.id.post_ride_edittext_price);
-        mTextSeatsRemaining = (TextView) context.findViewById(R.id.post_ride_edittext_seats);
         mEditDescription = (EditText) context.findViewById(R.id.post_ride_edittext_description);
+        mTextSeatsRemaining = (TextView) context.findViewById(R.id.post_ride_edittext_seats);
         
         mButtonDatePicker.setOnClickListener(this);
         mButtonTimePicker.setOnClickListener(this);
@@ -94,8 +94,8 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
                             mSpinnerStart.getSelectedItem().toString(), 
                             mSpinnerEnd
                             .getSelectedItem().toString(), 
-                            Float.valueOf(mEditPrice.getText().toString()), 
-                            Integer.valueOf(mTextSeatsRemaining.getText().toString()),
+                            Utils.getFloatFromPriceEditText(mEditPrice), 
+                            Integer.parseInt(mTextSeatsRemaining.getText().toString()),
                             mStartTime, 
                             mEndTime,
                             AppData.getFacebookForeginKey(), 

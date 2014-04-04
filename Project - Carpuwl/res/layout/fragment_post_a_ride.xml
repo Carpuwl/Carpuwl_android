@@ -16,7 +16,7 @@
             android:id="@+id/post_ride_location_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/touchable_ui_spacing"
+            android:layout_marginBottom="@dimen/generic_item_spacing"
             android:orientation="horizontal" >
 
             <Spinner
@@ -139,7 +139,7 @@
             android:gravity="bottom"
             android:hint="@string/post_ride_edittext_hint_description" />
 
-        <Button
+        <Button.RobotoLight
             android:id="@+id/post_ride_button_submit_event"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
