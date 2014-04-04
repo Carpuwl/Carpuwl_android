@@ -16,15 +16,7 @@ public class App extends Application {
         mResources = mApp.getResources();
     }
     
-    public static Context context() {
+    public static Context getAppContext() {
         return mApp.getApplicationContext();
-    }
-    
-    public static String getXmlString(int stringId) {
-        return mResources.getString(stringId);
-    }
-    
-    public static int getXmlColor(int colorId) {
-        return mResources.getColor(colorId);
     }
 }

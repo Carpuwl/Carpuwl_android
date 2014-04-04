@@ -11,8 +11,31 @@
     <string name="OK">OK</string>
     <string name="submit">Submit</string>
     <string name="cancel">Cancel</string>
+    <string name="at">At</string>
     <string name="loading">Just a secading</string>
+    <string name="price">Price</string>
     <string name="currency_symbol">$</string>
+    
+    <!-- Time units -->
+    <string name="today">Today</string>
+    <string name="tomorrow">Tomorrow</string>
+    <string name="sunday">Sunday</string>
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
+    <string name="Saturday">Saturday</string>
+    
+    <plurals name="time_unit_hour">
+        <item quantity="one">Hour</item>
+        <item quantity="other">Hours</item>
+    </plurals>
+    
+    <plurals name="time_unit_minute">
+        <item quantity="one">Minute</item>
+        <item quantity="other">Minutes</item>
+    </plurals>
     
     <!-- Action Bar Titles -->
     <string name="actionbar_title_find_a_ride">Find a Ride</string>
@@ -30,11 +53,11 @@
     <string name="post_ride_title">Post a Ride</string>
     <string name="post_ride_spinner_start_prompt">Starting location</string>
     <string name="post_ride_spinner_end_prompt">Destination</string>
-    <string name="post_ride_edittext_hint_price">Price</string>
+    <string name="post_ride_edittext_hint_price">Maximum Price</string>
     <string name="post_ride_edittext_hint_seats">Seats</string>
+    <string name="post_ride_edittext_hint_description">Write a description</string>
     <string name="post_ride_button_start_date">Start date</string>
     <string name="post_ride_button_end_date">End date</string>
-    <string name="post_ride_edittext_hint_description">Write a description</string>
     <string name="post_ride_text_location_hint">------</string>
     
     <!-- Find A Ride Fragment -->

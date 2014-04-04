@@ -15,6 +15,7 @@ import com.dreamteam.hackwaterloo.App;
 import com.dreamteam.hackwaterloo.Constants;
 import com.dreamteam.hackwaterloo.adapters.Feed.Event;
 import com.dreamteam.hackwaterloo.fragments.FragmentDetailedEvent;
+import com.dreamteam.hackwaterloo.utils.Utils;
 
 public class ActivityDetailedPager extends SherlockFragmentActivity {
 
@@ -35,7 +36,7 @@ public class ActivityDetailedPager extends SherlockFragmentActivity {
         mPager.setAdapter(mAdapter);
         mPager.setCurrentItem(position);
 
-        getSupportActionBar().setTitle(App.getXmlString(R.string.actionbar_title_find_a_ride));
+        getSupportActionBar().setTitle(Utils.getString(R.string.actionbar_title_find_a_ride));
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }

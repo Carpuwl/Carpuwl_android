@@ -1,8 +1,7 @@
 package com.dreamteam.hackwaterloo.utils;
 
-import java.util.Calendar;
-
 import android.support.v4.app.FragmentManager;
+import android.text.format.Time;
 
 import com.dreamteam.hackwaterloo.Constants.FragmentTag;
 import com.zenkun.datetimepicker.date.DatePickerDialog;
@@ -18,62 +17,43 @@ public class DateTimePickerHelper implements OnDateSetListener, OnTimeSetListene
     }
     
     private OnDateTimeSelectedListener mListener;
-    
     private FragmentManager mFragmentManager;
-
-    private int mYear;
-    private int mMonth;
-    private int mDay;
-    private int mHour;
-    private int mMinute;
+    private Time mTime;
     
     public void setOnDateTimeSelectedListener(OnDateTimeSelectedListener listener) {
         mListener = listener;
     }
     
     public DateTimePickerHelper(FragmentManager supportFragmentManager) {
-        Calendar calendar = Calendar.getInstance();
-        mYear = calendar.get(Calendar.YEAR);
-        mMonth = calendar.get(Calendar.MONTH);
-        mDay = calendar.get(Calendar.DAY_OF_MONTH);
-        mHour = calendar.get(Calendar.HOUR_OF_DAY);
-        mMinute = calendar.get(Calendar.MINUTE);
+        mTime = new Time();
+        mTime.setToNow();
         mFragmentManager = supportFragmentManager;
     }
 
     public void show() {
-        DatePickerDialog.newInstance(this, mYear, mMonth, mDay)
+        DatePickerDialog.newInstance(this, mTime.year, mTime.month, mTime.monthDay)
                 .show(mFragmentManager, FragmentTag.DIALOG_DATE_PICKER);
     }
 
     @Override
     public void onDateSet(DatePickerDialog datePickerDialog, int year, int month, int day) {
-        mYear = year;
-        mMonth = month;
-        mDay = day;
-        TimePickerDialog.newInstance(this, mHour, mMinute, true)
+        TimePickerDialog.newInstance(this, mTime.hour, mTime.minute, true)
                 .show(mFragmentManager, FragmentTag.DIALOG_TIME_PICKER);
+        mTime.year = year;
+        mTime.month = month;
+        mTime.monthDay = day;
     }
 
     @Override
     public void onTimeSet(RadialPickerLayout view, int hourOfDay, int minute) {
-        mHour = hourOfDay;
-        mMinute = minute;
+        mTime.hour = hourOfDay;
+        mTime.minute = minute;
         if (mListener != null) {
             mListener.onDateTimeSelected(getDateTimeInMillis());
         }
     }
     
     public long getDateTimeInMillis() {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.YEAR, mYear);
-        calendar.set(Calendar.MONTH, mMonth);
-        calendar.set(Calendar.DAY_OF_MONTH, mDay);
-        calendar.set(Calendar.HOUR_OF_DAY, mHour);
-        calendar.set(Calendar.MINUTE, mMinute);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-        
-        return calendar.getTimeInMillis();
+        return mTime.toMillis(false);
     }
 }

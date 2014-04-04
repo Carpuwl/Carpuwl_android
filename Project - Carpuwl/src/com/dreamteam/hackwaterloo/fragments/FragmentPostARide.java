@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.dreamteam.carpuwl.R;
@@ -33,8 +34,8 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
     private Spinner mSpinnerStart;
     private Spinner mSpinnerEnd;
     private EditText mEditPrice;
-    private EditText mEditSeatsRemaining;
     private EditText mEditDescription;
+    private TextView mTextSeatsRemaining;
 
     private long mStartTime;
     private long mEndTime;
@@ -55,7 +56,7 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
         mSpinnerStart = (Spinner) context.findViewById(R.id.post_ride_spinner_depart_from);
         mSpinnerEnd = (Spinner) context.findViewById(R.id.post_ride_spinner_arrive_at);
         mEditPrice = (EditText) context.findViewById(R.id.post_ride_edittext_price);
-        mEditSeatsRemaining = (EditText) context.findViewById(R.id.post_ride_edittext_seats);
+        mTextSeatsRemaining = (TextView) context.findViewById(R.id.post_ride_edittext_seats);
         mEditDescription = (EditText) context.findViewById(R.id.post_ride_edittext_description);
         
         mButtonDatePicker.setOnClickListener(this);
@@ -81,7 +82,7 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
                 mSpinnerEnd.getSelectedItemPosition() != 0 &&
                 mStartTime < mEndTime &&
                 Utils.getFloatFromPriceEditText(mEditPrice) != 0d &&
-                !mEditSeatsRemaining.getText().toString().equals("0"));
+                !mTextSeatsRemaining.getText().toString().equals("0"));
     }
 
     @Override
@@ -94,7 +95,7 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
                             mSpinnerEnd
                             .getSelectedItem().toString(), 
                             Float.valueOf(mEditPrice.getText().toString()), 
-                            Integer.valueOf(mEditSeatsRemaining.getText().toString()),
+                            Integer.valueOf(mTextSeatsRemaining.getText().toString()),
                             mStartTime, 
                             mEndTime,
                             AppData.getFacebookForeginKey(), 
@@ -117,7 +118,7 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
     private class SeekbarListener implements OnSeekBarChangeListener {
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-            mEditSeatsRemaining.setText(String.valueOf(progress));
+            mTextSeatsRemaining.setText(String.valueOf(progress));
         }
 
         @Override

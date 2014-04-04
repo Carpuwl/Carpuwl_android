@@ -11,7 +11,7 @@
     <color name="black_transparent">#80000000</color>
     <color name="white_transparent">#80FFFFFF</color>
     
-    <!-- Theme Colors -->
+    <!-- Panel Colors -->
     <color name="green">#FF96AA39</color>
     <color name="red">#FFC74B46</color>
     <color name="orange">#FFF4842D</color>

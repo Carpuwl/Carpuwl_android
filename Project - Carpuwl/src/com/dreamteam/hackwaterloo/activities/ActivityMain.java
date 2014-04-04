@@ -19,6 +19,7 @@ import com.dreamteam.hackwaterloo.adapters.DrawerLayoutAdapter;
 import com.dreamteam.hackwaterloo.fragments.FragmentFindARide;
 import com.dreamteam.hackwaterloo.fragments.FragmentMyProfile;
 import com.dreamteam.hackwaterloo.fragments.FragmentPostARide;
+import com.dreamteam.hackwaterloo.utils.Utils;
 
 public class ActivityMain extends SherlockFragmentActivity {
 
@@ -40,7 +41,7 @@ public class ActivityMain extends SherlockFragmentActivity {
 
         initNavDrawer();
 
-        getSupportActionBar().setTitle(App.getXmlString(R.string.actionbar_title_find_a_ride));
+        getSupportActionBar().setTitle(Utils.getString(R.string.actionbar_title_find_a_ride));
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

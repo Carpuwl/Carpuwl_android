@@ -3,11 +3,16 @@
 
     <!-- Generic -->
     <dimen name="activity_margin">16dp</dimen>
+    <dimen name="generic_item_spacing">16dp</dimen>
     <dimen name="touchable_ui_spacing">8dp</dimen>
     <dimen name="dialog_width">280dp</dimen>
     <dimen name="dialog_title_height">56dp</dimen>
     <dimen name="generic_item_height">48dp</dimen>
     <dimen name="button_rounding">3dp</dimen>
+    
+    <!-- Text Sizes -->
+    <dimen name="title_large">22sp</dimen>
+    <dimen name="title_medium">18sp</dimen>
     
     <!-- LoadingDialog -->
     <dimen name="dialog_loading_width">240dp</dimen>
