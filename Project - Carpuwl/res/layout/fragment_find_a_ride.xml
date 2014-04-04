@@ -7,7 +7,7 @@
     android:paddingRight="@dimen/activity_margin"
     android:paddingTop="@dimen/activity_margin" >
     
-    <com.dreamteam.hackwaterloo.fontedviews.textviews.RobotoLight
+    <TextView.RobotoLight
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:layout_gravity="center_horizontal"

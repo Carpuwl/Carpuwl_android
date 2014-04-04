@@ -7,6 +7,7 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.text.format.Time;
+import android.util.Log;
 import android.view.Window;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -17,31 +18,39 @@ import com.dreamteam.hackwaterloo.App;
 public class Utils {
 
     private static final String DEFAULT_DATE_FORMAT = "hh':'mm a";
-    private static final String SDF_DAY_OF_WEEK = "EEE";
-    private static final String SDF_MONTH_AND_DAY = "MM dd";
-    private static final String SDF_VERBOSE = "yyyy MM dd";
+    private static final String SDF_DAY_OF_WEEK = "EEEE";
+    private static final String SDF_MONTH_AND_DAY = "MMMM dd";
+    private static final String SDF_VERBOSE = "yyyy MMMM dd";
 
     /**
      * Convenience method for grabbing plural strings defined in the xml
-     * @param quantityStringId The desired resource identifier
-     * @param quantity The number used to get the correct string for the current language's plural rules.
-     * @return The string data associated with the resource, stripped of styled text information. 
+     * 
+     * @param quantityStringId
+     *            The desired resource identifier
+     * @param quantity
+     *            The number used to get the correct string for the current
+     *            language's plural rules.
+     * @return The string data associated with the resource, stripped of styled
+     *         text information.
      */
     public static String getQuantityString(int quantityStringId, int quantity) {
         return App.getAppContext().getResources().getQuantityString(quantityStringId, quantity);
     }
 
     /**
-     * @param stringId The desired resource identifier
-     * @return The string data associated with the resource, stripped of styled text information.
+     * @param stringId
+     *            The desired resource identifier
+     * @return The string data associated with the resource, stripped of styled
+     *         text information.
      */
     public static String getString(int stringId) {
         return App.getAppContext().getResources().getString(stringId);
     }
 
     /**
-     * @param colorId The desired resource identifier
-     * @return Returns a single color value in the form 0xAARRGGBB. 
+     * @param colorId
+     *            The desired resource identifier
+     * @return Returns a single color value in the form 0xAARRGGBB.
      */
     public static int getColor(int colorId) {
         return App.getAppContext().getResources().getColor(colorId);
@@ -62,11 +71,15 @@ public class Utils {
     // TODO: grab the styling from the System
     /**
      * Formats the given time into the appropriate format as a string
-     * @param epochTime The time to compare against today
+     * 
+     * @param epochTime
+     *            The time to compare against today
      * @return The appropriate formatted date as a string
      */
     @SuppressLint("SimpleDateFormat")
     public static String multiCaseDateFormat(long epochTime) {
+        Log.d("ryan", "MultiCaseDateFormat for " + epochTime);
+        boolean verboseTimeStampNeeded = true;
         Time currentTime = new Time();
         Time eventTime = new Time();
         StringBuilder stringBuilder = new StringBuilder();
@@ -74,21 +87,19 @@ public class Utils {
         currentTime.set(System.currentTimeMillis());
         eventTime.set(epochTime);
 
-        String formattedEventTime = new SimpleDateFormat(DEFAULT_DATE_FORMAT).format(new Date(
-                eventTime.toMillis(false)));
-
         // Same year
         if (currentTime.year == eventTime.year) {
 
-            // Same day
-            if (currentTime.yearDay == eventTime.yearDay && currentTime.hour == eventTime.hour) {
+            // Same hour
+            if (currentTime.yearDay == eventTime.yearDay && eventTime.hour <= currentTime.hour + 1) {
 
+                verboseTimeStampNeeded = false;
                 stringBuilder.append(eventTime.minute - currentTime.minute).append(" ");
                 stringBuilder.append(Utils.getQuantityString(R.plurals.time_unit_minute,
                         eventTime.minute - currentTime.minute));
 
                 // Same day
-            } else if (currentTime.hour == eventTime.hour) {
+            } else if (currentTime.yearDay == eventTime.yearDay) {
                 stringBuilder.append(Utils.getString(R.string.today));
 
                 // Tomorrow
@@ -112,11 +123,13 @@ public class Utils {
                     .toMillis(false))));
         }
 
-        stringBuilder
-                .append(" ")
-                .append(Utils.getString(R.string.at))
-                .append(" ")
-                .append(formattedEventTime);
+        if (verboseTimeStampNeeded) {
+            stringBuilder.append(" ")
+                    .append(Utils.getString(R.string.at))
+                    .append(" ")
+                    .append(new SimpleDateFormat(DEFAULT_DATE_FORMAT).format(new Date(eventTime
+                            .toMillis(false))));
+        }
 
         return stringBuilder.toString();
     }

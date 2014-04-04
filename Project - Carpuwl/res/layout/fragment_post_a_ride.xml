@@ -64,7 +64,7 @@
             android:orientation="horizontal" >
 
             <TextView.RobotoLight
-                android:id="@+id/post_ride_edittext_seats"
+                android:id="@+id/post_ride_text_seats"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -78,7 +78,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_toLeftOf="@id/post_ride_edittext_seats"
+                android:layout_toLeftOf="@id/post_ride_text_seats"
                 android:max="8" />
         </RelativeLayout>
 
@@ -101,11 +101,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:digits="0123456789"
                 android:gravity="center"
-                android:hint="@string/post_ride_text_location_hint"
-                android:inputType="number"
-                android:maxLength="2" />
+                android:hint="@string/post_ride_text_location_hint" />
         </LinearLayout>
 
         <LinearLayout

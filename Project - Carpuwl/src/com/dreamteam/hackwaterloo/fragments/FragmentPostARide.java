@@ -1,6 +1,7 @@
 package com.dreamteam.hackwaterloo.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -25,6 +26,8 @@ import com.dreamteam.hackwaterloo.utils.server.CreateEventTask;
 
 public class FragmentPostARide extends SherlockFragment implements OnClickListener {
 
+    private static final int MINIMUM_SEATS_DEFUALT = 1;
+    
     private DateTimePickerHelper mDateTimePickerHelper;
 
     private Button mButtonSubmit;
@@ -36,6 +39,8 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
     private EditText mEditPrice;
     private EditText mEditDescription;
     private TextView mTextSeatsRemaining;
+    private TextView mTextTimeStart;
+    private TextView mTextTimeEnd;
 
     private long mStartTime;
     private long mEndTime;
@@ -57,11 +62,15 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
         mSpinnerEnd = (Spinner) context.findViewById(R.id.post_ride_spinner_arrive_at);
         mEditPrice = (EditText) context.findViewById(R.id.post_ride_edittext_price);
         mEditDescription = (EditText) context.findViewById(R.id.post_ride_edittext_description);
-        mTextSeatsRemaining = (TextView) context.findViewById(R.id.post_ride_edittext_seats);
+        mTextSeatsRemaining = (TextView) context.findViewById(R.id.post_ride_text_seats);
+        mTextTimeStart = (TextView) context.findViewById(R.id.post_ride_text_start_date);
+        mTextTimeEnd = (TextView) context.findViewById(R.id.post_ride_text_end_date);
         
         mButtonDatePicker.setOnClickListener(this);
         mButtonTimePicker.setOnClickListener(this);
         mButtonSubmit.setOnClickListener(this);
+        
+        mSeekbarSeats.setProgress(MINIMUM_SEATS_DEFUALT);
         
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
                 R.array.cities, android.R.layout.simple_spinner_item);
@@ -127,8 +136,10 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
 
         @Override
         public void onStopTrackingTouch(SeekBar seekBar) {
+            if (mTextSeatsRemaining.getText().toString().equals("0")) {
+                seekBar.setProgress(MINIMUM_SEATS_DEFUALT);
+            }
         }
-        
     }
     
     private class DateTimePickerListener implements OnDateTimeSelectedListener {
@@ -141,12 +152,16 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
 
         @Override
         public void onDateTimeSelected(long timeInMillis) {
+            Log.d("ryan", "time selected:  " + timeInMillis);
+            Log.d("ryan", "time in format: " + Utils.multiCaseDateFormat(timeInMillis));
             switch (mButtonId) {
                 case R.id.post_ride_button_start_date:
+                    mTextTimeStart.setText(Utils.multiCaseDateFormat(timeInMillis));
                     mStartTime = timeInMillis;
                     break;
 
                 case R.id.post_ride_button_end_date:
+                    mTextTimeEnd.setText(Utils.multiCaseDateFormat(timeInMillis));
                     mEndTime = timeInMillis;
                     break;
 

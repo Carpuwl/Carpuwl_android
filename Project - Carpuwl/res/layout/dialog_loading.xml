@@ -13,7 +13,7 @@
         android:layout_marginLeft="@dimen/activity_margin"
         android:layout_gravity="center_vertical"/>
     
-    <com.dreamteam.hackwaterloo.fontedviews.textviews.RobotoLight 
+    <TextView.RobotoLight
         android:id="@+id/dialog_loading_text_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
