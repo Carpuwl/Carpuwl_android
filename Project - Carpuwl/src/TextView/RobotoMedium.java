@@ -11,7 +11,7 @@ public class RobotoMedium extends TextView {
         super(context, attrs);
 
         if (!isInEditMode()) {
-            setTypeface(Typefaces.get(context, "Roboto-Medium"));
+            setTypeface(Typefaces.get(context, Typefaces.ROBOTO_MEDIUM));
         }
     }
 }

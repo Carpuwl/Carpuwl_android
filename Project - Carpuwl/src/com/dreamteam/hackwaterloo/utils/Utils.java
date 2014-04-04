@@ -78,7 +78,6 @@ public class Utils {
      */
     @SuppressLint("SimpleDateFormat")
     public static String multiCaseDateFormat(long epochTime) {
-        Log.d("ryan", "MultiCaseDateFormat for " + epochTime);
         boolean verboseTimeStampNeeded = true;
         Time currentTime = new Time();
         Time eventTime = new Time();

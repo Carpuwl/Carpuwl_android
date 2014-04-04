@@ -6,6 +6,12 @@ import android.content.Context;
 import android.graphics.Typeface;
 
 public class Typefaces {
+    
+    public static final String ROBOTO_REGULAR = "Roboto-Regular";
+    public static final String ROBOTO_MEDIUM = "Roboto-Medium";
+    public static final String ROBOTO_LIGHT = "Roboto-Light";
+    
+    public static final String ROBOTO_CONDENSED_REGULAR = "RobotoCondensed-Regular";
 
     private static final Hashtable<String, Typeface> cache = new Hashtable<String, Typeface>();
 

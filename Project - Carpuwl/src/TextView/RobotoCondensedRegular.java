@@ -11,7 +11,7 @@ public class RobotoCondensedRegular extends TextView {
         super(context, attrs);
 
         if (!isInEditMode()) {
-            setTypeface(Typefaces.get(context, "RobotoCondensed-Regular"));
+            setTypeface(Typefaces.get(context, Typefaces.ROBOTO_CONDENSED_REGULAR));
         }
     }
 }

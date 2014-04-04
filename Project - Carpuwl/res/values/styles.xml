@@ -6,4 +6,12 @@
         <item name="android:textSize">@dimen/title_medium</item>
     </style>
     
+    <style name="button_generic">
+        <item name="android:padding">@dimen/generic_item_spacing</item>
+        <item name="android:background">@drawable/btn_generic_selector</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@drawable/btn_generic_text_color_selector</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+    
 </resources>

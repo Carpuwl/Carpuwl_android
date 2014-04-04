@@ -11,7 +11,7 @@ public class RobotoLight extends EditText {
         super(context, attrs);
 
         if (!isInEditMode()) {
-            setTypeface(Typefaces.get(context, "Roboto-Light"));
+            setTypeface(Typefaces.get(context, Typefaces.ROBOTO_LIGHT));
         }
     }
 }

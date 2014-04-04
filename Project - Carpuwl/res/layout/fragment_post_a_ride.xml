@@ -88,15 +88,15 @@
             android:layout_marginTop="@dimen/generic_item_spacing"
             android:orientation="horizontal" >
 
-            <Button.RobotoLight
+            <Button.RobotoRegular
+                style="@style/button_generic"
                 android:id="@+id/post_ride_button_start_date"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center"
                 android:text="@string/post_ride_button_start_date" />
 
-            <TextView.RobotoLight
+            <TextView.RobotoCondensedRegular
                 android:id="@+id/post_ride_text_start_date"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -111,15 +111,15 @@
             android:layout_marginTop="@dimen/generic_item_spacing"
             android:orientation="horizontal" >
 
-            <Button.RobotoLight
+            <Button.RobotoRegular
+                style="@style/button_generic"
                 android:id="@+id/post_ride_button_end_date"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center"
                 android:text="@string/post_ride_button_end_date" />
 
-            <TextView.RobotoLight
+            <TextView.RobotoCondensedRegular
                 android:id="@+id/post_ride_text_end_date"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -136,7 +136,8 @@
             android:gravity="bottom"
             android:hint="@string/post_ride_edittext_hint_description" />
 
-        <Button.RobotoLight
+        <Button.RobotoRegular
+            style="@style/button_generic"
             android:id="@+id/post_ride_button_submit_event"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
