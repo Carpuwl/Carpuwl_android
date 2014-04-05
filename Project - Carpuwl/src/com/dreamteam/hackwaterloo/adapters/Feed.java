@@ -122,7 +122,7 @@ public class Feed {
             seatsRemaining = in.readInt();
             startPoint = in.readString();
             eventId = in.readInt();
-            userId = in.readInt();
+            userId = in.readLong();
             driverName = in.readString();
             ratingCount = in.readInt();
             description = in.readString();
