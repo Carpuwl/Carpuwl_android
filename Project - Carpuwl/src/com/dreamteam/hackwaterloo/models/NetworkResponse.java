@@ -31,7 +31,7 @@ public final class NetworkResponse {
 
     @Override
     public String toString() {
-        return "[HTTP Status Code : " + String.valueOf(mHttpStatusCode) + "] + [JSON : " + mJsonResult + "]";
+        return "[HTTP Status Code : " + String.valueOf(mHttpStatusCode) + "] \n [JSON : " + mJsonResult + "]";
     }
     
     

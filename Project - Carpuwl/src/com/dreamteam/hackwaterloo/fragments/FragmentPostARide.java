@@ -1,7 +1,5 @@
 package com.dreamteam.hackwaterloo.fragments;
 
-import org.apache.http.protocol.HTTP;
-
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -10,18 +8,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
-import android.widget.Toast;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
+import com.actionbarsherlock.internal.nineoldandroids.animation.AnimatorSet;
+import com.actionbarsherlock.internal.nineoldandroids.animation.ObjectAnimator;
 import com.dreamteam.carpuwl.R;
 import com.dreamteam.hackwaterloo.AppData;
 import com.dreamteam.hackwaterloo.Constants.StatusCode;
@@ -36,9 +38,12 @@ import com.dreamteam.hackwaterloo.utils.server.PostEventTask;
 public class FragmentPostARide extends SherlockFragment implements OnClickListener {
 
     private static final int MINIMUM_SEATS_DEFUALT = 1;
+    private static final int ANIMATION_DURATION = 300;
     
     private DateTimePickerHelper mDateTimePickerHelper;
 
+    private LinearLayout mContainerEditPost;
+    private LinearLayout mContainerSuccess;
     private Button mButtonSubmit;
     private Button mButtonDatePicker;
     private Button mButtonTimePicker;
@@ -65,6 +70,8 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
     }
 
     private void initUi(View rootView) {
+        mContainerEditPost = (LinearLayout) rootView.findViewById(R.id.post_ride_container_edit_post);
+        mContainerSuccess = (LinearLayout) rootView.findViewById(R.id.post_ride_container_successful);
         mButtonSubmit = (Button) rootView.findViewById(R.id.post_ride_button_submit_event);
         mButtonDatePicker = (Button) rootView.findViewById(R.id.post_ride_button_start_date);
         mButtonTimePicker = (Button) rootView.findViewById(R.id.post_ride_button_end_date);
@@ -135,6 +142,18 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
         mButtonSubmit.setEnabled(dataIsValid());
     }
     
+    
+    private void switchToSuccessfulCard() {
+        AnimatorSet animatorSet = new AnimatorSet();
+        float heightRatio = (((float) mContainerSuccess.getHeight()) / mContainerEditPost.getHeight());
+        mContainerSuccess.setVisibility(View.VISIBLE);
+
+        animatorSet
+                .setDuration(ANIMATION_DURATION)
+                .play(ObjectAnimator.ofFloat(mContainerEditPost, "scaleY", 1f, heightRatio));
+        animatorSet.start();
+    }
+    
     private class TextWatcherPriceButtonEnabler implements TextWatcher {
         
         @Override
@@ -171,6 +190,7 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
                     public void onFinish(Integer httpStatusCode) {
                         if (httpStatusCode == StatusCode.OK) {
                             Toast.makeText(getActivity(), "Successful", Toast.LENGTH_SHORT).show();
+                            switchToSuccessfulCard();
                         }
                     }
                 });
@@ -217,8 +237,6 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
 
         @Override
         public void onDateTimeSelected(long timeInMillis) {
-            Log.d("ryan", "time selected:  " + timeInMillis);
-            Log.d("ryan", "time in format: " + Utils.multiCaseDateFormat(timeInMillis));
             switch (mButtonId) {
                 case R.id.post_ride_button_start_date:
                     mTextTimeStart.setText(Utils.multiCaseDateFormat(timeInMillis));
