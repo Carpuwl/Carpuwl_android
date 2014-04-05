@@ -152,7 +152,6 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.post_ride_button_submit_event:
-                assert dataIsValid() : "Data must be valid for this button to be available";
                 Event event = new Event(
                         mSpinnerStart.getSelectedItem().toString(), 
                         mSpinnerEnd.getSelectedItem().toString(), 
