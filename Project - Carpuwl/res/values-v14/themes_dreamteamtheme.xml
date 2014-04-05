@@ -11,12 +11,6 @@
 
     <item name="android:seekBarStyle">@style/SeekBarDreamTeamTheme</item>
 
-    <item name="android:ratingBarStyle">@style/RatingBarDreamTeamTheme</item>
-
-    <item name="android:ratingBarStyleIndicator">@style/RatingBarBigDreamTeamTheme</item>
-
-    <item name="android:ratingBarStyleSmall">@style/RatingBarSmallDreamTeamTheme</item>
-
   </style>
 
 </resources>

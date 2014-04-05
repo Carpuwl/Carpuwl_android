@@ -32,9 +32,6 @@
         <item name="actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Dreamteamtheme</item>
         <item name="android:editTextStyle">@style/EditTextDreamTeamTheme</item>
         <item name="android:seekBarStyle">@style/SeekBarDreamTeamTheme</item>
-        <item name="android:ratingBarStyle">@style/RatingBarDreamTeamTheme</item>
-        <item name="android:ratingBarStyleIndicator">@style/RatingBarBigDreamTeamTheme</item>
-        <item name="android:ratingBarStyleSmall">@style/RatingBarSmallDreamTeamTheme</item>
         <item name="android:buttonStyle">@style/button_generic</item>
 
                 <!-- Light.DarkActionBar specific -->
@@ -100,25 +97,6 @@
         <item name="android:thumbOffset">16dip</item>
         <item name="android:paddingLeft">16dip</item>
         <item name="android:paddingRight">16dip</item>
-    </style>
-
-    <style name="RatingBarDreamTeamTheme" parent="android:Widget.RatingBar">
-        <item name="android:progressDrawable">@drawable/dreamteamtheme_ratingbar_full_holo_light</item>
-        <item name="android:indeterminateDrawable">@drawable/dreamteamtheme_ratingbar_full_holo_light</item>
-    </style>
-
-    <style name="RatingBarBigDreamTeamTheme">
-        <item name="android:progressDrawable">@drawable/dreamteamtheme_ratingbar_holo_light</item>
-        <item name="android:indeterminateDrawable">@drawable/dreamteamtheme_ratingbar_holo_light</item>
-        <item name="android:minHeight">35dip</item>
-        <item name="android:maxHeight">35dip</item>
-    </style>
-
-    <style name="RatingBarSmallDreamTeamTheme">
-        <item name="android:progressDrawable">@drawable/dreamteamtheme_ratingbar_small_holo_light</item>
-        <item name="android:indeterminateDrawable">@drawable/dreamteamtheme_ratingbar_small_holo_light</item>
-        <item name="android:minHeight">16dip</item>
-        <item name="android:maxHeight">16dip</item>
     </style>
     
     <!-- Custom implementations -->

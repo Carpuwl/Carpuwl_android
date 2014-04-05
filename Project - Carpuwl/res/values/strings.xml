@@ -52,7 +52,7 @@
     <string name="post_ride_spinner_start_prompt">Starting location</string>
     <string name="post_ride_spinner_end_prompt">Destination</string>
     <string name="post_ride_edittext_hint_price">Price</string>
-    <string name="post_ride_edittext_hint_seats">Seats</string>
+    <string name="post_ride_text_seats_hint">Seats</string>
     <string name="post_ride_edittext_hint_description">Write a description</string>
     <string name="post_ride_button_start_date">Start date</string>
     <string name="post_ride_button_end_date">End date</string>

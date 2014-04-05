@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="@dimen/activity_margin" >
+    android:layout_height="match_parent" >
 
     <LinearLayout
         android:id="@+id/post_ride_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/activity_margin"
+        android:padding="@dimen/activity_margin"
         android:background="@drawable/google_now_style_card"
-        android:orientation="vertical"
-        android:padding="@dimen/activity_margin" >
+        android:orientation="vertical" >
 
         <LinearLayout
             android:id="@+id/post_ride_location_container"
@@ -47,42 +47,68 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical" >
 
-            <TextView.RobotoLight
-                android:id="@+id/post_ride_text_price_prefix"
+            <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:text="@string/price"
-                android:textSize="20sp" />
+                android:layout_weight="1" >
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_vertical" >
+                <TextView.RobotoLight
+                    android:id="@+id/post_ride_text_price_prefix"
+                    style="@style/DreamTextHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/price" />
 
                 <TextView.RobotoLight
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
                     android:text="@string/currency_symbol" />
+            </RelativeLayout>
 
-                <EditText.RobotoLight
-                    android:id="@+id/post_ride_edittext_price"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:inputType="number"
-                    android:maxLength="6" />
-            </LinearLayout>
+            <EditText.RobotoLight
+                android:id="@+id/post_ride_edittext_price"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:inputType="number"
+                android:maxLength="6" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/generic_item_height"
             android:layout_marginTop="@dimen/generic_item_spacing"
-            android:orientation="horizontal" >
+            android:orientation="horizontal"
+            android:weightSum="2" >
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:orientation="horizontal" >
+
+                <TextView.RobotoLight
+                    android:id="@+id/post_ride_text_seats_static"
+                    style="@style/DreamTextHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/touchable_ui_spacing"
+                    android:text="@string/post_ride_text_seats_hint" />
+
+                <TextView.RobotoLight
+                    android:id="@+id/post_ride_text_seats_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:maxLength="2" />
+            </LinearLayout>
 
             <SeekBar
                 android:id="@+id/post_ride_seekbar_seats"
@@ -90,25 +116,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:max="8" />
-
-            <TextView.RobotoLight
-                android:id="@+id/post_ride_text_seats_static"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginRight="@dimen/touchable_ui_spacing"
-                android:gravity="center_horizontal"
-                android:hint="@string/post_ride_edittext_hint_seats"
-                android:maxLength="2" />
-
-            <TextView.RobotoLight
-                android:id="@+id/post_ride_text_seats_value"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:gravity="center_horizontal"
-                android:maxLength="2" />
+                android:max="6" />
         </LinearLayout>
 
         <LinearLayout
