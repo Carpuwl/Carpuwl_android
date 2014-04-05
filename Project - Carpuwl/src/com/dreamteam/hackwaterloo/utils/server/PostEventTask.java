@@ -12,19 +12,19 @@ import com.dreamteam.hackwaterloo.AppData;
 import com.dreamteam.hackwaterloo.adapters.Feed.Event;
 import com.dreamteam.hackwaterloo.utils.NetworkHelper;
 
-public class CreateEventTask extends BaseTask <Void, Void, Void> {
+public class PostEventTask extends BaseTask <Void, Void, String> {
     
     private static final String ENDPOINT = "create_event";
     
     private Event mEvent;
     
-    public CreateEventTask(Event event) {
+    public PostEventTask(Event event) {
         this.mEvent = event;
     }
     
     
     @Override
-    protected Void doInBackground(Void... arg0) {
+    protected String doInBackground(Void... arg0) {
         String jsonResult;
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("start_point", mEvent.getStartPoint()));
@@ -37,9 +37,7 @@ public class CreateEventTask extends BaseTask <Void, Void, Void> {
         params.add(new BasicNameValuePair("description", mEvent.getDescription()));
         
         jsonResult = NetworkHelper.post(ENDPOINT, params);
-        Log.d("ryan", "[json]: " + jsonResult);
         
-        return null;
+        return jsonResult;
     }
-
 }

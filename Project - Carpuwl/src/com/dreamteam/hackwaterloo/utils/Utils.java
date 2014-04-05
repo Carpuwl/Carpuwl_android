@@ -17,7 +17,7 @@ import com.dreamteam.hackwaterloo.App;
 
 public class Utils {
 
-    private static final String DEFAULT_DATE_FORMAT = "hh':'mm a";
+    private static final String SDF_DEFAULT = "hh':'mm a";
     private static final String SDF_DAY_OF_WEEK = "EEEE";
     private static final String SDF_MONTH_AND_DAY = "MMMM dd";
     private static final String SDF_VERBOSE = "yyyy MMMM dd";
@@ -126,16 +126,15 @@ public class Utils {
             stringBuilder.append(" ")
                     .append(Utils.getString(R.string.at))
                     .append(" ")
-                    .append(new SimpleDateFormat(DEFAULT_DATE_FORMAT).format(new Date(eventTime
+                    .append(new SimpleDateFormat(SDF_DEFAULT).format(new Date(eventTime
                             .toMillis(false))));
         }
 
         return stringBuilder.toString();
     }
 
-    public static float getFloatFromPriceEditText(EditText editText) {
-        String stringcontext = editText.getText().toString();
-        stringcontext.replaceAll("$", "");
-        return Float.parseFloat(stringcontext);
+    public static double getDoubleFromPriceEditText(EditText editText) {
+        String contentString = editText.getText().toString().replaceAll("[^\\d.]", "");
+        return Double.parseDouble(contentString);
     }
 }

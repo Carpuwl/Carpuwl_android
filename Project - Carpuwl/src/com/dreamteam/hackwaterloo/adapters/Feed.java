@@ -6,12 +6,12 @@ import android.os.Parcelable;
 import com.google.gson.annotations.SerializedName;
 
 public class Feed {
-    
+
     @SerializedName("feed")
     private Event[] feeds;
     private String message;
     private int success;
-    
+
     public Event[] getEvents() {
         return feeds;
     }
@@ -25,15 +25,15 @@ public class Feed {
     }
 
     public static class Event implements Parcelable {
-        
+
         @SerializedName("depart_date")
         private long departDate;
         @SerializedName("eta")
         private long arrivalTime;
         @SerializedName("end_point")
         private String endPoint;
-        private float price;
-        private float rating;
+        private double price;
+        private double rating;
         @SerializedName("seats_rem")
         private int seatsRemaining;
         @SerializedName("start_point")
@@ -48,8 +48,9 @@ public class Feed {
         private int ratingCount;
         private String description;
         private String phone;
-        
-        public Event (String startPoint, String endPoint, float price, int seatsRemaining, long departDate, long eta, int facebookForeignKey, String description) {
+
+        public Event(String startPoint, String endPoint, double price, int seatsRemaining,
+                long departDate, long eta, int facebookForeignKey, String description) {
             this.startPoint = startPoint;
             this.endPoint = endPoint;
             this.price = price;
@@ -59,35 +60,35 @@ public class Feed {
             this.userId = facebookForeignKey;
             this.description = description;
         }
-        
+
         public long getDepartDate() {
             return departDate;
         }
-        
+
         public String getEndPoint() {
             return endPoint;
         }
-        
-        public float getPrice() {
+
+        public double getPrice() {
             return price;
         }
-        
-        public float getRating() {
+
+        public double getRating() {
             return rating;
         }
-        
+
         public int getSeatsRemaining() {
             return seatsRemaining;
         }
-        
+
         public String getStartPoint() {
             return startPoint;
         }
-        
+
         public int getEventId() {
             return eventId;
         }
-        
+
         public long getArrivalTime() {
             return arrivalTime;
         }
@@ -99,7 +100,7 @@ public class Feed {
         public int getRatingCount() {
             return ratingCount;
         }
-        
+
         public String getDriverName() {
             return driverName;
         }
@@ -111,13 +112,13 @@ public class Feed {
         public String getPhone() {
             return phone;
         }
-        
+
         protected Event(Parcel in) {
             departDate = in.readLong();
             arrivalTime = in.readLong();
             endPoint = in.readString();
-            price = in.readFloat();
-            rating = in.readFloat();
+            price = in.readDouble();
+            rating = in.readDouble();
             seatsRemaining = in.readInt();
             startPoint = in.readString();
             eventId = in.readInt();
@@ -138,8 +139,8 @@ public class Feed {
             dest.writeLong(departDate);
             dest.writeLong(arrivalTime);
             dest.writeString(endPoint);
-            dest.writeFloat(price);
-            dest.writeFloat(rating);
+            dest.writeDouble(price);
+            dest.writeDouble(rating);
             dest.writeInt(seatsRemaining);
             dest.writeString(startPoint);
             dest.writeInt(eventId);

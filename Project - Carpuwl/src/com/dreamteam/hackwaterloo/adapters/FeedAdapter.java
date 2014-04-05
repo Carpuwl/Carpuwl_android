@@ -97,7 +97,7 @@ public class FeedAdapter extends BaseAdapter {
         Event event = getItem(position);
         viewHolder.parentView.setOnClickListener(new OnEventClickedListener(position));
         viewHolder.priceBackground.setBackgroundColor(mColorList[position % 5]);
-        viewHolder.ratingBar.setRating(event.getRating());
+        viewHolder.ratingBar.setRating((float) event.getRating());
         viewHolder.price.setText(String.format("$%.2f", event.getPrice()));
         viewHolder.startingPoint.setText(event.getStartPoint());
         viewHolder.endingPoint.setText(event.getEndPoint());

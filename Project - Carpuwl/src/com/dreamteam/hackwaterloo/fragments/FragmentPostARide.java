@@ -1,11 +1,15 @@
 package com.dreamteam.hackwaterloo.fragments;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,7 +26,7 @@ import com.dreamteam.hackwaterloo.utils.DateTimePickerHelper;
 import com.dreamteam.hackwaterloo.utils.DateTimePickerHelper.OnDateTimeSelectedListener;
 import com.dreamteam.hackwaterloo.utils.TextWatcherPrice;
 import com.dreamteam.hackwaterloo.utils.Utils;
-import com.dreamteam.hackwaterloo.utils.server.CreateEventTask;
+import com.dreamteam.hackwaterloo.utils.server.PostEventTask;
 
 public class FragmentPostARide extends SherlockFragment implements OnClickListener {
 
@@ -50,38 +54,42 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
         View rootView = inflater.inflate(R.layout.fragment_post_a_ride, container, false);
 
         initUi(rootView);
+        enableSubmitButtonIfDataValid();
+        
         return rootView;
     }
 
-    private void initUi(View context) {
-        mButtonSubmit = (Button) context.findViewById(R.id.post_ride_button_submit_event);
-        mButtonDatePicker = (Button) context.findViewById(R.id.post_ride_button_start_date);
-        mButtonTimePicker = (Button) context.findViewById(R.id.post_ride_button_end_date);
-        mSeekbarSeats = (SeekBar) context.findViewById(R.id.post_ride_seekbar_seats);
-        mSpinnerStart = (Spinner) context.findViewById(R.id.post_ride_spinner_depart_from);
-        mSpinnerEnd = (Spinner) context.findViewById(R.id.post_ride_spinner_arrive_at);
-        mEditPrice = (EditText) context.findViewById(R.id.post_ride_edittext_price);
-        mEditDescription = (EditText) context.findViewById(R.id.post_ride_edittext_description);
-        mTextSeatsRemaining = (TextView) context.findViewById(R.id.post_ride_text_seats);
-        mTextTimeStart = (TextView) context.findViewById(R.id.post_ride_text_start_date);
-        mTextTimeEnd = (TextView) context.findViewById(R.id.post_ride_text_end_date);
+    private void initUi(View rootView) {
+        mButtonSubmit = (Button) rootView.findViewById(R.id.post_ride_button_submit_event);
+        mButtonDatePicker = (Button) rootView.findViewById(R.id.post_ride_button_start_date);
+        mButtonTimePicker = (Button) rootView.findViewById(R.id.post_ride_button_end_date);
+        mSeekbarSeats = (SeekBar) rootView.findViewById(R.id.post_ride_seekbar_seats);
+        mSpinnerStart = (Spinner) rootView.findViewById(R.id.post_ride_spinner_depart_from);
+        mSpinnerEnd = (Spinner) rootView.findViewById(R.id.post_ride_spinner_arrive_at);
+        mEditPrice = (EditText) rootView.findViewById(R.id.post_ride_edittext_price);
+        mEditDescription = (EditText) rootView.findViewById(R.id.post_ride_edittext_description);
+        mTextSeatsRemaining = (TextView) rootView.findViewById(R.id.post_ride_text_seats);
+        mTextTimeStart = (TextView) rootView.findViewById(R.id.post_ride_text_start_date);
+        mTextTimeEnd = (TextView) rootView.findViewById(R.id.post_ride_text_end_date);
         
         mButtonDatePicker.setOnClickListener(this);
         mButtonTimePicker.setOnClickListener(this);
         mButtonSubmit.setOnClickListener(this);
         
         mSeekbarSeats.setProgress(MINIMUM_SEATS_DEFUALT);
+        mSeekbarSeats.setOnSeekBarChangeListener(new SeekbarListener());
         
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
                 R.array.cities, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
+        
         mSpinnerStart.setAdapter(adapter);
         mSpinnerEnd.setAdapter(adapter);
+        mSpinnerStart.setOnItemSelectedListener(new SeekBarButtonEnabler());
+        mSpinnerEnd.setOnItemSelectedListener(new SeekBarButtonEnabler());
         
-        mSeekbarSeats.setOnSeekBarChangeListener(new SeekbarListener());
-        
-        mEditPrice.addTextChangedListener(new TextWatcherPrice(mEditPrice));        
+        mEditPrice.addTextChangedListener(new TextWatcherPrice(mEditPrice)); 
+        mEditPrice.addTextChangedListener(new TextWatcherPriceButtonEnabler());
     }
     
     private boolean dataIsValid() {
@@ -90,27 +98,47 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
                 mSpinnerStart.getSelectedItemPosition() != 0 &&
                 mSpinnerEnd.getSelectedItemPosition() != 0 &&
                 mStartTime < mEndTime &&
-                Utils.getFloatFromPriceEditText(mEditPrice) != 0d &&
+                mStartTime > System.currentTimeMillis() &&
+                Utils.getDoubleFromPriceEditText(mEditPrice) >= 1d &&
                 !mTextSeatsRemaining.getText().toString().equals("0"));
+    }
+    
+    private void enableSubmitButtonIfDataValid() {
+        mButtonSubmit.setEnabled(dataIsValid());
+    }
+    
+    private class TextWatcherPriceButtonEnabler implements TextWatcher {
+        
+        @Override
+        public void afterTextChanged(Editable s) {
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            enableSubmitButtonIfDataValid();
+        }
+        
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.post_ride_button_submit_event:
-                if (dataIsValid()) {
-                    Event event = new Event(
-                            mSpinnerStart.getSelectedItem().toString(), 
-                            mSpinnerEnd
-                            .getSelectedItem().toString(), 
-                            Utils.getFloatFromPriceEditText(mEditPrice), 
-                            Integer.parseInt(mTextSeatsRemaining.getText().toString()),
-                            mStartTime, 
-                            mEndTime,
-                            AppData.getFacebookForeginKey(), 
-                            mEditDescription.getText().toString());
-                    new CreateEventTask(event).executeParallel();
-                }
+                assert dataIsValid() : "Data must be valid for this button to be available";
+                Event event = new Event(
+                        mSpinnerStart.getSelectedItem().toString(), 
+                        mSpinnerEnd.getSelectedItem().toString(), 
+                        Utils.getDoubleFromPriceEditText(mEditPrice), 
+                        Integer.parseInt(mTextSeatsRemaining.getText().toString()),
+                        mStartTime, 
+                        mEndTime,
+                        AppData.getFacebookForeginKey(), 
+                        mEditDescription.getText().toString());
+                new PostEventTask(event).executeParallel();
                 break;
 
             case R.id.post_ride_button_start_date:
@@ -128,6 +156,7 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
             mTextSeatsRemaining.setText(String.valueOf(progress));
+            enableSubmitButtonIfDataValid();
         }
 
         @Override
@@ -168,6 +197,20 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
                 default:
                     assert false : "Unhandled datepicker for view with id " + mButtonId;
             }
+            enableSubmitButtonIfDataValid();
+        }
+    }
+    
+    private class SeekBarButtonEnabler implements OnItemSelectedListener {
+
+        @Override
+        public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+            enableSubmitButtonIfDataValid();
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> arg0) {
+            enableSubmitButtonIfDataValid();
         }
     }
 }

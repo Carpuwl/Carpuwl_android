@@ -36,7 +36,6 @@ public class CreateUserTask extends BaseTask<Void, Void, String> {
         requestParams.add(new BasicNameValuePair(PARAMETER_FB_KEY, facebookPrivateKey));
         
         String jsonResult = NetworkHelper.post(ENDPOINT, requestParams);
-        Log.i("ryan", "[create user task] " + jsonResult);
         return jsonResult;
     }
 

@@ -8,10 +8,10 @@ import android.text.TextWatcher;
 import android.widget.EditText;
 
 public class TextWatcherPrice implements TextWatcher {
-    
+
     private EditText mEditText;
     private String current;
-    
+
     public TextWatcherPrice(EditText editText) {
         mEditText = editText;
         current = "";
@@ -35,14 +35,14 @@ public class TextWatcherPrice implements TextWatcher {
             String cleanString = s.toString().replaceAll("[$,. ]", "");
 
             double parsed = Double.parseDouble(cleanString);
-            String formatted = NumberFormat.getCurrencyInstance(Locale.CANADA).format((parsed/100));
+            String formatted = NumberFormat.getCurrencyInstance(Locale.CANADA).format(
+                    (parsed / 100));
 
             current = formatted;
             mEditText.setText(formatted);
             mEditText.setSelection(formatted.length());
 
             mEditText.addTextChangedListener(this);
-         }
+        }
     }
-
 }

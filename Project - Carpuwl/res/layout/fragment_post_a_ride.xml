@@ -89,7 +89,6 @@
             android:orientation="horizontal" >
 
             <Button.RobotoRegular
-                style="@style/button_generic"
                 android:id="@+id/post_ride_button_start_date"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -112,7 +111,6 @@
             android:orientation="horizontal" >
 
             <Button.RobotoRegular
-                style="@style/button_generic"
                 android:id="@+id/post_ride_button_end_date"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -137,7 +135,6 @@
             android:hint="@string/post_ride_edittext_hint_description" />
 
         <Button.RobotoRegular
-            style="@style/button_generic"
             android:id="@+id/post_ride_button_submit_event"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

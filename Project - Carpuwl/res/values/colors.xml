@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    
+
     <!-- Generic -->
     <color name="dreamteamtheme_color">#96aa39</color>
     <color name="app_theme_color">#96AA39</color>
     <color name="app_theme_color_tint">#669900</color>
     <color name="app_theme_color_background">#D6D6D6</color>
-    <color name="gray_light">#80C4C4C4</color>
-    <color name="gray_google_now">#FFE5E5E5</color>
+    <color name="gray">#666666</color>
+    <color name="gray_light">#DBDBDB</color>
     <color name="black_transparent">#1A000000</color>
     <color name="white_transparent">#80FFFFFF</color>
-    
+
     <!-- Panel Colors -->
     <color name="green">#FF96AA39</color>
     <color name="red">#FFC74B46</color>
     <color name="orange">#FFF4842D</color>
     <color name="blue">#FF3F9FE0</color>
     <color name="purple">#FF5161BC</color>
-    
+
     <!-- Nav Drawer -->
     <color name="drawer_background">@android:color/white</color>
-    
+
     <!-- Facebook Button (disbaled = gray_light) -->
     <color name="facebook_normal">#3B5998</color>
     <color name="facebook_pressed">#22355C</color>
-    
+
 </resources>

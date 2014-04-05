@@ -22,8 +22,6 @@ public class GetMyProfileDataTask extends BaseTask <Void, Void, String> {
         List<NameValuePair> requestParams = new ArrayList<NameValuePair>(1);
         requestParams.add(new BasicNameValuePair(PARAMETER_NAME, Integer.toString(AppData.getFacebookForeginKey())));
         String jsonResult = NetworkHelper.get(ENDPOINT, requestParams);
-        Log.i(TAG, "[json]: " + jsonResult);
-        
         return jsonResult;
     }
 

@@ -35,6 +35,7 @@
         <item name="android:ratingBarStyle">@style/RatingBarDreamTeamTheme</item>
         <item name="android:ratingBarStyleIndicator">@style/RatingBarBigDreamTeamTheme</item>
         <item name="android:ratingBarStyleSmall">@style/RatingBarSmallDreamTeamTheme</item>
+        <item name="android:buttonStyle">@style/button_generic</item>
 
                 <!-- Light.DarkActionBar specific -->
         <item name="actionBarWidgetTheme">@style/Theme.Dreamteamtheme.Widget</item>
@@ -119,5 +120,7 @@
         <item name="android:minHeight">16dip</item>
         <item name="android:maxHeight">16dip</item>
     </style>
+    
+    <!-- Custom implementations -->
     
 </resources>
