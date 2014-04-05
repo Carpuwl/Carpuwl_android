@@ -108,9 +108,9 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
             Log.d("ryan", "failed due to start time being before current time");
         } else if (Utils.getDoubleFromPriceEditText(mEditPrice) <= 1d) {
             Log.d("ryan", "failed due to price being less than one dollar");
-        } else if (mTextSeatsRemaining.getText().toString().equals("0")) {
+        } else if (mTextSeatsValue.getText().toString().equals("0")) {
             Log.d("ryan", "failed due to seats remaining equalling 0");
-        } else if (mTextSeatsRemaining.getText().toString().equals("")) {
+        } else if (mTextSeatsValue.getText().toString().equals("")) {
             Log.d("ryan", "failed due to seats remaining being empty");
         } else {
             Log.d("ryan", "success");
@@ -158,7 +158,7 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
                         mSpinnerStart.getSelectedItem().toString(), 
                         mSpinnerEnd.getSelectedItem().toString(), 
                         Utils.getDoubleFromPriceEditText(mEditPrice), 
-                        Integer.parseInt(mTextSeatsRemaining.getText().toString()),
+                        Integer.parseInt(mTextSeatsValue.getText().toString()),
                         mStartTime, 
                         mEndTime,
                         AppData.getFacebookForeginKey(), 
