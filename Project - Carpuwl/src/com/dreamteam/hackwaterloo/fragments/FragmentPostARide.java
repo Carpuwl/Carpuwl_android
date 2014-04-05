@@ -93,14 +93,38 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
     }
     
     private boolean dataIsValid() {
-        return (
-                mSpinnerStart.getSelectedItemPosition() != mSpinnerEnd.getSelectedItemPosition() && 
-                mSpinnerStart.getSelectedItemPosition() != 0 &&
-                mSpinnerEnd.getSelectedItemPosition() != 0 &&
-                mStartTime < mEndTime &&
-                mStartTime > System.currentTimeMillis() &&
-                Utils.getDoubleFromPriceEditText(mEditPrice) >= 1d &&
-                !mTextSeatsRemaining.getText().toString().equals("0"));
+        
+        if (mSpinnerStart.getSelectedItemPosition() == mSpinnerEnd.getSelectedItemPosition()) {
+            Log.d("ryan", "failed due to spinners having same position");
+        } else if (mSpinnerStart.getSelectedItemPosition() == 0) {
+            Log.d("ryan", "failed due to start spinner position == 0");
+        } else if (mSpinnerEnd.getSelectedItemPosition() == 0) {
+            Log.d("ryan", "failed due to end spinner position == 0");
+        } else if (mStartTime > mEndTime) {
+            Log.d("ryan", "failed due to start time being later than end time");
+        } else if (mStartTime < System.currentTimeMillis()) {
+            Log.d("ryan", "failed due to start time being before current time");
+        } else if (Utils.getDoubleFromPriceEditText(mEditPrice) <= 1d) {
+            Log.d("ryan", "failed due to price being less than one dollar");
+        } else if (mTextSeatsRemaining.getText().toString().equals("0")) {
+            Log.d("ryan", "failed due to seats remaining equalling 0");
+        } else if (mTextSeatsRemaining.getText().toString().equals("")) {
+            Log.d("ryan", "failed due to seats remaining being empty");
+        } else {
+            Log.d("ryan", "success");
+            return true;
+        }
+        return false;
+        
+//        return (
+//                mSpinnerStart.getSelectedItemPosition() != mSpinnerEnd.getSelectedItemId() &&
+//                mSpinnerStart.getSelectedItemPosition() == 0 &&
+//                mSpinnerEnd.getSelectedItemPosition() == 0 &&
+//                mStartTime < mEndTime &&
+//                mStartTime > System.currentTimeMillis() &&
+//                Utils.getDoubleFromPriceEditText(mEditPrice) >= 1d &&
+//                !mTextSeatsRemaining.getText().toString().equals("0") &&
+//                mTextSeatsRemaining.getText().toString().equals(""));
     }
     
     private void enableSubmitButtonIfDataValid() {
