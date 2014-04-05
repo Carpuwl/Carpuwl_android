@@ -43,6 +43,7 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
     private EditText mEditPrice;
     private EditText mEditDescription;
     private TextView mTextSeatsRemaining;
+    private TextView mTextSeatsValue;
     private TextView mTextTimeStart;
     private TextView mTextTimeEnd;
 
@@ -68,7 +69,8 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
         mSpinnerEnd = (Spinner) rootView.findViewById(R.id.post_ride_spinner_arrive_at);
         mEditPrice = (EditText) rootView.findViewById(R.id.post_ride_edittext_price);
         mEditDescription = (EditText) rootView.findViewById(R.id.post_ride_edittext_description);
-        mTextSeatsRemaining = (TextView) rootView.findViewById(R.id.post_ride_text_seats);
+        mTextSeatsRemaining = (TextView) rootView.findViewById(R.id.post_ride_text_seats_static);
+        mTextSeatsValue = (TextView) rootView.findViewById(R.id.post_ride_text_seats_value);
         mTextTimeStart = (TextView) rootView.findViewById(R.id.post_ride_text_start_date);
         mTextTimeEnd = (TextView) rootView.findViewById(R.id.post_ride_text_end_date);
         
@@ -76,8 +78,8 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
         mButtonTimePicker.setOnClickListener(this);
         mButtonSubmit.setOnClickListener(this);
         
-        mSeekbarSeats.setProgress(MINIMUM_SEATS_DEFUALT);
         mSeekbarSeats.setOnSeekBarChangeListener(new SeekbarListener());
+        mSeekbarSeats.setProgress(MINIMUM_SEATS_DEFUALT);
         
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
                 R.array.cities, android.R.layout.simple_spinner_item);
@@ -178,7 +180,7 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
     private class SeekbarListener implements OnSeekBarChangeListener {
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-            mTextSeatsRemaining.setText(String.valueOf(progress));
+            mTextSeatsValue.setText(String.valueOf(progress));
             enableSubmitButtonIfDataValid();
         }
 
@@ -188,7 +190,7 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
 
         @Override
         public void onStopTrackingTouch(SeekBar seekBar) {
-            if (mTextSeatsRemaining.getText().toString().equals("0")) {
+            if (mTextSeatsValue.getText().toString().equals("0")) {
                 seekBar.setProgress(MINIMUM_SEATS_DEFUALT);
             }
         }

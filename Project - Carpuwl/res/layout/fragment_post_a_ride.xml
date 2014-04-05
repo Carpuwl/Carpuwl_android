@@ -42,45 +42,74 @@
                 android:prompt="@string/post_ride_spinner_end_prompt" />
         </LinearLayout>
 
-        <TextView.RobotoRegular
-            style="@style/text_naked_header"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/price" />
+            android:gravity="center_vertical" >
 
-        <EditText.RobotoLight
-            android:id="@+id/post_ride_edittext_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:hint="@string/post_ride_edittext_hint_price"
-            android:inputType="number"
-            android:maxLength="6" />
+            <TextView.RobotoLight
+                android:id="@+id/post_ride_text_price_prefix"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:text="@string/price"
+                android:textSize="20sp" />
 
-        <RelativeLayout
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical" >
+
+                <TextView.RobotoLight
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/currency_symbol" />
+
+                <EditText.RobotoLight
+                    android:id="@+id/post_ride_edittext_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:maxLength="6" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/generic_item_height"
             android:layout_marginTop="@dimen/generic_item_spacing"
             android:orientation="horizontal" >
 
+            <SeekBar
+                android:id="@+id/post_ride_seekbar_seats"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:max="8" />
+
             <TextView.RobotoLight
-                android:id="@+id/post_ride_text_seats"
+                android:id="@+id/post_ride_text_seats_static"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="@dimen/touchable_ui_spacing"
                 android:gravity="center_horizontal"
                 android:hint="@string/post_ride_edittext_hint_seats"
                 android:maxLength="2" />
 
-            <SeekBar
-                android:id="@+id/post_ride_seekbar_seats"
-                android:layout_width="match_parent"
+            <TextView.RobotoLight
+                android:id="@+id/post_ride_text_seats_value"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toLeftOf="@id/post_ride_text_seats"
-                android:max="8" />
-        </RelativeLayout>
+                android:layout_gravity="center_vertical"
+                android:gravity="center_horizontal"
+                android:maxLength="2" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -7,7 +7,7 @@ import com.google.gson.Gson;
 
 public class GetEventsTask extends BaseTask <Void, Void, Event[]> {
     
-    private String ENDPOINT = "get_feed";
+    private String ENDPOINT = "feed";
 
     @Override
     protected Event[] doInBackground(Void... arg0) {
