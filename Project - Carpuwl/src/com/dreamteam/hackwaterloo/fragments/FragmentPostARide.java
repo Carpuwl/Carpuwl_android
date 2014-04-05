@@ -30,6 +30,7 @@ import com.dreamteam.hackwaterloo.Constants.StatusCode;
 import com.dreamteam.hackwaterloo.adapters.Feed.Event;
 import com.dreamteam.hackwaterloo.utils.DateTimePickerHelper;
 import com.dreamteam.hackwaterloo.utils.DateTimePickerHelper.OnDateTimeSelectedListener;
+import com.dreamteam.hackwaterloo.utils.CrossFadeViewSwitcher;
 import com.dreamteam.hackwaterloo.utils.TextWatcherPrice;
 import com.dreamteam.hackwaterloo.utils.Utils;
 import com.dreamteam.hackwaterloo.utils.server.BaseTaskV2.OnPostExecuteListener;
@@ -142,18 +143,6 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
         mButtonSubmit.setEnabled(dataIsValid());
     }
     
-    
-    private void switchToSuccessfulCard() {
-        AnimatorSet animatorSet = new AnimatorSet();
-        float heightRatio = (((float) mContainerSuccess.getHeight()) / mContainerEditPost.getHeight());
-        mContainerSuccess.setVisibility(View.VISIBLE);
-
-        animatorSet
-                .setDuration(ANIMATION_DURATION)
-                .play(ObjectAnimator.ofFloat(mContainerEditPost, "scaleY", 1f, heightRatio));
-        animatorSet.start();
-    }
-    
     private class TextWatcherPriceButtonEnabler implements TextWatcher {
         
         @Override
@@ -190,7 +179,7 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
                     public void onFinish(Integer httpStatusCode) {
                         if (httpStatusCode == StatusCode.OK) {
                             Toast.makeText(getActivity(), "Successful", Toast.LENGTH_SHORT).show();
-                            switchToSuccessfulCard();
+                            new CrossFadeViewSwitcher(mContainerEditPost, mContainerSuccess, true).startAnimation();
                         }
                     }
                 });
