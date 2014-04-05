@@ -18,4 +18,8 @@ public class Constants {
         public static final String DIALOG_TIME_PICKER = "fragmenTagTimePicker";
     }
     
+    public static class StatusCode {
+        public static final int OK = 200;
+    }
+    
 }

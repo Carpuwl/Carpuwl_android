@@ -1,5 +1,7 @@
 package com.dreamteam.hackwaterloo.fragments;
 
+import org.apache.http.protocol.HTTP;
+
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -14,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SeekBar;
+import android.widget.Toast;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -21,11 +24,13 @@ import android.widget.TextView;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.dreamteam.carpuwl.R;
 import com.dreamteam.hackwaterloo.AppData;
+import com.dreamteam.hackwaterloo.Constants.StatusCode;
 import com.dreamteam.hackwaterloo.adapters.Feed.Event;
 import com.dreamteam.hackwaterloo.utils.DateTimePickerHelper;
 import com.dreamteam.hackwaterloo.utils.DateTimePickerHelper.OnDateTimeSelectedListener;
 import com.dreamteam.hackwaterloo.utils.TextWatcherPrice;
 import com.dreamteam.hackwaterloo.utils.Utils;
+import com.dreamteam.hackwaterloo.utils.server.BaseTaskV2.OnPostExecuteListener;
 import com.dreamteam.hackwaterloo.utils.server.PostEventTask;
 
 public class FragmentPostARide extends SherlockFragment implements OnClickListener {
@@ -42,7 +47,6 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
     private Spinner mSpinnerEnd;
     private EditText mEditPrice;
     private EditText mEditDescription;
-    private TextView mTextSeatsRemaining;
     private TextView mTextSeatsValue;
     private TextView mTextTimeStart;
     private TextView mTextTimeEnd;
@@ -69,7 +73,6 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
         mSpinnerEnd = (Spinner) rootView.findViewById(R.id.post_ride_spinner_arrive_at);
         mEditPrice = (EditText) rootView.findViewById(R.id.post_ride_edittext_price);
         mEditDescription = (EditText) rootView.findViewById(R.id.post_ride_edittext_description);
-        mTextSeatsRemaining = (TextView) rootView.findViewById(R.id.post_ride_text_seats_static);
         mTextSeatsValue = (TextView) rootView.findViewById(R.id.post_ride_text_seats_value);
         mTextTimeStart = (TextView) rootView.findViewById(R.id.post_ride_text_start_date);
         mTextTimeEnd = (TextView) rootView.findViewById(R.id.post_ride_text_end_date);
@@ -95,7 +98,6 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
     }
     
     private boolean dataIsValid() {
-        
         if (mSpinnerStart.getSelectedItemPosition() == mSpinnerEnd.getSelectedItemPosition()) {
             Log.d("ryan", "failed due to spinners having same position");
         } else if (mSpinnerStart.getSelectedItemPosition() == 0) {
@@ -163,7 +165,16 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
                         mEndTime,
                         AppData.getFacebookForeginKey(), 
                         mEditDescription.getText().toString());
-                new PostEventTask(event).executeParallel();
+                PostEventTask postEventTask = new PostEventTask(getActivity(), event);
+                postEventTask.setOnPostExecuteListener(new OnPostExecuteListener<Integer>() {
+                    @Override
+                    public void onFinish(Integer httpStatusCode) {
+                        if (httpStatusCode == StatusCode.OK) {
+                            Toast.makeText(getActivity(), "Successful", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                postEventTask.executeParallel();
                 break;
 
             case R.id.post_ride_button_start_date:
