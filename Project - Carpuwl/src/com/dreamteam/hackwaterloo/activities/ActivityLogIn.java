@@ -4,6 +4,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -35,10 +36,12 @@ public class ActivityLogIn extends SherlockFragmentActivity implements OnClickLi
     private static final String TAG = ActivityLogIn.class.getSimpleName();
     private static final String SHARED_PREF_LOG_IN = "com.dreamteam.hackwaterloo.fileNameSharedPrefLogin";
     private static final String KEY_LOGGED_IN = "com.dreamteam.hackwaterloo.keyLoggedIn";
+    private static final String KEY_PHONE_NUMBER = "com.dreamteam.hackwaterloo.keyPhoneNumber";
     private static final int PHONE_NUMBER_LENGTH = 10;
     
     private EditText mEditTextPhoneInput;
     private LoginButton loginButton;
+    private SharedPreferences mSharedPref;
     
     private UiLifecycleHelper uiHelper;
     
@@ -93,19 +96,27 @@ public class ActivityLogIn extends SherlockFragmentActivity implements OnClickLi
         if (state.isOpened()) {
             Log.i(TAG, "Logged in...");
             
-            Request.executeMeRequestAsync(session, new Request.GraphUserCallback() {
-				
-				@Override
-				public void onCompleted(GraphUser user, Response response) {
-					if(user != null){
-						User.initInstance(Integer.parseInt(user.getId()), user.getName(), mEditTextPhoneInput.getText().toString());
-						create_user(Integer.parseInt(user.getId()), user.getUsername(), mEditTextPhoneInput.getText().toString());
-					}					
-				}
-			});
+            mSharedPref = getSharedPreferences(SHARED_PREF_LOG_IN, MODE_PRIVATE);
+            if (mSharedPref.getBoolean(KEY_LOGGED_IN, false)) {
+            	Request.executeMeRequestAsync(session, new Request.GraphUserCallback() {
+    				
+    				@Override
+    				public void onCompleted(GraphUser user, Response response) {
+    					if(user != null){
+    						User.initInstance(Integer.parseInt(user.getId()), user.getName(), mEditTextPhoneInput.getText().toString());
+    						create_user(Integer.parseInt(user.getId()), user.getUsername(), mEditTextPhoneInput.getText().toString());
+    						mSharedPref.edit()
+                            .putBoolean(KEY_LOGGED_IN, true)
+                            .commit();
+    					}					
+    				}
+    			});
+            	                    
+            } 
             
             Intent intent = new Intent(ActivityLogIn.this, ActivityMain.class);
             startActivity(intent);
+            
         } else if (state.isClosed()) {
             Log.i(TAG, "Logged out...");
         }
