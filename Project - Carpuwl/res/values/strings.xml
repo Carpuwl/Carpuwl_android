@@ -5,8 +5,40 @@
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     
+    <!-- Generic Strings -->
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="OK">OK</string>
+    <string name="submit">Submit</string>
+    <string name="cancel">Cancel</string>
+    <string name="at">at</string>
+    <string name="loading">Just a secading</string>
+    <string name="price">Price</string>
+    <string name="currency_symbol">$</string>
+    
+    <plurals name="plural_seat">
+        <item quantity="one">Seat</item>
+        <item quantity="other">Seats</item>
+    </plurals>
+    
+    <!-- Time units -->
+    <string name="today">Today</string>
+    <string name="tomorrow">Tomorrow</string>
+    
+    <plurals name="time_unit_hour">
+        <item quantity="one">Hour</item>
+        <item quantity="other">Hours</item>
+    </plurals>
+    
+    <plurals name="time_unit_minute">
+        <item quantity="one">Minute</item>
+        <item quantity="other">Minutes</item>
+    </plurals>
+    
     <!-- Action Bar Titles -->
     <string name="actionbar_title_find_a_ride">Find a Ride</string>
+    <string name="actionbar_title_post_a_ride">Post a Ride</string>
+    <string name="actionbar_title_my_profile">My Profile</string>
 
     <!-- Splash Page Activity -->
     <string name="splash_page">The Best Splash Page</string>
@@ -14,7 +46,18 @@
     <!-- LogIn Activity -->
     <string name="log_in_button_facebook">Log in with Facebook</string>
     <string name="log_in_phone_input_hint">Enter your phone number</string>
-
+    
+    <!-- Post A Ride Fragment -->
+    <string name="post_ride_title">Post a Ride</string>
+    <string name="post_ride_spinner_start_prompt">Starting location</string>
+    <string name="post_ride_spinner_end_prompt">Destination</string>
+    <string name="post_ride_edittext_hint_price">Price</string>
+    <string name="post_ride_text_seats_hint">Seats</string>
+    <string name="post_ride_edittext_hint_description">Write a description</string>
+    <string name="post_ride_button_start_date">Start date</string>
+    <string name="post_ride_button_end_date">End date</string>
+    <string name="post_ride_text_location_hint">------</string>
+    
     <!-- Find A Ride Fragment -->
     <string name="find_ride_filter">Filter results</string>
     <string name="find_ride_price_filler">$12</string>
@@ -28,7 +71,7 @@
     
     <!-- Filter -->
     <string-array name="cities">
-        <item></item>
+        <item>Select One</item>
         <item>Toronto</item>
         <item>Etobicoke</item>
         <item>Brampton</item>

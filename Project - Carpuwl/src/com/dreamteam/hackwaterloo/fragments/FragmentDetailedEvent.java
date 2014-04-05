@@ -1,7 +1,5 @@
 package com.dreamteam.hackwaterloo.fragments;
 
-import java.text.SimpleDateFormat;
-
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,8 +9,9 @@ import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.dreamteam.carpuwl.R;
-import com.dreamteam.hackwaterloo.User;
+import com.dreamteam.hackwaterloo.AppData;
 import com.dreamteam.hackwaterloo.adapters.Feed.Event;
+import com.dreamteam.hackwaterloo.utils.Utils;
 import com.facebook.widget.ProfilePictureView;
 
 public class FragmentDetailedEvent extends SherlockFragment {
@@ -39,15 +38,14 @@ public class FragmentDetailedEvent extends SherlockFragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.activity_event_page, container, false);
 
         Event mEvent = getArguments().getParcelable(KEY_PARCELABLE);
 
         ProfilePictureView profilePicture = (ProfilePictureView) rootView
                 .findViewById(R.id.event_user_profile_picture);
-        profilePicture.setProfileId(String.valueOf(User.getInstance().get_fb_fk()));
+        profilePicture.setProfileId(String.valueOf(AppData.getFacebookForeginKey()));
 
         mRatingBar = (RatingBar) rootView.findViewById(R.id.event_user_rating_bar);
         mTextViewUserName = (TextView) rootView.findViewById(R.id.event_user_name);
@@ -60,18 +58,15 @@ public class FragmentDetailedEvent extends SherlockFragment {
         mTextViewArrivalTime = (TextView) rootView.findViewById(R.id.event_details_eta);
         mTextViewDescription = (TextView) rootView.findViewById(R.id.event_details_description);
 
-        mRatingBar.setRating(mEvent.getRating());
+        mRatingBar.setRating((float) mEvent.getRating());
         mTextViewUserName.setText(mEvent.getDriverName());
         mRatingNumber.setText(String.format("(%s)", mEvent.getRatingCount()));
         mTextViewStart.setText(mEvent.getStartPoint());
         mTextViewEnd.setText(mEvent.getEndPoint());
         mTextViewPrice.setText(String.format("$%.2f", mEvent.getPrice()));
-        mTextViewSeats
-                .setText(String.format("Seats Remaining: %s", mEvent.getSeatsRemaining()));
-        mTextViewStartTime.setText(new SimpleDateFormat("MMM dd, h a").format(mEvent
-                .getDepartDate()));
-        mTextViewArrivalTime.setText(new SimpleDateFormat("MMM dd, h a").format(mEvent
-                .getArrivalTime()));
+        mTextViewSeats.setText(String.format("Seats Remaining: %s", mEvent.getSeatsRemaining()));
+        mTextViewStartTime.setText(Utils.multiCaseDateFormat((mEvent.getDepartDate())));
+        mTextViewArrivalTime.setText(Utils.multiCaseDateFormat((mEvent.getArrivalTime())));
         mTextViewDescription.setText(mEvent.getDescription());
 
         return rootView;

@@ -34,7 +34,7 @@
         <Spinner
             android:id="@+id/dialog_filter_spinner_startpoint"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/ui_widget_height"
+            android:layout_height="@dimen/generic_item_height"
             android:layout_marginBottom="@dimen/touchable_ui_spacing"
             android:prompt="@string/dialog_spinner_start_promt"
             android:entries="@array/cities" />
@@ -42,7 +42,7 @@
         <Spinner
             android:id="@+id/dialog_filter_spinner_endpoint"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/ui_widget_height"
+            android:layout_height="@dimen/generic_item_height"
             android:layout_marginBottom="@dimen/touchable_ui_spacing"
             android:prompt="@string/dialog_spinner_end_prompt"
             android:entries="@array/cities" />
@@ -50,7 +50,7 @@
         <EditText
             android:id="@+id/dialog_filter_edittext_max_price"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/ui_widget_height"
+            android:layout_height="@dimen/generic_item_height"
             android:layout_marginBottom="@dimen/touchable_ui_spacing"
             android:hint="@string/find_ride_filter_max_price_hint"
             android:inputType="number" />

@@ -9,6 +9,7 @@
         android:targetSdkVersion="19" />
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:name="com.dreamteam.hackwaterloo.App"
@@ -28,7 +29,6 @@
         </activity>
         <activity
             android:name="com.dreamteam.hackwaterloo.activities.ActivityLogIn"
-            android:noHistory="true"
             android:theme="@style/Theme.Sherlock.Light.NoActionBar" >
         </activity>
         <activity android:name="com.dreamteam.hackwaterloo.activities.ActivityMain" />

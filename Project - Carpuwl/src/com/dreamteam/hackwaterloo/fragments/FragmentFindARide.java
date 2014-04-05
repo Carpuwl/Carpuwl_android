@@ -6,8 +6,8 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -62,6 +62,9 @@ public class FragmentFindARide extends SherlockFragment implements OnClickListen
         mFilterButton = (Button) rootView.findViewById(R.id.find_ride_button_filter);
         mListView = (ListView) rootView.findViewById(R.id.find_ride_list_view);
         
+        if (mFilterButton == null) {
+            Log.e("ryan", "filter button is null!!!!");
+        }
         mFilterButton.setOnClickListener(this);
         
         getEvents();
@@ -108,6 +111,7 @@ public class FragmentFindARide extends SherlockFragment implements OnClickListen
                 ObjectAnimator.ofFloat(mProgressBar, "alpha", 1f, 0f),
                 ObjectAnimator.ofFloat(mProgressBar, "scaleX", 1f, .8f),
                 ObjectAnimator.ofFloat(mProgressBar, "scaleY", 1f, .8f));
+        animatorSet.setDuration(ANIMATION_DURATION);
         animatorSet.addListener(new AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {

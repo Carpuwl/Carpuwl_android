@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
 
+    <item android:top="2dp">
+        <shape
+            android:dither="true"
+            android:shape="rectangle" >
+            <corners android:radius="@dimen/corner_rounding" />
+
+            <solid android:color="@color/app_theme_color" />
+        </shape>
+    </item>
     <item>
         <shape
             android:dither="true"
@@ -23,13 +32,6 @@
                 android:left="8dp"
                 android:right="8dp"
                 android:top="8dp" />
-        </shape>
-    </item>
-    <item android:top="2dp">
-        <shape android:shape="rectangle" >
-            <stroke android:color="@color/app_theme_color" />
-
-            <corners android:radius="@dimen/button_rounding" />
         </shape>
     </item>
 

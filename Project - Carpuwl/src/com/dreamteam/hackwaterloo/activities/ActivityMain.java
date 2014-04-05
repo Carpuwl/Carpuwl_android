@@ -14,9 +14,12 @@ import android.widget.ListView;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;
 import com.dreamteam.carpuwl.R;
+import com.dreamteam.hackwaterloo.App;
 import com.dreamteam.hackwaterloo.adapters.DrawerLayoutAdapter;
 import com.dreamteam.hackwaterloo.fragments.FragmentFindARide;
 import com.dreamteam.hackwaterloo.fragments.FragmentMyProfile;
+import com.dreamteam.hackwaterloo.fragments.FragmentPostARide;
+import com.dreamteam.hackwaterloo.utils.Utils;
 
 public class ActivityMain extends SherlockFragmentActivity {
 
@@ -27,7 +30,7 @@ public class ActivityMain extends SherlockFragmentActivity {
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
     private ListView mDrawerList;
-    
+     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -38,11 +41,11 @@ public class ActivityMain extends SherlockFragmentActivity {
 
         initNavDrawer();
 
+        getSupportActionBar().setTitle(Utils.getString(R.string.actionbar_title_find_a_ride));
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         if (savedInstanceState == null) {
-            getSupportActionBar().setTitle("Find A Ride");
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.main_fragment_container, new FragmentFindARide(), FragmentFindARide.FRAGMENT_TAG).commit();
         }
@@ -103,6 +106,10 @@ public class ActivityMain extends SherlockFragmentActivity {
                 getSupportActionBar().setTitle("Find A Ride");
                 mFragmentManager.beginTransaction().replace(R.id.main_fragment_container, new FragmentFindARide()).commit();
                 break;
+                
+            case 2: // Post a Ride
+                getSupportActionBar().setTitle("Post A Ride");
+                mFragmentManager.beginTransaction().replace(R.id.main_fragment_container, new FragmentPostARide()).commit();
                 
             case 3: // Sign out
             

@@ -17,7 +17,7 @@
     <Button
         android:id="@+id/log_in_button_facebook"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/ui_widget_height"
+        android:layout_height="@dimen/generic_item_height"
         android:layout_above="@+id/log_in_edittext_phone_input"
         android:layout_marginBottom="@dimen/activity_margin"
         android:layout_marginLeft="@dimen/activity_margin"
@@ -30,7 +30,7 @@
     <EditText
         android:id="@+id/log_in_edittext_phone_input"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/ui_widget_height"
+        android:layout_height="@dimen/generic_item_height"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_marginBottom="@dimen/activity_margin"

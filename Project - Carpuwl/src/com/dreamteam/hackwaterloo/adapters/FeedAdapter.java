@@ -97,7 +97,7 @@ public class FeedAdapter extends BaseAdapter {
         Event event = getItem(position);
         viewHolder.parentView.setOnClickListener(new OnEventClickedListener(position));
         viewHolder.priceBackground.setBackgroundColor(mColorList[position % 5]);
-        viewHolder.ratingBar.setRating(event.getRating());
+        viewHolder.ratingBar.setRating((float) event.getRating());
         viewHolder.price.setText(String.format("$%.2f", event.getPrice()));
         viewHolder.startingPoint.setText(event.getStartPoint());
         viewHolder.endingPoint.setText(event.getEndPoint());
@@ -118,8 +118,8 @@ public class FeedAdapter extends BaseAdapter {
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(mContext.get(), ActivityDetailedPager.class);
-            intent.putParcelableArrayListExtra(Constants.Extra.Event, mEvents);
-            intent.putExtra(Constants.Extra.EventPosition, position);
+            intent.putParcelableArrayListExtra(Constants.Extra.EVENT, mEvents);
+            intent.putExtra(Constants.Extra.EVENT_POSITION, position);
             mContext.get().startActivity(intent);
         }
     }

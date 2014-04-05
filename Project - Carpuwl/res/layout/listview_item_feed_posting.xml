@@ -12,7 +12,7 @@
         android:layout_height="@dimen/find_ride_listview_price_size"
         android:contentDescription="@string/app_name" />
 
-    <com.dreamteam.hackwaterloo.fontedviews.textviews.RobotoRegular
+    <TextView.RobotoRegular
         android:id="@+id/find_ride_listview_item_price"
         android:layout_width="@dimen/find_ride_listview_price_size"
         android:layout_height="@dimen/find_ride_listview_price_size"
@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/find_ride_listview_item_price" >
 
-        <com.dreamteam.hackwaterloo.fontedviews.textviews.RobotoRegular
+        <TextView.RobotoRegular
             android:id="@+id/find_ride_listview_item_start"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -44,7 +44,7 @@
             android:contentDescription="@string/app_name"
             android:src="@drawable/ic_action_next_item" />
 
-        <com.dreamteam.hackwaterloo.fontedviews.textviews.RobotoRegular
+        <TextView.RobotoRegular
             android:id="@+id/find_ride_listview_item_end"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -67,7 +67,7 @@
         android:isIndicator="true"
         android:numStars="5" />
 
-    <com.dreamteam.hackwaterloo.fontedviews.textviews.RobotoLight
+    <TextView.RobotoLight
         android:id="@+id/find_ride_listview_item_seats"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -77,7 +77,7 @@
         android:layout_toRightOf="@id/find_ride_listview_item_price"
         android:text="@string/find_ride_seats" />
 
-    <com.dreamteam.hackwaterloo.fontedviews.textviews.RobotoLight
+    <TextView.RobotoLight
         android:id="@+id/find_ride_listview_item_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -86,7 +86,7 @@
         android:layout_toRightOf="@id/find_ride_listview_item_price_background"
         android:text="@string/find_ride_time" />
 
-    <com.dreamteam.hackwaterloo.fontedviews.textviews.RobotoCondensedRegular
+    <TextView.RobotoCondensedRegular
         android:id="@+id/find_ride_listview_item_time_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

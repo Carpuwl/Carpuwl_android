@@ -1,30 +1,21 @@
 package com.dreamteam.hackwaterloo.activities;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.RatingBar;
-import android.widget.TextView;
 
-import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;
 import com.dreamteam.carpuwl.R;
 import com.dreamteam.hackwaterloo.App;
 import com.dreamteam.hackwaterloo.Constants;
-import com.dreamteam.hackwaterloo.User;
 import com.dreamteam.hackwaterloo.adapters.Feed.Event;
 import com.dreamteam.hackwaterloo.fragments.FragmentDetailedEvent;
-import com.facebook.widget.ProfilePictureView;
+import com.dreamteam.hackwaterloo.utils.Utils;
 
 public class ActivityDetailedPager extends SherlockFragmentActivity {
 
@@ -37,15 +28,15 @@ public class ActivityDetailedPager extends SherlockFragmentActivity {
         super.onCreate(arg0);
         setContentView(R.layout.fragment_detailed_event);
 
-        mEvents = getIntent().getParcelableArrayListExtra(Constants.Extra.Event);
-        int position = getIntent().getIntExtra(Constants.Extra.EventPosition, 0);
+        mEvents = getIntent().getParcelableArrayListExtra(Constants.Extra.EVENT);
+        int position = getIntent().getIntExtra(Constants.Extra.EVENT_POSITION, 0);
 
         mAdapter = new EventDetailAdapter(getSupportFragmentManager(), mEvents);
         mPager = (ViewPager) findViewById(R.id.event_pager);
         mPager.setAdapter(mAdapter);
         mPager.setCurrentItem(position);
 
-        getSupportActionBar().setTitle(App.getXmlString(R.string.actionbar_title_find_a_ride));
+        getSupportActionBar().setTitle(Utils.getString(R.string.actionbar_title_find_a_ride));
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }

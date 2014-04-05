@@ -17,9 +17,10 @@
      limitations under the License.
 -->
 
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="Theme.Dreamteamtheme" parent="@style/Theme.Sherlock.Light.DarkActionBar">
+        <item name="android:background">@color/app_theme_color_background</item>
         <item name="actionBarItemBackground">@drawable/selectable_background_dreamteamtheme</item>
         <item name="popupMenuStyle">@style/PopupMenu.Dreamteamtheme</item>
         <item name="dropDownListViewStyle">@style/DropDownListView.Dreamteamtheme</item>
@@ -29,6 +30,9 @@
         <item name="actionModeBackground">@drawable/cab_background_top_dreamteamtheme</item>
         <item name="actionModeSplitBackground">@drawable/cab_background_bottom_dreamteamtheme</item>
         <item name="actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Dreamteamtheme</item>
+        <item name="android:editTextStyle">@style/EditTextDreamTeamTheme</item>
+        <item name="android:seekBarStyle">@style/SeekBarDreamTeamTheme</item>
+        <item name="android:buttonStyle">@style/button_generic</item>
 
                 <!-- Light.DarkActionBar specific -->
         <item name="actionBarWidgetTheme">@style/Theme.Dreamteamtheme.Widget</item>
@@ -78,5 +82,23 @@
         <item name="popupMenuStyle">@style/PopupMenu.Dreamteamtheme</item>
         <item name="dropDownListViewStyle">@style/DropDownListView.Dreamteamtheme</item>
     </style>
+    
+    <style name="EditTextDreamTeamTheme" parent="android:Widget.EditText">
+        <item name="android:background">@drawable/dreamteamtheme_edit_text_holo_light</item>
+        <item name="android:textColor">#000000</item>
+    </style>
 
+    <style name="SeekBarDreamTeamTheme" parent="android:Widget.SeekBar">
+        <item name="android:progressDrawable">@drawable/dreamteamtheme_scrubber_progress_horizontal_holo_light</item>
+        <item name="android:indeterminateDrawable">@drawable/dreamteamtheme_scrubber_progress_horizontal_holo_light</item>
+        <item name="android:minHeight">13dip</item>
+        <item name="android:maxHeight">13dip</item>
+        <item name="android:thumb">@drawable/dreamteamtheme_scrubber_control_selector_holo_light</item>
+        <item name="android:thumbOffset">16dip</item>
+        <item name="android:paddingLeft">16dip</item>
+        <item name="android:paddingRight">16dip</item>
+    </style>
+    
+    <!-- Custom implementations -->
+    
 </resources>
