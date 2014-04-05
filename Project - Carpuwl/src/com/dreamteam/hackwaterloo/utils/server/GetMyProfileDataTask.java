@@ -20,7 +20,7 @@ public class GetMyProfileDataTask extends BaseTask <Void, Void, String> {
     @Override
     protected String doInBackground(Void... params) {
         List<NameValuePair> requestParams = new ArrayList<NameValuePair>(1);
-        requestParams.add(new BasicNameValuePair(PARAMETER_NAME, Integer.toString(AppData.getFacebookForeginKey())));
+        requestParams.add(new BasicNameValuePair(PARAMETER_NAME, String.valueOf(AppData.getFacebookForeginKey())));
         String jsonResult = NetworkHelper.get(ENDPOINT, requestParams);
         return jsonResult;
     }

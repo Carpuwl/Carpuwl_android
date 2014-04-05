@@ -22,7 +22,7 @@ public class FragmentMyProfile extends SherlockFragment{
         
         ProfilePictureView profilePictureView;
         profilePictureView = (ProfilePictureView) rootView.findViewById(R.id.selection_profile_pic);
-        profilePictureView.setProfileId(Integer.toString(AppData.getFacebookForeginKey()));
+        profilePictureView.setProfileId(String.valueOf(AppData.getFacebookForeginKey()));
         
         new GetMyProfileDataTask().executeParallel();
         

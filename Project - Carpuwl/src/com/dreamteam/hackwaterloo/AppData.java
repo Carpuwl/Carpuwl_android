@@ -5,9 +5,9 @@ public enum AppData {
 
     private String name;
     private String phoneNumber;
-    private int facebookForeignKey;
+    private long facebookForeignKey;
 
-    public static AppData construct(String name, String phoneNumber, int facebookForeignKey) {
+    public static AppData construct(String name, String phoneNumber, long facebookForeignKey) {
         INSTANCE.name = name;
         INSTANCE.phoneNumber = phoneNumber;
         INSTANCE.facebookForeignKey = facebookForeignKey;
@@ -22,7 +22,7 @@ public enum AppData {
         return INSTANCE.phoneNumber;
     }
 
-    public static int getFacebookForeginKey() {
+    public static long getFacebookForeginKey() {
         return INSTANCE.facebookForeignKey;
     }
 }

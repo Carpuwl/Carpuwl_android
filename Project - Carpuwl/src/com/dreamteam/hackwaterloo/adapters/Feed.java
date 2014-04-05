@@ -41,7 +41,7 @@ public class Feed {
         @SerializedName("event_pk")
         private int eventId;
         @SerializedName("user_fk")
-        private int userId;
+        private long userId;
         @SerializedName("name")
         private String driverName;
         @SerializedName("num_ratings")
@@ -50,7 +50,7 @@ public class Feed {
         private String phone;
 
         public Event(String startPoint, String endPoint, double price, int seatsRemaining,
-                long departDate, long eta, int facebookForeignKey, String description) {
+                long departDate, long eta, long facebookForeignKey, String description) {
             this.startPoint = startPoint;
             this.endPoint = endPoint;
             this.price = price;
@@ -93,7 +93,7 @@ public class Feed {
             return arrivalTime;
         }
 
-        public int getUserId() {
+        public long getUserId() {
             return userId;
         }
 
@@ -144,7 +144,7 @@ public class Feed {
             dest.writeInt(seatsRemaining);
             dest.writeString(startPoint);
             dest.writeInt(eventId);
-            dest.writeInt(userId);
+            dest.writeLong(userId);
             dest.writeString(driverName);
             dest.writeInt(ratingCount);
             dest.writeString(description);
