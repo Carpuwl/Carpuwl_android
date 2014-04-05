@@ -136,7 +136,7 @@ public class ActivityLogIn extends SherlockFragmentActivity implements OnClickLi
                             // Get details, set the user data object
                             AppData.construct(user.getName(),
                                     ActivityLogIn.this.mPhoneInput,
-                                    Integer.valueOf(user.getId()));
+                                    Long.valueOf(user.getId()));
                             createUser(user.getName(),
                                     ActivityLogIn.this.mPhoneInput,
                                     user.getId());
