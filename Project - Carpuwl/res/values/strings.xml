@@ -35,7 +35,6 @@
         <item quantity="other">Minutes</item>
     </plurals>
     
-    <!-- Action Bar Titles -->
     <string name="actionbar_title_find_a_ride">Find a Ride</string>
     <string name="actionbar_title_post_a_ride">Post a Ride</string>
     <string name="actionbar_title_my_profile">My Profile</string>
@@ -90,7 +89,7 @@
         <item>My Profile</item>
         <item>Find a ride</item>
         <item>Post a ride</item>
-        <item>Log Out</item>
+        <item>Log out</item>
     </string-array>
 
     <!-- Event Page Activity -->

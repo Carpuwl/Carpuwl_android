@@ -27,6 +27,7 @@ import com.dreamteam.hackwaterloo.activities.ActivityMain;
 import com.dreamteam.hackwaterloo.adapters.Feed;
 import com.dreamteam.hackwaterloo.adapters.Feed.Event;
 import com.dreamteam.hackwaterloo.adapters.FeedAdapter;
+import com.dreamteam.hackwaterloo.utils.CrossFadeViewSwitcher;
 import com.dreamteam.hackwaterloo.utils.server.BaseTask.OnPostExecuteListener;
 import com.dreamteam.hackwaterloo.utils.server.GetEventsTask;
 import com.nineoldandroids.animation.Animator;
@@ -82,7 +83,7 @@ public class FragmentFindARide extends SherlockFragment implements OnClickListen
                     mListView.setAdapter(mListAdapter);
                     mListAdapter.notifyDataSetChanged();
                 }
-                crossFade();
+                new CrossFadeViewSwitcher(mProgressBar, mListView, false).startAnimation();
             }
         });
         getEventsTask.executeParallel();
@@ -98,39 +99,6 @@ public class FragmentFindARide extends SherlockFragment implements OnClickListen
                 }
                 dialogFilter.show(mFragmentManager, DialogFilter.FRAGMENT_TAG);
         }
-    }
-
-    public void crossFade() {
-        ViewHelper.setAlpha(mListView, 0f);
-        mListView.setVisibility(View.VISIBLE);
-
-        AnimatorSet animatorSet = new AnimatorSet();
-        animatorSet.playTogether(ObjectAnimator.ofFloat(mListView, "alpha", 0f, 1f),
-                ObjectAnimator.ofFloat(mListView, "scaleX", .8f, 1f),
-                ObjectAnimator.ofFloat(mListView, "scaleY", .8f, 1f),
-                ObjectAnimator.ofFloat(mProgressBar, "alpha", 1f, 0f),
-                ObjectAnimator.ofFloat(mProgressBar, "scaleX", 1f, .8f),
-                ObjectAnimator.ofFloat(mProgressBar, "scaleY", 1f, .8f));
-        animatorSet.setDuration(ANIMATION_DURATION);
-        animatorSet.addListener(new AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animation) {
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animation) {
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animation) {
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                mProgressBar.setVisibility(View.GONE);
-            }
-        });
-        animatorSet.start();
     }
 
     public static class DialogFilter extends SherlockDialogFragment {

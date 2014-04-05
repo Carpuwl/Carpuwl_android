@@ -22,6 +22,7 @@ import com.dreamteam.carpuwl.R;
 import com.dreamteam.hackwaterloo.Constants;
 import com.dreamteam.hackwaterloo.activities.ActivityDetailedPager;
 import com.dreamteam.hackwaterloo.adapters.Feed.Event;
+import com.dreamteam.hackwaterloo.utils.Utils;
 
 public class FeedAdapter extends BaseAdapter {
     
@@ -102,7 +103,7 @@ public class FeedAdapter extends BaseAdapter {
         viewHolder.startingPoint.setText(event.getStartPoint());
         viewHolder.endingPoint.setText(event.getEndPoint());
         viewHolder.seats.setText(String.format(resources.getString(R.string.find_ride_seats), event.getSeatsRemaining())) ;
-        viewHolder.timeValue.setText(new SimpleDateFormat("MMM dd, h a").format(event.getDepartDate())); 
+        viewHolder.timeValue.setText(Utils.multiCaseDateFormat(event.getDepartDate())); 
         
         return convertView;
     }

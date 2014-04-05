@@ -23,8 +23,6 @@ public class Utils {
     private static final String SDF_VERBOSE = "yyyy MMMM dd";
 
     /**
-     * Convenience method for grabbing plural strings defined in the xml
-     * 
      * @param quantityStringId
      *            The desired resource identifier
      * @param quantity
@@ -54,6 +52,14 @@ public class Utils {
      */
     public static int getColor(int colorId) {
         return App.getAppContext().getResources().getColor(colorId);
+    }
+    
+    /**
+     * @param stringArrayId The desired resource identifier
+     * @return The string array associated with the resource. 
+     */
+    public static String[] getStringArray(int stringArrayId) {
+        return App.getAppContext().getResources().getStringArray(stringArrayId);
     }
 
     // TODO: convert to DialogFragment instead

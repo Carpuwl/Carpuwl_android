@@ -41,11 +41,11 @@ public class ActivityMain extends SherlockFragmentActivity {
 
         initNavDrawer();
 
-        getSupportActionBar().setTitle(Utils.getString(R.string.actionbar_title_find_a_ride));
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         if (savedInstanceState == null) {
+            getSupportActionBar().setTitle((mDrawerItems[1]));
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.main_fragment_container, new FragmentFindARide(), FragmentFindARide.FRAGMENT_TAG).commit();
         }
@@ -96,19 +96,17 @@ public class ActivityMain extends SherlockFragmentActivity {
     private void drawerSelectItem(int position) {
         // Toast.makeText(ActivityMain.this, mDrawerItems[position],
         // Toast.LENGTH_SHORT).show();
+        getSupportActionBar().setTitle(mDrawerItems[position]);
         switch (position) {
             case 0: // My Profile
-                getSupportActionBar().setTitle("My Profile");
                 mFragmentManager.beginTransaction().replace(R.id.main_fragment_container, new FragmentMyProfile()).commit();
                 break;
 
             case 1: // Find a ride
-                getSupportActionBar().setTitle("Find A Ride");
                 mFragmentManager.beginTransaction().replace(R.id.main_fragment_container, new FragmentFindARide()).commit();
                 break;
                 
             case 2: // Post a Ride
-                getSupportActionBar().setTitle("Post A Ride");
                 mFragmentManager.beginTransaction().replace(R.id.main_fragment_container, new FragmentPostARide()).commit();
                 
             case 3: // Sign out
