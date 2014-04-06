@@ -37,6 +37,7 @@
         <item name="android:checkboxStyle">@style/CheckBoxDreamTeamTheme</item>
         <item name="android:listChoiceIndicatorMultiple">@drawable/dreamteamtheme_btn_check_holo_light</item>
         <item name="android:dropDownSpinnerStyle">@style/SpinnerDreamTeamTheme</item>
+        <item name="android:windowContentOverlay">@null</item>
 
         <!-- Light.DarkActionBar specific -->
         <item name="android:actionBarWidgetTheme">@style/Theme.Dreamteamtheme.Widget</item>

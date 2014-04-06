@@ -37,6 +37,7 @@
         <item name="android:checkMark">@drawable/apptheme_btn_radio_holo_light</item>
         <item name="android:spinnerStyle">@style/SpinnerDreamTeamTheme</item>
         <item name="android:spinnerDropDownItemStyle">@style/SpinnerDropDownItemDreamTeamTheme</item>
+        <item name="android:windowContentOverlay">@null</item>
 
                 <!-- Light.DarkActionBar specific -->
         <item name="actionBarWidgetTheme">@style/Theme.Dreamteamtheme.Widget</item>
