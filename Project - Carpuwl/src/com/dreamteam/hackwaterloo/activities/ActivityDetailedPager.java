@@ -11,7 +11,6 @@ import android.support.v4.view.ViewPager;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;
 import com.dreamteam.carpuwl.R;
-import com.dreamteam.hackwaterloo.App;
 import com.dreamteam.hackwaterloo.Constants;
 import com.dreamteam.hackwaterloo.adapters.Feed.Event;
 import com.dreamteam.hackwaterloo.fragments.FragmentDetailedEvent;

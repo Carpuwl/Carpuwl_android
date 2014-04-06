@@ -8,7 +8,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.text.format.Time;
-import android.util.Log;
 import android.view.Window;
 import android.widget.EditText;
 import android.widget.TextView;

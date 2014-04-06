@@ -14,10 +14,8 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.SeekBar;
 import android.widget.Spinner;
 
 import com.actionbarsherlock.app.SherlockDialogFragment;
@@ -30,16 +28,10 @@ import com.dreamteam.hackwaterloo.adapters.FeedAdapter;
 import com.dreamteam.hackwaterloo.utils.CrossFadeViewSwitcher;
 import com.dreamteam.hackwaterloo.utils.server.BaseTask.OnPostExecuteListener;
 import com.dreamteam.hackwaterloo.utils.server.GetEventsTask;
-import com.nineoldandroids.animation.Animator;
-import com.nineoldandroids.animation.Animator.AnimatorListener;
-import com.nineoldandroids.animation.AnimatorSet;
-import com.nineoldandroids.animation.ObjectAnimator;
-import com.nineoldandroids.view.ViewHelper;
 
 public class FragmentFindARide extends SherlockFragment implements OnClickListener {
 
     public static final String FRAGMENT_TAG = FragmentFindARide.class.getSimpleName();
-    private static final long ANIMATION_DURATION = 400;
 
     // Ui Widgets
     private ProgressBar mProgressBar;
@@ -106,9 +98,6 @@ public class FragmentFindARide extends SherlockFragment implements OnClickListen
         public static final String FRAGMENT_TAG = DialogFilter.class.getSimpleName();
 
         private Spinner mSpinnerStart;
-        private Spinner mSpinnerEnd;
-        private EditText mEditTextMaxPrice;
-        private SeekBar mSeekBarMinSeats;
         
         private String[] mCities;
 
@@ -121,10 +110,6 @@ public class FragmentFindARide extends SherlockFragment implements OnClickListen
             dialog.setTitle(R.string.dialog_filter_title);
 
             mSpinnerStart = (Spinner) dialog.findViewById(R.id.dialog_filter_spinner_startpoint);
-            mSpinnerEnd = (Spinner) dialog.findViewById(R.id.dialog_filter_spinner_endpoint);
-            mEditTextMaxPrice = (EditText) dialog
-                    .findViewById(R.id.dialog_filter_edittext_max_price);
-            mSeekBarMinSeats = (SeekBar) dialog.findViewById(R.id.dialog_filter_minimum_seats);
             
             mCities = getActivity().getResources().getStringArray(R.array.cities);
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, mCities);
