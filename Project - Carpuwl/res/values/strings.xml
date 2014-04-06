@@ -91,7 +91,11 @@
         <item>Post a ride</item>
         <item>Log out</item>
     </string-array>
-
+    <string name="drawer_item_my_profile">My Profile</string>
+    <string name="drawer_item_find_a_ride">Find a Ride</string>
+    <string name="drawer_item_post_a_ride">Post A Ride</string>
+    <string name="drawer_item_log_out">Log Out</string>
+    
     <!-- Event Page Activity -->
     <string name="event_status">Request a Ride</string>
     <string name="event_user_name">Christopher Ciufo</string>

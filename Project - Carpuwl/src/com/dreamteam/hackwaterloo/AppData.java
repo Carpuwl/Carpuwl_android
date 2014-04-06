@@ -1,12 +1,13 @@
 package com.dreamteam.hackwaterloo;
 
+
 public enum AppData {
     INSTANCE;
 
     private String name;
     private String phoneNumber;
     private long facebookForeignKey;
-
+    
     public static AppData construct(String name, String phoneNumber, long facebookForeignKey) {
         INSTANCE.name = name;
         INSTANCE.phoneNumber = phoneNumber;

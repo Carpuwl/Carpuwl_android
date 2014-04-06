@@ -2,7 +2,6 @@ package com.dreamteam.hackwaterloo.activities;
 
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentManager;
@@ -14,19 +13,18 @@ import android.widget.ListView;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;
 import com.dreamteam.carpuwl.R;
-import com.dreamteam.hackwaterloo.App;
 import com.dreamteam.hackwaterloo.adapters.DrawerLayoutAdapter;
 import com.dreamteam.hackwaterloo.fragments.FragmentFindARide;
 import com.dreamteam.hackwaterloo.fragments.FragmentMyProfile;
 import com.dreamteam.hackwaterloo.fragments.FragmentPostARide;
-import com.dreamteam.hackwaterloo.utils.Utils;
+import com.dreamteam.hackwaterloo.models.DrawerItem;
 
 public class ActivityMain extends SherlockFragmentActivity {
 
     private static final int DEFAULT_PAGE_POSITION = 1;
     
     private FragmentManager mFragmentManager;
-    private String[] mDrawerItems;
+    private DrawerItem[] mDrawerItems;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
     private ListView mDrawerList;
@@ -45,7 +43,7 @@ public class ActivityMain extends SherlockFragmentActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         if (savedInstanceState == null) {
-            getSupportActionBar().setTitle((mDrawerItems[1]));
+            getSupportActionBar().setTitle((mDrawerItems[1].getTitle()));
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.main_fragment_container, new FragmentFindARide(), FragmentFindARide.FRAGMENT_TAG).commit();
         }
@@ -59,8 +57,9 @@ public class ActivityMain extends SherlockFragmentActivity {
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
         // set adapter
-        mDrawerItems = getResources().getStringArray(R.array.drawer_item_names);
-        mDrawerList.setAdapter(new DrawerLayoutAdapter(this, mDrawerItems));
+        mDrawerItems = DrawerItem.InitDrawerItems();
+        
+        mDrawerList.setAdapter(new DrawerLayoutAdapter(this));
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
         mDrawerList.setItemChecked(DEFAULT_PAGE_POSITION, true);
@@ -94,9 +93,7 @@ public class ActivityMain extends SherlockFragmentActivity {
     }
 
     private void drawerSelectItem(int position) {
-        // Toast.makeText(ActivityMain.this, mDrawerItems[position],
-        // Toast.LENGTH_SHORT).show();
-        getSupportActionBar().setTitle(mDrawerItems[position]);
+        getSupportActionBar().setTitle(mDrawerItems[position].getTitle());
         switch (position) {
             case 0: // My Profile
                 mFragmentManager.beginTransaction().replace(R.id.main_fragment_container, new FragmentMyProfile()).commit();

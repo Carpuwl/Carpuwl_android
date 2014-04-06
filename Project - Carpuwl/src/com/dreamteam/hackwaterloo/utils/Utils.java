@@ -6,6 +6,7 @@ import java.util.Date;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.Window;
@@ -34,6 +35,14 @@ public class Utils {
     public static String getQuantityString(int quantityStringId, int quantity) {
         return App.getAppContext().getResources().getQuantityString(quantityStringId, quantity);
     }
+    
+    /**
+     * @param stringArrayId The desired resource identifier
+     * @return The string array associated with the resource. 
+     */
+    public static String[] getStringArray(int stringArrayId) {
+        return App.getAppContext().getResources().getStringArray(stringArrayId);
+    }
 
     /**
      * @param stringId
@@ -54,13 +63,10 @@ public class Utils {
         return App.getAppContext().getResources().getColor(colorId);
     }
     
-    /**
-     * @param stringArrayId The desired resource identifier
-     * @return The string array associated with the resource. 
-     */
-    public static String[] getStringArray(int stringArrayId) {
-        return App.getAppContext().getResources().getStringArray(stringArrayId);
+    public static Drawable getDrawable(int drawableId) {
+        return App.getAppContext().getResources().getDrawable(drawableId);
     }
+
 
     // TODO: convert to DialogFragment instead
     public static Dialog customProgressDialog(Context context, int messageId) {
@@ -68,13 +74,13 @@ public class Utils {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_loading);
         dialog.setCancelable(false);
-
+        
         TextView textView = (TextView) dialog.findViewById(R.id.dialog_loading_text_message);
         textView.setText(messageId);
         return dialog;
     }
 
-    // TODO: grab the styling from the System
+    // TODO: grab the 12/24hr styling from the System on startup
     /**
      * Formats the given time into the appropriate format as a string
      * 
