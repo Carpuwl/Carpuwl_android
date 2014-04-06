@@ -6,11 +6,13 @@ import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ListView;
+import android.widget.ScrollView;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;
@@ -22,40 +24,56 @@ import com.dreamteam.hackwaterloo.fragments.FragmentPostARide;
 import com.dreamteam.hackwaterloo.models.DrawerItem;
 
 public class ActivityMain extends SherlockFragmentActivity {
-    
+
+    private static final String KEY_SELECTED_DRAWER_POSITION = "keySelectedDrawerPosition";
+    private static final int SECONDARY_DRAWER_INDEX = 2;
+
     private FragmentManager mFragmentManager;
+    private LayoutInflater mLayoutInflater;
     private DrawerItem[] mDrawerItems;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
     private ListView mDrawerPrimary;
     private FrameLayout mDrawerSecondary;
-     
+
+    private int mSelectedDrawerPosition;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        
-        mFragmentManager = getSupportFragmentManager();
 
-        initPrimaryDrawer();
+        mFragmentManager = getSupportFragmentManager();
+        mLayoutInflater = LayoutInflater.from(this);
+
+        initDrawers();
 
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         if (savedInstanceState == null) {
             mDrawerPrimary.setItemChecked(DrawerItem.POSITION_FIND_A_RIDE, true);
-            getSupportActionBar().setTitle((mDrawerItems[DrawerItem.POSITION_FIND_A_RIDE].getTitle()));
-            LayoutInflater.from(this).inflate(R.layout.filter_view, mDrawerSecondary, true);
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.main_fragment_container, new FragmentFindARide(), FragmentFindARide.FRAGMENT_TAG).commit();
+            mSelectedDrawerPosition = DrawerItem.POSITION_FIND_A_RIDE;
+            getSupportActionBar().setTitle(
+                    (mDrawerItems[DrawerItem.POSITION_FIND_A_RIDE].getTitle()));
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .add(R.id.main_fragment_container, new FragmentFindARide(),
+                            FragmentFindARide.FRAGMENT_TAG)
+                    .commit();
+        } else {
+            mSelectedDrawerPosition = savedInstanceState.getInt(KEY_SELECTED_DRAWER_POSITION);
+        }
+
+        if (mSelectedDrawerPosition == DrawerItem.POSITION_FIND_A_RIDE) {
+            addSecondaryDrawer();
         }
     }
 
-    private void initPrimaryDrawer() {
+    private void initDrawers() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerPrimary = (ListView) findViewById(R.id.drawer_listview);
-        mDrawerSecondary = (FrameLayout) findViewById(R.id.drawer_secondary);
 
         mDrawerToggle = new DrawerToggle(this, mDrawerLayout, R.drawable.ic_drawer, 0, 0);
         mDrawerToggle.syncState();
@@ -63,13 +81,28 @@ public class ActivityMain extends SherlockFragmentActivity {
 
         // set adapter
         mDrawerItems = DrawerItem.InitDrawerItems();
-        
         mDrawerPrimary.setAdapter(new DrawerLayoutAdapter(this));
         mDrawerPrimary.setOnItemClickListener(new DrawerItemClickListener());
     }
 
-    private class DrawerToggle extends ActionBarDrawerToggle {
+    private void addSecondaryDrawer() {
+        mDrawerSecondary = (FrameLayout) findViewById(R.id.drawer_secondary);
         
+        if (mDrawerSecondary == null) {
+            mLayoutInflater.inflate(R.layout.drawer_secondary, mDrawerLayout, true);
+            mDrawerSecondary = (FrameLayout) findViewById(R.id.drawer_secondary);
+            mLayoutInflater.inflate(R.layout.filter_view, mDrawerSecondary, true);
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putInt(KEY_SELECTED_DRAWER_POSITION, mSelectedDrawerPosition);
+        super.onSaveInstanceState(outState);
+    }
+
+    private class DrawerToggle extends ActionBarDrawerToggle {
+
         public DrawerToggle(SherlockFragmentActivity activity, DrawerLayout drawerLayout,
                 int drawerImageRes, int openDrawerContentDescRes, int closeDrawerContentDescRes) {
 
@@ -99,22 +132,32 @@ public class ActivityMain extends SherlockFragmentActivity {
         getSupportActionBar().setTitle(mDrawerItems[position].getTitle());
         switch (position) {
             case DrawerItem.POSITION_MY_PROFILE: // My Profile
-                mFragmentManager.beginTransaction().replace(R.id.main_fragment_container, new FragmentMyProfile()).commit();
+                mFragmentManager.beginTransaction()
+                        .replace(R.id.main_fragment_container, new FragmentMyProfile()).commit();
                 break;
 
             case DrawerItem.POSITION_FIND_A_RIDE: // Find a ride
-                mFragmentManager.beginTransaction().replace(R.id.main_fragment_container, new FragmentFindARide()).commit();
-                LayoutInflater.from(this).inflate(R.layout.filter_view, mDrawerSecondary, true);
+                mFragmentManager.beginTransaction()
+                        .replace(R.id.main_fragment_container, new FragmentFindARide()).commit();
                 break;
-                
+
             case DrawerItem.POSITION_POST_A_RIDE: // Post a Ride
-                mFragmentManager.beginTransaction().replace(R.id.main_fragment_container, new FragmentPostARide()).commit();
-                
+                mFragmentManager.beginTransaction()
+                        .replace(R.id.main_fragment_container, new FragmentPostARide()).commit();
+                break;
+
             case DrawerItem.POSITION_LOG_OUT: // Sign out
+                break;
+
+            default:
+                throw new RuntimeException("Unhandled drawer item selection at position" + position);
         }
         
-        if (position != DrawerItem.POSITION_FIND_A_RIDE) {
-            
+        if (position == DrawerItem.POSITION_FIND_A_RIDE && mDrawerSecondary.getChildCount() == 0) {
+            addSecondaryDrawer();
+        } else if (mDrawerSecondary != null) {
+            mDrawerSecondary.removeAllViews();
+            mDrawerLayout.removeView(mDrawerSecondary);
         }
         mDrawerLayout.closeDrawer(mDrawerPrimary);
     }
@@ -139,8 +182,8 @@ public class ActivityMain extends SherlockFragmentActivity {
             } else {
                 mDrawerLayout.openDrawer(mDrawerPrimary);
             }
-            
-            if (mDrawerLayout.isDrawerOpen(mDrawerSecondary)) {
+
+            if (mDrawerSecondary != null && mDrawerLayout.isDrawerOpen(mDrawerSecondary)) {
                 mDrawerLayout.closeDrawer(mDrawerSecondary);
             }
         }
@@ -154,7 +197,5 @@ public class ActivityMain extends SherlockFragmentActivity {
         intent.putExtra("EXIT", true);
         super.onBackPressed();
     }
-    
-    
-    
+
 }
