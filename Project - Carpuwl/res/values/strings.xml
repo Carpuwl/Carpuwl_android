@@ -13,7 +13,9 @@
     <string name="cancel">Cancel</string>
     <string name="at">at</string>
     <string name="loading">Just a secading</string>
+    <string name="when">When</string>
     <string name="price">Price</string>
+    <string name="seats">Seats</string>
     <string name="currency_symbol">$</string>
     
     <plurals name="plural_seat">
@@ -68,7 +70,13 @@
     <string name="dialog_spinner_start_promt">Starting location</string>
     <string name="dialog_spinner_end_prompt">Destination</string>
     
-    <!-- Filter -->
+    <!-- Find A Ride Filter -->
+    <string name="filter_filter">Filter</string>
+    <string name="filter_edittext_hint_price">Maximum</string>
+    <string name="filter_button_when">Select time</string>
+    <string name="filter_button_apply">Apply</string>
+    
+    <!-- Cities -->
     <string-array name="cities">
         <item>Select One</item>
         <item>Toronto</item>

@@ -22,5 +22,12 @@
         android:divider="@android:drawable/divider_horizontal_bright"
         android:dividerHeight="@dimen/nav_drawer_divider_height" >
     </ListView>
+    
+    <FrameLayout
+        android:id="@+id/drawer_secondary"
+        android:layout_width="@dimen/nav_drawer_width"
+        android:layout_height="match_parent"
+        android:layout_gravity="end"
+        android:background="@android:color/white" />
 
 </android.support.v4.widget.DrawerLayout>

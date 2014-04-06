@@ -4,6 +4,12 @@
     <style name="DreamTextHeader">
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/gray</item>
+        <item name="android:paddingLeft">@dimen/touchable_ui_spacing</item>
+    </style>
+    
+    <style name="DreamTextContent">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/gray</item>
     </style>
     
     <style name="button_generic">

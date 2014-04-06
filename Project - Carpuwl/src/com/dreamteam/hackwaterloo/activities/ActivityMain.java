@@ -6,8 +6,10 @@ import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
@@ -27,7 +29,8 @@ public class ActivityMain extends SherlockFragmentActivity {
     private DrawerItem[] mDrawerItems;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
-    private ListView mDrawerList;
+    private ListView mDrawerPrimary;
+    private FrameLayout mDrawerSecondary;
      
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,7 @@ public class ActivityMain extends SherlockFragmentActivity {
 
         if (savedInstanceState == null) {
             getSupportActionBar().setTitle((mDrawerItems[1].getTitle()));
+            LayoutInflater.from(this).inflate(R.layout.filter_view, mDrawerSecondary, true);
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.main_fragment_container, new FragmentFindARide(), FragmentFindARide.FRAGMENT_TAG).commit();
         }
@@ -51,18 +55,19 @@ public class ActivityMain extends SherlockFragmentActivity {
 
     private void initNavDrawer() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerList = (ListView) findViewById(R.id.drawer_listview);
+        mDrawerPrimary = (ListView) findViewById(R.id.drawer_listview);
+        mDrawerSecondary = (FrameLayout) findViewById(R.id.drawer_secondary);
 
         mDrawerToggle = new DrawerToggle(this, mDrawerLayout, R.drawable.ic_drawer, 0, 0);
+        mDrawerToggle.syncState();
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
         // set adapter
         mDrawerItems = DrawerItem.InitDrawerItems();
         
-        mDrawerList.setAdapter(new DrawerLayoutAdapter(this));
-        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
-
-        mDrawerList.setItemChecked(DEFAULT_PAGE_POSITION, true);
+        mDrawerPrimary.setAdapter(new DrawerLayoutAdapter(this));
+        mDrawerPrimary.setOnItemClickListener(new DrawerItemClickListener());
+        mDrawerPrimary.setItemChecked(DEFAULT_PAGE_POSITION, true);
     }
 
     private class DrawerToggle extends ActionBarDrawerToggle {
@@ -101,6 +106,7 @@ public class ActivityMain extends SherlockFragmentActivity {
 
             case 1: // Find a ride
                 mFragmentManager.beginTransaction().replace(R.id.main_fragment_container, new FragmentFindARide()).commit();
+                LayoutInflater.from(this).inflate(R.layout.filter_view, mDrawerSecondary, true);
                 break;
                 
             case 2: // Post a Ride
@@ -109,8 +115,7 @@ public class ActivityMain extends SherlockFragmentActivity {
             case 3: // Sign out
             
         }
-
-        mDrawerLayout.closeDrawer(mDrawerList);
+        mDrawerLayout.closeDrawer(mDrawerPrimary);
     }
 
     @Override
@@ -128,10 +133,14 @@ public class ActivityMain extends SherlockFragmentActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
-                mDrawerLayout.closeDrawer(mDrawerList);
+            if (mDrawerLayout.isDrawerOpen(mDrawerPrimary)) {
+                mDrawerLayout.closeDrawer(mDrawerPrimary);
             } else {
-                mDrawerLayout.openDrawer(mDrawerList);
+                mDrawerLayout.openDrawer(mDrawerPrimary);
+            }
+            
+            if (mDrawerLayout.isDrawerOpen(mDrawerSecondary)) {
+                mDrawerLayout.closeDrawer(mDrawerSecondary);
             }
         }
         return super.onOptionsItemSelected(item);
