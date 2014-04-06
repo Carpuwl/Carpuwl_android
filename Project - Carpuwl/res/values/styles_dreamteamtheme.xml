@@ -34,12 +34,15 @@
         <item name="android:seekBarStyle">@style/SeekBarDreamTeamTheme</item>
         <item name="android:buttonStyle">@style/button_generic</item>
         <item name="android:checkboxStyle">@style/CheckBoxDreamTeamTheme</item>
+        <item name="android:checkMark">@drawable/apptheme_btn_radio_holo_light</item>
+        <item name="android:spinnerStyle">@style/SpinnerDreamTeamTheme</item>
+        <item name="android:spinnerDropDownItemStyle">@style/SpinnerDropDownItemDreamTeamTheme</item>
 
                 <!-- Light.DarkActionBar specific -->
         <item name="actionBarWidgetTheme">@style/Theme.Dreamteamtheme.Widget</item>
 
     </style>
-
+    
     <style name="ActionBar.Solid.Dreamteamtheme" parent="@style/Widget.Sherlock.Light.ActionBar.Solid.Inverse">
         <item name="background">@drawable/ab_solid_dreamteamtheme</item>
         <item name="backgroundStacked">@drawable/ab_stacked_solid_dreamteamtheme</item>
@@ -80,6 +83,15 @@
     
     <style name="CheckBoxDreamTeamTheme" parent="android:Widget.CompoundButton.CheckBox">
       <item name="android:button">@drawable/dreamteamtheme_btn_check_holo_light</item>
+  </style>
+  
+  <style name="SpinnerDreamTeamTheme" parent="android:Widget.Spinner">
+      <item name="android:background">@drawable/apptheme_spinner_background_holo_light</item>
+      <item name="android:dropDownSelector">@drawable/apptheme_list_selector_holo_light</item>
+  </style>
+
+  <style name="SpinnerDropDownItemDreamTeamTheme" parent="android:Widget.DropDownItem.Spinner">
+      <item name="android:checkMark">@drawable/apptheme_btn_radio_holo_light</item>
   </style>
   
     <!-- this style is only referenced in a Light.DarkActionBar based theme -->

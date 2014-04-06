@@ -22,8 +22,6 @@ import com.dreamteam.hackwaterloo.fragments.FragmentPostARide;
 import com.dreamteam.hackwaterloo.models.DrawerItem;
 
 public class ActivityMain extends SherlockFragmentActivity {
-
-    private static final int DEFAULT_PAGE_POSITION = 1;
     
     private FragmentManager mFragmentManager;
     private DrawerItem[] mDrawerItems;
@@ -40,20 +38,21 @@ public class ActivityMain extends SherlockFragmentActivity {
         
         mFragmentManager = getSupportFragmentManager();
 
-        initNavDrawer();
+        initPrimaryDrawer();
 
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         if (savedInstanceState == null) {
-            getSupportActionBar().setTitle((mDrawerItems[1].getTitle()));
+            mDrawerPrimary.setItemChecked(DrawerItem.POSITION_FIND_A_RIDE, true);
+            getSupportActionBar().setTitle((mDrawerItems[DrawerItem.POSITION_FIND_A_RIDE].getTitle()));
             LayoutInflater.from(this).inflate(R.layout.filter_view, mDrawerSecondary, true);
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.main_fragment_container, new FragmentFindARide(), FragmentFindARide.FRAGMENT_TAG).commit();
         }
     }
 
-    private void initNavDrawer() {
+    private void initPrimaryDrawer() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerPrimary = (ListView) findViewById(R.id.drawer_listview);
         mDrawerSecondary = (FrameLayout) findViewById(R.id.drawer_secondary);
@@ -67,7 +66,6 @@ public class ActivityMain extends SherlockFragmentActivity {
         
         mDrawerPrimary.setAdapter(new DrawerLayoutAdapter(this));
         mDrawerPrimary.setOnItemClickListener(new DrawerItemClickListener());
-        mDrawerPrimary.setItemChecked(DEFAULT_PAGE_POSITION, true);
     }
 
     private class DrawerToggle extends ActionBarDrawerToggle {
@@ -100,19 +98,22 @@ public class ActivityMain extends SherlockFragmentActivity {
     private void drawerSelectItem(int position) {
         getSupportActionBar().setTitle(mDrawerItems[position].getTitle());
         switch (position) {
-            case 0: // My Profile
+            case DrawerItem.POSITION_MY_PROFILE: // My Profile
                 mFragmentManager.beginTransaction().replace(R.id.main_fragment_container, new FragmentMyProfile()).commit();
                 break;
 
-            case 1: // Find a ride
+            case DrawerItem.POSITION_FIND_A_RIDE: // Find a ride
                 mFragmentManager.beginTransaction().replace(R.id.main_fragment_container, new FragmentFindARide()).commit();
                 LayoutInflater.from(this).inflate(R.layout.filter_view, mDrawerSecondary, true);
                 break;
                 
-            case 2: // Post a Ride
+            case DrawerItem.POSITION_POST_A_RIDE: // Post a Ride
                 mFragmentManager.beginTransaction().replace(R.id.main_fragment_container, new FragmentPostARide()).commit();
                 
-            case 3: // Sign out
+            case DrawerItem.POSITION_LOG_OUT: // Sign out
+        }
+        
+        if (position != DrawerItem.POSITION_FIND_A_RIDE) {
             
         }
         mDrawerLayout.closeDrawer(mDrawerPrimary);
@@ -153,5 +154,7 @@ public class ActivityMain extends SherlockFragmentActivity {
         intent.putExtra("EXIT", true);
         super.onBackPressed();
     }
+    
+    
     
 }
