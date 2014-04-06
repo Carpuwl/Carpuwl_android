@@ -1,12 +1,12 @@
-package EditText;
+package TextView;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.widget.EditText;
+import android.widget.TextView;
 
-import com.dreamteam.hackwaterloo.Typefaces;
+import com.rperryng.robotofonts.Typefaces;
 
-public class RobotoLight extends EditText {
+public class RobotoLight extends TextView {
     public RobotoLight(Context context, AttributeSet attrs) {
         super(context, attrs);
 
