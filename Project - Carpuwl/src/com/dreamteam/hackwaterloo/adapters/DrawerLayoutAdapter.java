@@ -55,7 +55,7 @@ public class DrawerLayoutAdapter extends BaseAdapter {
         if (convertView == null) {
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(mContext.get());
-            convertView = inflater.inflate(R.layout.drawer_item, null);
+            convertView = inflater.inflate(R.layout.listview_item_drawer, null);
             viewHolder.itemIcon = (ImageView) convertView.findViewById(R.id.nav_drawer_icon);
             viewHolder.itemTitle = (TextView) convertView.findViewById(R.id.nav_drawer_title);
             convertView.setTag(viewHolder);
