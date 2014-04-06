@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <!-- File created by the Android Action Bar Style Generator
 
      Copyright (C) 2011 The Android Open Source Project
@@ -34,6 +35,7 @@
         <item name="android:seekBarStyle">@style/SeekBarDreamTeamTheme</item>
         <item name="android:buttonStyle">@style/button_generic</item>
         <item name="android:checkboxStyle">@style/CheckBoxDreamTeamTheme</item>
+        <item name="android:listChoiceIndicatorMultiple">@drawable/dreamteamtheme_btn_check_holo_light</item>
 
                 <!-- Light.DarkActionBar specific -->
         <item name="actionBarWidgetTheme">@style/Theme.Dreamteamtheme.Widget</item>
@@ -51,11 +53,11 @@
         <item name="background">@drawable/ab_transparent_dreamteamtheme</item>
         <item name="progressBarStyle">@style/ProgressBar.Dreamteamtheme</item>
     </style>
-	
-    <style name="PopupMenu.Dreamteamtheme" parent="@style/Widget.Sherlock.ListPopupWindow">	
-        <item name="android:popupBackground">@drawable/menu_dropdown_panel_dreamteamtheme</item>	
+    
+    <style name="PopupMenu.Dreamteamtheme" parent="@style/Widget.Sherlock.ListPopupWindow"> 
+        <item name="android:popupBackground">@drawable/menu_dropdown_panel_dreamteamtheme</item>    
     </style>
-	
+    
     <style name="DropDownListView.Dreamteamtheme" parent="@style/Widget.Sherlock.ListView.DropDown">
         <item name="android:listSelector">@drawable/selectable_background_dreamteamtheme</item>
     </style>
@@ -63,7 +65,7 @@
     <style name="ActionBarTabStyle.Dreamteamtheme" parent="@style/Widget.Sherlock.ActionBar.TabView">
         <item name="android:background">@drawable/tab_indicator_ab_dreamteamtheme</item>
     </style>
-	
+    
     <style name="DropDownNav.Dreamteamtheme" parent="@style/Widget.Sherlock.Spinner.DropDown.ActionBar">
         <item name="android:background">@drawable/spinner_background_ab_dreamteamtheme</item>
         <item name="android:popupBackground">@drawable/menu_dropdown_panel_dreamteamtheme</item>
