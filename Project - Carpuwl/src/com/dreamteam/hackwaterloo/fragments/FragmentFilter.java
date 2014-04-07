@@ -27,7 +27,7 @@ import com.dreamteam.hackwaterloo.utils.Utils;
 public class FragmentFilter extends SherlockFragment implements OnClickListener {
 
     public static final String FRAGMENT_TAG = FragmentFilter.class.getSimpleName();
-    
+
     private DateTimePickerHelper mDateTimePickerHelper;
 
     private Spinner mSpinnerDepart;
@@ -65,11 +65,15 @@ public class FragmentFilter extends SherlockFragment implements OnClickListener 
         // Set up the spinners
         ArrayAdapter<CharSequence> spinnerAdapterWhen = ArrayAdapter.createFromResource(
                 getActivity(), R.array.filter_when_type,
-                android.R.layout.simple_spinner_dropdown_item);
-        mSpinnerWhen.setAdapter(spinnerAdapterWhen);
+                android.R.layout.simple_spinner_item);
 
         ArrayAdapter<CharSequence> spinnerAdapterCities = ArrayAdapter.createFromResource(
-                getActivity(), R.array.cities, android.R.layout.simple_spinner_dropdown_item);
+                getActivity(), R.array.cities, android.R.layout.simple_spinner_item);
+
+        spinnerAdapterWhen.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerAdapterCities.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        mSpinnerWhen.setAdapter(spinnerAdapterWhen);
         mSpinnerDepart.setAdapter(spinnerAdapterCities);
         mSpinnerArrive.setAdapter(spinnerAdapterCities);
 
@@ -78,7 +82,7 @@ public class FragmentFilter extends SherlockFragment implements OnClickListener 
         mSeekBarSeats.setOnSeekBarChangeListener(new SeekBarInDrawerListener());
         mSeekBarSeats.setOnTouchListener(new SeekBarTouchOverride());
         mSeekBarSeats.setProgress(Defaults.MINIMUM_SEATS);
-        
+
         mButtonWhen.setOnClickListener(this);
 
         return rootView;
@@ -138,7 +142,7 @@ public class FragmentFilter extends SherlockFragment implements OnClickListener 
                 mDateTimePickerHelper.show();
         }
     }
-    
+
     private class DateTimePickerListener implements OnDateTimeSelectedListener {
         @Override
         public void onDateTimeSelected(long timeInMillis) {
