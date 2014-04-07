@@ -1,28 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-    
+
     <style name="DreamTextHeader">
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/gray</item>
         <item name="android:paddingLeft">@dimen/touchable_ui_spacing</item>
     </style>
-    
+
     <style name="DreamTextContent">
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/gray</item>
     </style>
-    
-    <style name="button_generic" parent="android:style/Widget.Button">
+
+    <style name="DreamTextContent.Condensed">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="ButtonGeneric" parent="android:style/Widget.Button">
         <item name="android:padding">@dimen/generic_item_spacing</item>
         <item name="android:background">@drawable/btn_generic_selector</item>
         <item name="android:gravity">center</item>
         <item name="android:textColor">@drawable/btn_generic_text_color_selector</item>
         <item name="android:textSize">16sp</item>
     </style>
-        
-    <style name="button_generic_alternate" parent="@style/button_generic">
+
+    <style name="ButtonGeneric.Alternate">
         <item name="android:background">@drawable/btn_generic_alternate_selector</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
-    
+
 </resources>

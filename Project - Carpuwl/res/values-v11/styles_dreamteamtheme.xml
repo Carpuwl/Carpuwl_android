@@ -34,7 +34,7 @@
         <item name="actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Dreamteamtheme</item>
         <item name="android:editTextStyle">@style/EditTextDreamTeamTheme</item>
         <item name="android:seekBarStyle">@style/SeekBarDreamTeamTheme</item>
-        <item name="android:buttonStyle">@style/button_generic</item>
+        <item name="android:buttonStyle">@style/ButtonGeneric</item>
         <item name="android:checkboxStyle">@style/CheckBoxDreamTeamTheme</item>
         <item name="android:listChoiceIndicatorMultiple">@drawable/dreamteamtheme_btn_check_holo_light</item>
         <item name="android:dropDownSpinnerStyle">@style/SpinnerDreamTeamTheme</item>
