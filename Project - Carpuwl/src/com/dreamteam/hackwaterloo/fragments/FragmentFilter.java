@@ -1,6 +1,7 @@
 package com.dreamteam.hackwaterloo.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -10,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
@@ -39,19 +42,45 @@ public class FragmentFilter extends SherlockFragment implements OnClickListener 
     private Button mButtonApply;
     private TextView mTextSeats;
     private TextView mTextWhen;
+    
+    // Static (non-dynamic) TextViews
+    private TextView mTextTitlePrice;
+    private TextView mTextContentPrice;
+    private TextView mTextTitleSeats;
+    private TextView mTextTitleWhen;
 
     private CheckBox mCheckBoxSpinnerDepart;
     private CheckBox mCheckBoxSpinnerArrive;
-    private CheckBox mCheckBoxSpinnerWhen;
-    private CheckBox mCheckBoxEditTextPrice;
-    private CheckBox mCheckBoxSeekBarSeats;
-    private CheckBox mCheckBoxButtonWhen;
-    private CheckBox mCheckBoxButtonApply;
+    private CheckBox mCheckBoxPrice;
+    private CheckBox mCheckBoxSeats;
+    private CheckBox mCheckBoxWhen;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_filter, null, false);
 
+        initViewReferences(rootView);
+        initCheckboxes(rootView);
+        initSpinners(rootView);
+
+        mEditPrice.addTextChangedListener(new TextWatcherPrice(mEditPrice));
+
+        mSeekBarSeats.setOnSeekBarChangeListener(new FilterSeekBarListener());
+        mSeekBarSeats.setOnTouchListener(new SeekBarTouchOverride());
+        mSeekBarSeats.setProgress(Defaults.MINIMUM_SEATS);
+
+        mButtonWhen.setOnClickListener(this);
+        
+        // First time this view is inflated
+        if (savedInstanceState == null) {
+            disableAllCheckBoxes();
+        }
+
+        return rootView;
+    }
+    
+    private void initViewReferences(View rootView) {
+        // Non CheckBox dynamic UI widgets
         mSpinnerDepart = (Spinner) rootView.findViewById(R.id.filter_spinner_depart_location);
         mSpinnerArrive = (Spinner) rootView.findViewById(R.id.filter_spinner_arrival_location);
         mSpinnerWhen = (Spinner) rootView.findViewById(R.id.filter_spinner_when);
@@ -61,14 +90,28 @@ public class FragmentFilter extends SherlockFragment implements OnClickListener 
         mButtonApply = (Button) rootView.findViewById(R.id.filter_button_apply);
         mTextSeats = (TextView) rootView.findViewById(R.id.filter_text_content_seats);
         mTextWhen = (TextView) rootView.findViewById(R.id.filter_text_content_when);
-
-        // Set up the spinners
+        
+        // Non dynamic TextViews
+        mTextTitlePrice = (TextView) rootView.findViewById(R.id.filter_text_title_price);
+        mTextContentPrice = (TextView) rootView.findViewById(R.id.filter_text_price_currency_symbol);
+        mTextTitleSeats = (TextView) rootView.findViewById(R.id.filter_text_title_seats);
+        mTextTitleWhen = (TextView) rootView.findViewById(R.id.filter_text_title_when);
+        
+        // CheckBoxes
+        mCheckBoxSpinnerDepart = (CheckBox) rootView.findViewById(R.id.filter_checkbox_depart_location);
+        mCheckBoxSpinnerArrive = (CheckBox) rootView.findViewById(R.id.filter_checkbox_arrival_location);
+        mCheckBoxPrice = (CheckBox) rootView.findViewById(R.id.filter_checkbox_price);
+        mCheckBoxSeats = (CheckBox) rootView.findViewById(R.id.filter_checkbox_seats);
+        mCheckBoxWhen = (CheckBox) rootView.findViewById(R.id.filter_checkbox_button_when); 
+    }
+    
+    private void initSpinners(View rootView) {
         ArrayAdapter<CharSequence> spinnerAdapterWhen = ArrayAdapter.createFromResource(
                 getActivity(), R.array.filter_when_type,
-                android.R.layout.simple_spinner_item);
+                R.layout.simple_spinner_item);
 
         ArrayAdapter<CharSequence> spinnerAdapterCities = ArrayAdapter.createFromResource(
-                getActivity(), R.array.cities, android.R.layout.simple_spinner_item);
+                getActivity(), R.array.cities,R.layout.simple_spinner_item);
 
         spinnerAdapterWhen.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerAdapterCities.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -76,43 +119,83 @@ public class FragmentFilter extends SherlockFragment implements OnClickListener 
         mSpinnerWhen.setAdapter(spinnerAdapterWhen);
         mSpinnerDepart.setAdapter(spinnerAdapterCities);
         mSpinnerArrive.setAdapter(spinnerAdapterCities);
+    }
+    
+    private void initCheckboxes(View rootView) {
+        mCheckBoxSpinnerDepart.setOnCheckedChangeListener(new CheckBoxMultiViewToggler(
+                new View[] { mSpinnerDepart }));
 
-        mEditPrice.addTextChangedListener(new TextWatcherPrice(mEditPrice));
+        mCheckBoxSpinnerArrive.setOnCheckedChangeListener(new CheckBoxMultiViewToggler(
+                new View[] { mSpinnerArrive }));
 
-        mSeekBarSeats.setOnSeekBarChangeListener(new SeekBarInDrawerListener());
-        mSeekBarSeats.setOnTouchListener(new SeekBarTouchOverride());
-        mSeekBarSeats.setProgress(Defaults.MINIMUM_SEATS);
+        mCheckBoxPrice.setOnCheckedChangeListener(new CheckBoxMultiViewToggler(new View[] {
+                mTextTitlePrice, mTextContentPrice, mEditPrice }));
 
-        mButtonWhen.setOnClickListener(this);
+        mCheckBoxSeats.setOnCheckedChangeListener(new CheckBoxMultiViewToggler(new View[] {
+                mTextTitleSeats, mTextSeats, mSeekBarSeats }));
 
-        return rootView;
+        mCheckBoxWhen.setOnCheckedChangeListener(new CheckBoxMultiViewToggler(new View[] {
+                mTextTitleWhen, mTextWhen, mButtonWhen, mSpinnerWhen }));
+    }
+    
+    private void disableAllCheckBoxes() {
+        // The CheckBoxes must first me true in order for the listener to take effect, therefore,
+        // set all CheckBoxes with true first before setting them all to false
+        mCheckBoxSpinnerDepart.setChecked(true);
+        mCheckBoxSpinnerArrive.setChecked(true);
+        mCheckBoxPrice.setChecked(true);
+        mCheckBoxSeats.setChecked(true);
+        mCheckBoxWhen.setChecked(true);
+        
+        mCheckBoxSpinnerDepart.setChecked(false);
+        mCheckBoxSpinnerArrive.setChecked(false);
+        mCheckBoxPrice.setChecked(false);
+        mCheckBoxSeats.setChecked(false);
+        mCheckBoxWhen.setChecked(false);
+    }
+
+    private static class CheckBoxMultiViewToggler implements OnCheckedChangeListener {
+        
+        private View[] mViewsToBeToggled;
+        
+        public CheckBoxMultiViewToggler(View[] viewsToBeToggled) {
+            mViewsToBeToggled = viewsToBeToggled;
+        }
+        
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            // Enable or disable all views associated with this CheckBox
+            for (View view : mViewsToBeToggled) {
+                view.setEnabled(isChecked);
+            }
+        }
     }
 
     // OnTouchListener implementation in order to stop the NavigationDrawer from
-    // hijacking touch events that should be registered with the seekbar.
+    // hijacking touch events that should be registered with the SeekBar.
     private class SeekBarTouchOverride implements OnTouchListener {
 
         @Override
-        public boolean onTouch(View v, MotionEvent event) {
+        public boolean onTouch(View view, MotionEvent event) {
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
                     // Disallow Drawer to intercept touch events.
-                    v.getParent().requestDisallowInterceptTouchEvent(true);
+                    view.getParent().requestDisallowInterceptTouchEvent(true);
                     break;
 
                 case MotionEvent.ACTION_UP:
                     // Allow Drawer to intercept touch events.
-                    v.getParent().requestDisallowInterceptTouchEvent(false);
+                    view.getParent().requestDisallowInterceptTouchEvent(false);
                     break;
             }
 
-            // Handle seekbar touch events.
-            v.onTouchEvent(event);
+            // Delegate the touch event to the seekbar
+            view.onTouchEvent(event);
             return true;
         }
     }
 
-    private class SeekBarInDrawerListener implements OnSeekBarChangeListener {
+    private class FilterSeekBarListener implements OnSeekBarChangeListener {
 
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -140,6 +223,10 @@ public class FragmentFilter extends SherlockFragment implements OnClickListener 
                         .getSupportFragmentManager());
                 mDateTimePickerHelper.setOnDateTimeSelectedListener(new DateTimePickerListener());
                 mDateTimePickerHelper.show();
+                break;
+                
+            case R.id.filter_button_apply:
+                // TODO
         }
     }
 

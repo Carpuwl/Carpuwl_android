@@ -17,6 +17,7 @@
     <string name="price">Price</string>
     <string name="seats">Seats</string>
     <string name="currency_symbol">$</string>
+    <string name="success">Success</string>
     
     <plurals name="plural_seat">
         <item quantity="one">Seat</item>
@@ -58,6 +59,7 @@
     <string name="post_ride_button_start_date">Start date</string>
     <string name="post_ride_button_end_date">End date</string>
     <string name="post_ride_text_location_hint">------</string>
+    <string name="post_ride_text_view_post">View post</string>
     
     <!-- Find A Ride Fragment -->
     <string name="find_ride_filter">Filter results</string>

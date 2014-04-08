@@ -3,13 +3,13 @@
 
     <style name="DreamTextHeader">
         <item name="android:textSize">20sp</item>
-        <item name="android:textColor">@color/gray</item>
+        <item name="android:textColor">@drawable/dream_text_color_selector</item>
         <item name="android:paddingLeft">@dimen/touchable_ui_spacing</item>
     </style>
 
     <style name="DreamTextContent">
         <item name="android:textSize">18sp</item>
-        <item name="android:textColor">@color/gray</item>
+        <item name="android:textColor">@drawable/dream_text_color_selector</item>
     </style>
 
     <style name="DreamTextContent.Condensed">

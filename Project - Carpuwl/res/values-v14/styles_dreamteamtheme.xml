@@ -32,6 +32,7 @@
         <item name="android:actionModeSplitBackground">@drawable/cab_background_bottom_dreamteamtheme</item>
         <item name="android:actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Dreamteamtheme</item>
         <item name="android:editTextBackground">@drawable/dreamteamtheme_edit_text_holo_light</item>
+        <item name="android:editTextStyle">@style/EditTextDreamTeamTheme</item>
         <item name="android:seekBarStyle">@style/SeekBarDreamTeamTheme</item>
         <item name="android:buttonStyle">@style/ButtonGeneric</item>
         <item name="android:checkboxStyle">@style/CheckBoxDreamTeamTheme</item>

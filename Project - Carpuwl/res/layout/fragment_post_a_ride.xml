@@ -200,14 +200,14 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:padding="@dimen/activity_margin"
-                android:text="Success" />
+                android:text="@string/success" />
 
             <Button
                 style="@style/ButtonGeneric.Alternate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="0dp"
-                android:text="View post" />
+                android:text="@string/post_ride_text_view_post" />
         </LinearLayout>
     </FrameLayout>
 
