@@ -6,6 +6,7 @@ public class Constants {
     
     public static class Defaults {
         public static final int MINIMUM_SEATS = 1;
+        public static final double MINIMUM_PRICE = 1d;
     }
     
     public static class RequestCode {

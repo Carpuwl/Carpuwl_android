@@ -18,6 +18,7 @@ import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.dreamteam.carpuwl.R;
@@ -29,7 +30,9 @@ import com.dreamteam.hackwaterloo.utils.Utils;
 
 public class FragmentFilter extends SherlockFragment implements OnClickListener {
 
+    private static final String LOG_TAG = FragmentFilter.class.getSimpleName();
     public static final String FRAGMENT_TAG = FragmentFilter.class.getSimpleName();
+    private static final String KEY_A_CHECKBOX_IS_CHECKED = "keyACheckBoxIsChecked";
 
     private DateTimePickerHelper mDateTimePickerHelper;
 
@@ -54,6 +57,9 @@ public class FragmentFilter extends SherlockFragment implements OnClickListener 
     private CheckBox mCheckBoxPrice;
     private CheckBox mCheckBoxSeats;
     private CheckBox mCheckBoxWhen;
+    
+    private long mTimeWhen = 0L;
+    private boolean mACheckBoxIsTicked;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -74,7 +80,11 @@ public class FragmentFilter extends SherlockFragment implements OnClickListener 
         // First time this view is inflated
         if (savedInstanceState == null) {
             disableAllCheckBoxes();
+        } else {
+            mACheckBoxIsTicked = savedInstanceState.getBoolean(KEY_A_CHECKBOX_IS_CHECKED, false);
         }
+        
+        enableButtonIfDataValid();
 
         return rootView;
     }
@@ -138,6 +148,12 @@ public class FragmentFilter extends SherlockFragment implements OnClickListener 
                 mTextTitleWhen, mTextWhen, mButtonWhen, mSpinnerWhen }));
     }
     
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putBoolean(KEY_A_CHECKBOX_IS_CHECKED, mACheckBoxIsTicked);
+        super.onSaveInstanceState(outState);
+    }
+
     private void disableAllCheckBoxes() {
         // The CheckBoxes must first me true in order for the listener to take effect, therefore,
         // set all CheckBoxes with true first before setting them all to false
@@ -153,8 +169,34 @@ public class FragmentFilter extends SherlockFragment implements OnClickListener 
         mCheckBoxSeats.setChecked(false);
         mCheckBoxWhen.setChecked(false);
     }
+    
+    private boolean dataIsValid() {
+        if (mCheckBoxSpinnerDepart.isChecked() && mSpinnerDepart.getSelectedItemPosition() == 0) {
+            Log.d(LOG_TAG, "cannot apply filter where depart location is \"Select One\"");
+        } else if (mCheckBoxSpinnerArrive.isChecked() && mSpinnerArrive.getSelectedItemPosition() == 0) {
+            Log.d(LOG_TAG, "cannot apply filter where arrive location is \"Select One\"");
+        } else if (mCheckBoxSpinnerArrive.isChecked() && mCheckBoxSpinnerDepart.isChecked() && mSpinnerArrive.getSelectedItemPosition() == mSpinnerDepart.getSelectedItemPosition()) {
+            Log.d(LOG_TAG, "cannot apply filter where arrival and depart are the same");
+        } else if (mCheckBoxPrice.isChecked() && mEditPrice.getText().toString() == "") {
+            Log.d(LOG_TAG, "cannot apply filter where price field is empty");
+        } else if (mCheckBoxPrice.isChecked() && Utils.getDoubleFromPriceEditText(mEditPrice) < Defaults.MINIMUM_PRICE) {
+            Log.d(LOG_TAG, "cannot apply filter where price is less than $1");
+        } else if (mCheckBoxWhen.isChecked() && mTimeWhen < System.currentTimeMillis()) {
+            Log.d(LOG_TAG, "cannot apply filter where time selected is in the past");
+        } else if (!mACheckBoxIsTicked) {
+            Log.d(LOG_TAG, "cannot apply filter where no CheckBoxes are ticked");
+        } else {
+            return true;
+        }
+        
+        return false;
+    }
+    
+    private void enableButtonIfDataValid() {
+        mButtonApply.setEnabled(dataIsValid());
+    }
 
-    private static class CheckBoxMultiViewToggler implements OnCheckedChangeListener {
+    private class CheckBoxMultiViewToggler implements OnCheckedChangeListener {
         
         private View[] mViewsToBeToggled;
         
@@ -168,6 +210,8 @@ public class FragmentFilter extends SherlockFragment implements OnClickListener 
             for (View view : mViewsToBeToggled) {
                 view.setEnabled(isChecked);
             }
+            mACheckBoxIsTicked = isChecked;
+            enableButtonIfDataValid();
         }
     }
 
@@ -200,6 +244,7 @@ public class FragmentFilter extends SherlockFragment implements OnClickListener 
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
             mTextSeats.setText(String.valueOf(progress));
+            enableButtonIfDataValid();
         }
 
         @Override
@@ -212,7 +257,6 @@ public class FragmentFilter extends SherlockFragment implements OnClickListener 
                 seekBar.setProgress(Defaults.MINIMUM_SEATS);
             }
         }
-
     }
 
     @Override
@@ -226,14 +270,17 @@ public class FragmentFilter extends SherlockFragment implements OnClickListener 
                 break;
                 
             case R.id.filter_button_apply:
-                // TODO
+                Toast.makeText(getActivity(), "Apply the filter", Toast.LENGTH_SHORT).show();
+                break;
         }
     }
 
     private class DateTimePickerListener implements OnDateTimeSelectedListener {
         @Override
         public void onDateTimeSelected(long timeInMillis) {
+            mTimeWhen = timeInMillis;
             mTextWhen.setText(Utils.multiCaseDateFormat(timeInMillis));
+            enableButtonIfDataValid();
         }
     }
 }
