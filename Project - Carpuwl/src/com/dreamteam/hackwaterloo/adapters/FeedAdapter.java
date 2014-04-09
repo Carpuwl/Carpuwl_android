@@ -6,7 +6,6 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -31,7 +30,6 @@ public class FeedAdapter extends BaseAdapter {
     
     private WeakReference<Activity> mContext;
     private ArrayList<Event> mEvents;
-    private Resources resources;
     private int[] mColorList;
     
     private boolean promptShown;

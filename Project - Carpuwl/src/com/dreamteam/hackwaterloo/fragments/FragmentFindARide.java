@@ -12,10 +12,8 @@ import android.view.ViewStub;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.dreamteam.carpuwl.R;
 import com.dreamteam.hackwaterloo.adapters.Feed;
 import com.dreamteam.hackwaterloo.adapters.Feed.Event;
@@ -25,7 +23,8 @@ import com.dreamteam.hackwaterloo.utils.CrossFadeViewSwitcher;
 import com.dreamteam.hackwaterloo.utils.server.BaseTask.OnPostExecuteListener;
 import com.dreamteam.hackwaterloo.utils.server.GetEventsTask;
 
-public class FragmentFindARide extends SherlockFragment implements OnScrollToShowPromptListener, OnClickListener {
+public class FragmentFindARide extends SherlockFragment implements OnScrollToShowPromptListener,
+        OnClickListener {
 
     public static final String FRAGMENT_TAG = FragmentFindARide.class.getSimpleName();
 
@@ -35,17 +34,18 @@ public class FragmentFindARide extends SherlockFragment implements OnScrollToSho
     private Button mButtonFilterPrompt;
     private ViewStub mViewStubFilterPrompt;
     private FilterPromptListener mListener;
-    
+
     public interface FilterPromptListener {
         void onFilterPromptToBeShown();
     }
-    
+
     @Override
     public void onAttach(Activity activity) {
         try {
             mListener = (FilterPromptListener) activity;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.getClass().getSimpleName() + " must implement FilterPromptListener");
+            throw new ClassCastException(activity.getClass().getSimpleName()
+                    + " must implement FilterPromptListener");
         }
         super.onAttach(activity);
     }
@@ -57,10 +57,11 @@ public class FragmentFindARide extends SherlockFragment implements OnScrollToSho
 
         mProgressBar = (ProgressBar) rootView.findViewById(R.id.find_ride_progress_bar);
         mListView = (ListView) rootView.findViewById(R.id.find_ride_list_view);
-        mViewStubFilterPrompt = (ViewStub) rootView.findViewById(R.id.find_ride_viewstub_filter_prompt);
-        
+        mViewStubFilterPrompt = (ViewStub) rootView
+                .findViewById(R.id.find_ride_viewstub_filter_prompt);
+
         getEvents();
-        
+
         return rootView;
     }
 
@@ -77,13 +78,13 @@ public class FragmentFindARide extends SherlockFragment implements OnScrollToSho
         });
         getEventsTask.executeParallel();
     }
-    
+
     private void setupListView(Event[] events) {
         mListView = (ListView) getView().findViewById(R.id.find_ride_list_view);
         mListAdapter = new FeedAdapter(getActivity(), Arrays.asList(events), this);
         mListView.setAdapter(mListAdapter);
     }
-    
+
     @Override
     public void onScrollToShowPrompt() {
         mButtonFilterPrompt = (Button) mViewStubFilterPrompt.inflate();
@@ -99,5 +100,5 @@ public class FragmentFindARide extends SherlockFragment implements OnScrollToSho
                 break;
         }
     }
-    
+
 }

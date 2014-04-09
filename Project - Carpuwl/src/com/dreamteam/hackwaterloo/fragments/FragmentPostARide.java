@@ -88,8 +88,8 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
         mSeekbarSeats.setProgress(Defaults.MINIMUM_SEATS);
         
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
-                R.array.cities, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                R.array.cities, R.layout.spinner_selected_item);
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
         
         mSpinnerStart.setAdapter(adapter);
         mSpinnerEnd.setAdapter(adapter);

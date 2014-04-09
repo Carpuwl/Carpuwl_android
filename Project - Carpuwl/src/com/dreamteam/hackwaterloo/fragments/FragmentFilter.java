@@ -121,13 +121,13 @@ public class FragmentFilter extends SherlockFragment implements OnClickListener 
 
     private void initSpinners(View rootView) {
         ArrayAdapter<CharSequence> spinnerAdapterWhen = ArrayAdapter.createFromResource(
-                getActivity(), R.array.filter_when_type, R.layout.simple_spinner_item);
+                getActivity(), R.array.filter_when_type, R.layout.spinner_selected_item);
 
         ArrayAdapter<CharSequence> spinnerAdapterCities = ArrayAdapter.createFromResource(
-                getActivity(), R.array.cities, R.layout.simple_spinner_item);
+                getActivity(), R.array.cities, R.layout.spinner_selected_item);
 
-        spinnerAdapterWhen.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerAdapterCities.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerAdapterWhen.setDropDownViewResource(R.layout.spinner_dropdown_item);
+        spinnerAdapterCities.setDropDownViewResource(R.layout.spinner_dropdown_item);
 
         mSpinnerWhen.setAdapter(spinnerAdapterWhen);
         mSpinnerDepart.setAdapter(spinnerAdapterCities);
@@ -153,6 +153,12 @@ public class FragmentFilter extends SherlockFragment implements OnClickListener 
 
         mCheckBoxWhen.setOnCheckedChangeListener(new CheckBoxMultiViewToggler(new View[] {
                 mTextTitleWhen, mTextWhen, mButtonWhen, mSpinnerWhen }));
+    }
+    
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        
+        super.onSaveInstanceState(outState);
     }
 
     private void disableAllCheckBoxes() {
