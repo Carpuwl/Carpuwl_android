@@ -1,6 +1,8 @@
 package com.dreamteam.hackwaterloo.fragments;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -8,10 +10,13 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.SeekBar;
@@ -59,7 +64,6 @@ public class FragmentFilter extends SherlockFragment implements OnClickListener 
     private CheckBox mCheckBoxWhen;
 
     private long mTimeWhen = 0L;
-    private boolean mACheckBoxIsTicked;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -70,6 +74,7 @@ public class FragmentFilter extends SherlockFragment implements OnClickListener 
         initSpinners(rootView);
 
         mEditPrice.addTextChangedListener(new TextWatcherPrice(mEditPrice));
+        mEditPrice.addTextChangedListener(new EditTextWatcher());
 
         mSeekBarSeats.setOnSeekBarChangeListener(new FilterSeekBarListener());
         mSeekBarSeats.setOnTouchListener(new SeekBarTouchOverride());
@@ -80,9 +85,7 @@ public class FragmentFilter extends SherlockFragment implements OnClickListener 
         // First time this view is inflated
         if (savedInstanceState == null) {
             disableAllCheckBoxes();
-        } else {
-            mACheckBoxIsTicked = savedInstanceState.getBoolean(KEY_A_CHECKBOX_IS_CHECKED, false);
-        }
+        } 
 
         enableButtonIfDataValid();
 
@@ -131,6 +134,10 @@ public class FragmentFilter extends SherlockFragment implements OnClickListener 
         mSpinnerWhen.setAdapter(spinnerAdapterWhen);
         mSpinnerDepart.setAdapter(spinnerAdapterCities);
         mSpinnerArrive.setAdapter(spinnerAdapterCities);
+        
+        SpinnerButtonEnabler spinnerListener = new SpinnerButtonEnabler();
+        mSpinnerDepart.setOnItemSelectedListener(spinnerListener);
+        mSpinnerArrive.setOnItemSelectedListener(spinnerListener);
     }
 
     private void initCheckboxes(View rootView) {
@@ -150,12 +157,6 @@ public class FragmentFilter extends SherlockFragment implements OnClickListener 
                 mTextTitleWhen, mTextWhen, mButtonWhen, mSpinnerWhen }));
     }
 
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        outState.putBoolean(KEY_A_CHECKBOX_IS_CHECKED, mACheckBoxIsTicked);
-        super.onSaveInstanceState(outState);
-    }
-
     private void disableAllCheckBoxes() {
         // The CheckBoxes must first me true in order for the listener to take
         // effect, therefore,
@@ -171,6 +172,14 @@ public class FragmentFilter extends SherlockFragment implements OnClickListener 
         mCheckBoxPrice.setChecked(false);
         mCheckBoxSeats.setChecked(false);
         mCheckBoxWhen.setChecked(false);
+    }
+    
+    private boolean noCheckBoxesTicked() {
+        return (!mCheckBoxSpinnerDepart.isChecked()
+                && !mCheckBoxSpinnerArrive.isChecked()
+                && !mCheckBoxPrice.isChecked()
+                && !mCheckBoxSeats.isChecked()
+                && !mCheckBoxWhen.isChecked());
     }
 
     private boolean dataIsValid() {
@@ -193,7 +202,7 @@ public class FragmentFilter extends SherlockFragment implements OnClickListener 
             Log.d(LOG_TAG, "cannot appl filter where seats remaining is 0");
         } else if (mCheckBoxWhen.isChecked() && mTimeWhen < System.currentTimeMillis()) {
             Log.d(LOG_TAG, "cannot apply filter where time selected is in the past");
-        } else if (!mACheckBoxIsTicked) {
+        } else if (noCheckBoxesTicked()) {
             Log.d(LOG_TAG, "cannot apply filter where no CheckBoxes are ticked");
         } else {
             return true;
@@ -220,11 +229,23 @@ public class FragmentFilter extends SherlockFragment implements OnClickListener 
             for (View view : mViewsToBeToggled) {
                 view.setEnabled(isChecked);
             }
-            mACheckBoxIsTicked = isChecked;
             enableButtonIfDataValid();
         }
     }
+    
+    private class SpinnerButtonEnabler implements OnItemSelectedListener {
+        @Override
+        public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+            enableButtonIfDataValid();
+        }
 
+        @Override
+        public void onNothingSelected(AdapterView<?> arg0) {
+            enableButtonIfDataValid();
+        }
+
+    }
+    
     // OnTouchListener implementation in order to stop the NavigationDrawer from
     // hijacking touch events that should be registered with the SeekBar.
     private class SeekBarTouchOverride implements OnTouchListener {
@@ -267,6 +288,23 @@ public class FragmentFilter extends SherlockFragment implements OnClickListener 
                 seekBar.setProgress(Defaults.MINIMUM_SEATS);
             }
         }
+    }
+    
+    private class EditTextWatcher implements TextWatcher {
+        
+        @Override
+        public void onTextChanged(CharSequence s, int start, int count, int after) {
+            enableButtonIfDataValid();
+        }
+        
+        @Override
+        public void afterTextChanged(Editable s) {
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+        
     }
 
     @Override
