@@ -11,12 +11,11 @@ import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.SeekBar;
@@ -37,7 +36,6 @@ public class FragmentFilter extends SherlockFragment implements OnClickListener 
 
     private static final String LOG_TAG = FragmentFilter.class.getSimpleName();
     public static final String FRAGMENT_TAG = FragmentFilter.class.getSimpleName();
-    private static final String KEY_A_CHECKBOX_IS_CHECKED = "keyACheckBoxIsChecked";
 
     private DateTimePickerHelper mDateTimePickerHelper;
 

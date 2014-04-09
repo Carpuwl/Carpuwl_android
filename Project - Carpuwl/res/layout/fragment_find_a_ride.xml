@@ -2,9 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingLeft="@dimen/activity_margin"
-    android:paddingRight="@dimen/activity_margin" >
+    android:orientation="vertical" >
 
     <ProgressBar
         android:id="@+id/find_ride_progress_bar"
@@ -17,11 +15,18 @@
         android:id="@+id/find_ride_list_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:clipToPadding="false"
         android:divider="@android:color/transparent"
         android:dividerHeight="@dimen/touchable_ui_spacing"
-        android:clipToPadding="false"
-        android:paddingBottom="@dimen/activity_margin"
-        android:paddingTop="@dimen/activity_margin"
+        android:padding="@dimen/activity_margin"
         android:visibility="gone" />
+
+    <ViewStub
+        android:id="@+id/find_ride_viewstub_filter_prompt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:inflatedId="@+id/find_ride_button_filter_prompt"
+        android:layout="@layout/btn_filter_prompt" />
 
 </FrameLayout>

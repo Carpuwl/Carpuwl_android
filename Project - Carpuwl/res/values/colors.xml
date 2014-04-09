@@ -7,6 +7,7 @@
     <color name="app_theme_color_tint">#669900</color>
     <color name="app_theme_color_background">#DEDEDE</color>
     <color name="gray">#666666</color>
+    <color name="gray_transparent">#CC666666</color>
     <color name="gray_light">#9E9E9E</color>
     <color name="gray_lighter">#DBDBDB</color>
     

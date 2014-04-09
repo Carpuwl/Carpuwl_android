@@ -7,6 +7,7 @@ import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -19,11 +20,12 @@ import com.dreamteam.carpuwl.R;
 import com.dreamteam.hackwaterloo.adapters.DrawerLayoutAdapter;
 import com.dreamteam.hackwaterloo.fragments.FragmentFilter;
 import com.dreamteam.hackwaterloo.fragments.FragmentFindARide;
+import com.dreamteam.hackwaterloo.fragments.FragmentFindARide.FilterPromptListener;
 import com.dreamteam.hackwaterloo.fragments.FragmentMyProfile;
 import com.dreamteam.hackwaterloo.fragments.FragmentPostARide;
 import com.dreamteam.hackwaterloo.models.DrawerItem;
 
-public class ActivityMain extends SherlockFragmentActivity {
+public class ActivityMain extends SherlockFragmentActivity implements FilterPromptListener{
 
     private static final String KEY_SELECTED_DRAWER_POSITION = "keySelectedDrawerPosition";
 
@@ -201,6 +203,13 @@ public class ActivityMain extends SherlockFragmentActivity {
             }
         }
         return super.onOptionsItemSelected(item);
+    }
+    
+    @Override
+    public void onFilterPromptToBeShown() {
+        if (mDrawerSecondary != null) {
+            mDrawerLayout.openDrawer(mDrawerSecondary);
+        }
     }
 
     @Override

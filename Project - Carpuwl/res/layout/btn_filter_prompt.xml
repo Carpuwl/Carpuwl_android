@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Button.RobotoCondensedLightItalic xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="@dimen/generic_item_height"
+    android:layout_margin="0dp"
+    android:background="@drawable/btn_filter_prompt_selector"
+    android:padding="@dimen/touchable_ui_spacing"
+    android:gravity="center"
+    android:text="@string/find_ride_filter_prompt"
+    android:textColor="@android:color/white" />
