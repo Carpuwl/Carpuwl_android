@@ -1,13 +1,11 @@
 package com.dreamteam.hackwaterloo.adapters;
 
 import java.lang.ref.WeakReference;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -26,24 +24,35 @@ import com.dreamteam.hackwaterloo.utils.Utils;
 
 public class FeedAdapter extends BaseAdapter {
     
+    private static final int POSITION_TO_PROMPT_FILTER = 10;
+    
+    private OnScrollToShowPromptListener mListener;
+    
     private WeakReference<Activity> mContext;
     private ArrayList<Event> mEvents;
-    private Resources resources;
     private int[] mColorList;
     
-    public FeedAdapter(Activity context, List<Event> events) {
+    private boolean promptShown;
+    
+    public FeedAdapter(Activity context, List<Event> events, OnScrollToShowPromptListener listener) {
+        mListener = listener;
         mContext = new WeakReference<Activity>(context);
         mEvents = new ArrayList<Event>();
         mEvents.addAll(events);
-        resources = context.getResources();
+        
+        promptShown = false;
         
         mColorList = new int[]{
-                resources.getColor(R.color.red),
-                resources.getColor(R.color.orange),
-                resources.getColor(R.color.green),
-                resources.getColor(R.color.blue),
-                resources.getColor(R.color.purple)
+                Utils.getColor(R.color.red),
+                Utils.getColor(R.color.orange),
+                Utils.getColor(R.color.green),
+                Utils.getColor(R.color.blue),
+                Utils.getColor(R.color.purple)
         };
+    }
+    
+    public interface OnScrollToShowPromptListener {
+        void onScrollToShowPrompt();
     }
 
     @Override
@@ -58,7 +67,7 @@ public class FeedAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int arg0) {
-        // Not used by android framework
+        // No Implementation.  Not used by android framework.
         return 0;
     }
     
@@ -102,8 +111,13 @@ public class FeedAdapter extends BaseAdapter {
         viewHolder.price.setText(String.format("$%.2f", event.getPrice()));
         viewHolder.startingPoint.setText(event.getStartPoint());
         viewHolder.endingPoint.setText(event.getEndPoint());
-        viewHolder.seats.setText(String.format(resources.getString(R.string.find_ride_seats), event.getSeatsRemaining())) ;
+        viewHolder.seats.setText(String.format(Utils.getString(R.string.find_ride_seats), event.getSeatsRemaining())) ;
         viewHolder.timeValue.setText(Utils.multiCaseDateFormat(event.getDepartDate())); 
+        
+        if (position > POSITION_TO_PROMPT_FILTER && !promptShown) {
+            promptShown = true;
+            mListener.onScrollToShowPrompt();
+        }
         
         return convertView;
     }

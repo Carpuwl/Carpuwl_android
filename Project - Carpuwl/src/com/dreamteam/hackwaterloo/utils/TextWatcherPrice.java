@@ -1,6 +1,5 @@
 package com.dreamteam.hackwaterloo.utils;
 
-import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Locale;
 
@@ -12,7 +11,6 @@ import android.widget.EditText;
 public class TextWatcherPrice implements TextWatcher {
     
     private static final NumberFormat numberFormat = NumberFormat.getCurrencyInstance(Locale.CANADA);
-    private static final DecimalFormat decimalFormat = new DecimalFormat("##.##");
     
     private EditText mEditText;
     private String mContentString;

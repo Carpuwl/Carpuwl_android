@@ -32,13 +32,18 @@
         <item name="actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Dreamteamtheme</item>
         <item name="android:editTextStyle">@style/EditTextDreamTeamTheme</item>
         <item name="android:seekBarStyle">@style/SeekBarDreamTeamTheme</item>
-        <item name="android:buttonStyle">@style/button_generic</item>
+        <item name="android:buttonStyle">@style/ButtonGeneric</item>
+        <item name="android:checkboxStyle">@style/CheckBoxDreamTeamTheme</item>
+        <item name="android:checkMark">@drawable/apptheme_btn_radio_holo_light</item>
+        <item name="android:spinnerStyle">@style/SpinnerDreamTeamTheme</item>
+        <item name="android:spinnerDropDownItemStyle">@style/SpinnerDropDownItemDreamTeamTheme</item>
+        <item name="android:windowContentOverlay">@null</item>
 
                 <!-- Light.DarkActionBar specific -->
         <item name="actionBarWidgetTheme">@style/Theme.Dreamteamtheme.Widget</item>
 
     </style>
-
+    
     <style name="ActionBar.Solid.Dreamteamtheme" parent="@style/Widget.Sherlock.Light.ActionBar.Solid.Inverse">
         <item name="background">@drawable/ab_solid_dreamteamtheme</item>
         <item name="backgroundStacked">@drawable/ab_stacked_solid_dreamteamtheme</item>
@@ -77,6 +82,19 @@
         <item name="android:background">@drawable/btn_cab_done_dreamteamtheme</item>
     </style>
     
+    <style name="CheckBoxDreamTeamTheme" parent="android:Widget.CompoundButton.CheckBox">
+      <item name="android:button">@drawable/dreamteamtheme_btn_check_holo_light</item>
+  </style>
+  
+  <style name="SpinnerDreamTeamTheme" parent="android:Widget.Spinner">
+      <item name="android:background">@drawable/apptheme_spinner_background_holo_light</item>
+      <item name="android:dropDownSelector">@drawable/apptheme_list_selector_holo_light</item>
+  </style>
+
+  <style name="SpinnerDropDownItemDreamTeamTheme" parent="android:Widget.DropDownItem.Spinner">
+      <item name="android:checkMark">@drawable/apptheme_btn_radio_holo_light</item>
+  </style>
+  
     <!-- this style is only referenced in a Light.DarkActionBar based theme -->
     <style name="Theme.Dreamteamtheme.Widget" parent="@style/Theme.Sherlock">
         <item name="popupMenuStyle">@style/PopupMenu.Dreamteamtheme</item>
@@ -85,7 +103,9 @@
     
     <style name="EditTextDreamTeamTheme" parent="android:Widget.EditText">
         <item name="android:background">@drawable/dreamteamtheme_edit_text_holo_light</item>
-        <item name="android:textColor">#000000</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:textColor">@drawable/dream_text_color_selector</item>
+        <item name="android:textColorHint">@drawable/dream_text_hint_color_selector</item>
     </style>
 
     <style name="SeekBarDreamTeamTheme" parent="android:Widget.SeekBar">

@@ -3,54 +3,50 @@ package com.dreamteam.hackwaterloo.fragments;
 import java.util.Arrays;
 
 import android.app.Activity;
-import android.app.Dialog;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.view.ViewStub;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.SeekBar;
-import android.widget.Spinner;
 
-import com.actionbarsherlock.app.SherlockDialogFragment;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.dreamteam.carpuwl.R;
-import com.dreamteam.hackwaterloo.activities.ActivityMain;
 import com.dreamteam.hackwaterloo.adapters.Feed;
 import com.dreamteam.hackwaterloo.adapters.Feed.Event;
 import com.dreamteam.hackwaterloo.adapters.FeedAdapter;
+import com.dreamteam.hackwaterloo.adapters.FeedAdapter.OnScrollToShowPromptListener;
 import com.dreamteam.hackwaterloo.utils.CrossFadeViewSwitcher;
 import com.dreamteam.hackwaterloo.utils.server.BaseTask.OnPostExecuteListener;
 import com.dreamteam.hackwaterloo.utils.server.GetEventsTask;
-import com.nineoldandroids.animation.Animator;
-import com.nineoldandroids.animation.Animator.AnimatorListener;
-import com.nineoldandroids.animation.AnimatorSet;
-import com.nineoldandroids.animation.ObjectAnimator;
-import com.nineoldandroids.view.ViewHelper;
 
-public class FragmentFindARide extends SherlockFragment implements OnClickListener {
+public class FragmentFindARide extends SherlockFragment implements OnScrollToShowPromptListener,
+        OnClickListener {
 
     public static final String FRAGMENT_TAG = FragmentFindARide.class.getSimpleName();
-    private static final long ANIMATION_DURATION = 400;
 
-    // Ui Widgets
     private ProgressBar mProgressBar;
     private ListView mListView;
     private FeedAdapter mListAdapter;
-    private Button mFilterButton;
-    private FragmentManager mFragmentManager;
+    private Button mButtonFilterPrompt;
+    private ViewStub mViewStubFilterPrompt;
+    private FilterPromptListener mListener;
+
+    public interface FilterPromptListener {
+        void onFilterPromptToBeShown();
+    }
 
     @Override
     public void onAttach(Activity activity) {
-        mFragmentManager = ((ActivityMain) activity).getSupportFragmentManager();
+        try {
+            mListener = (FilterPromptListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.getClass().getSimpleName()
+                    + " must implement FilterPromptListener");
+        }
         super.onAttach(activity);
     }
 
@@ -60,16 +56,12 @@ public class FragmentFindARide extends SherlockFragment implements OnClickListen
         rootView = inflater.inflate(R.layout.fragment_find_a_ride, container, false);
 
         mProgressBar = (ProgressBar) rootView.findViewById(R.id.find_ride_progress_bar);
-        mFilterButton = (Button) rootView.findViewById(R.id.find_ride_button_filter);
         mListView = (ListView) rootView.findViewById(R.id.find_ride_list_view);
-        
-        if (mFilterButton == null) {
-            Log.e("ryan", "filter button is null!!!!");
-        }
-        mFilterButton.setOnClickListener(this);
-        
+        mViewStubFilterPrompt = (ViewStub) rootView
+                .findViewById(R.id.find_ride_viewstub_filter_prompt);
+
         getEvents();
-        
+
         return rootView;
     }
 
@@ -79,9 +71,7 @@ public class FragmentFindARide extends SherlockFragment implements OnClickListen
             @Override
             public void onFinish(Event[] events) {
                 if (events != null && events.length > 0) {
-                    mListAdapter = new FeedAdapter(getActivity(), Arrays.asList(events));
-                    mListView.setAdapter(mListAdapter);
-                    mListAdapter.notifyDataSetChanged();
+                    setupListView(events);
                 }
                 new CrossFadeViewSwitcher(mProgressBar, mListView, false).startAnimation();
             }
@@ -89,55 +79,26 @@ public class FragmentFindARide extends SherlockFragment implements OnClickListen
         getEventsTask.executeParallel();
     }
 
+    private void setupListView(Event[] events) {
+        mListView = (ListView) getView().findViewById(R.id.find_ride_list_view);
+        mListAdapter = new FeedAdapter(getActivity(), Arrays.asList(events), this);
+        mListView.setAdapter(mListAdapter);
+    }
+
+    @Override
+    public void onScrollToShowPrompt() {
+        mButtonFilterPrompt = (Button) mViewStubFilterPrompt.inflate();
+        mButtonFilterPrompt.setOnClickListener(this);
+    }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.find_ride_button_filter:
-                DialogFilter dialogFilter = (DialogFilter) mFragmentManager.findFragmentByTag(DialogFilter.FRAGMENT_TAG);
-                if (dialogFilter == null) {
-                    dialogFilter = new DialogFilter();
-                }
-                dialogFilter.show(mFragmentManager, DialogFilter.FRAGMENT_TAG);
+            case R.id.find_ride_button_filter_prompt:
+                mListener.onFilterPromptToBeShown();
+                mButtonFilterPrompt.setVisibility(View.GONE);
+                break;
         }
     }
 
-    public static class DialogFilter extends SherlockDialogFragment {
-
-        public static final String FRAGMENT_TAG = DialogFilter.class.getSimpleName();
-
-        private Spinner mSpinnerStart;
-        private Spinner mSpinnerEnd;
-        private EditText mEditTextMaxPrice;
-        private SeekBar mSeekBarMinSeats;
-        
-        private String[] mCities;
-
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            Dialog dialog = new Dialog(getActivity());
-            dialog.requestWindowFeature(STYLE_NO_TITLE);
-            dialog.setContentView(R.layout.dialog_filter);
-            dialog.setCancelable(true);
-            dialog.setTitle(R.string.dialog_filter_title);
-
-            mSpinnerStart = (Spinner) dialog.findViewById(R.id.dialog_filter_spinner_startpoint);
-            mSpinnerEnd = (Spinner) dialog.findViewById(R.id.dialog_filter_spinner_endpoint);
-            mEditTextMaxPrice = (EditText) dialog
-                    .findViewById(R.id.dialog_filter_edittext_max_price);
-            mSeekBarMinSeats = (SeekBar) dialog.findViewById(R.id.dialog_filter_minimum_seats);
-            
-            mCities = getActivity().getResources().getStringArray(R.array.cities);
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, mCities);
-            mSpinnerStart.setAdapter(adapter);
-            
-            return dialog;
-        }
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // TODO Auto-generated method stub
-        super.onActivityResult(requestCode, resultCode, data);
-    }
-    
 }

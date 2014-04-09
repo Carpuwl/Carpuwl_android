@@ -7,8 +7,8 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.text.TextUtils;
 import android.text.format.Time;
-import android.util.Log;
 import android.view.Window;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -147,6 +147,6 @@ public class Utils {
 
     public static double getDoubleFromPriceEditText(EditText editText) {
         String contentString = editText.getText().toString().replaceAll("[^\\d.]", "");
-        return Double.parseDouble(contentString);
+        return TextUtils.isEmpty(contentString) ? 0d : Double.parseDouble(contentString);
     }
 }

@@ -4,8 +4,13 @@ public class Constants {
     
     public static final String UTF_8 = "UTF-8";
     
+    public static class Defaults {
+        public static final int MINIMUM_SEATS = 1;
+        public static final double MINIMUM_PRICE = 1d;
+    }
+    
     public static class RequestCode {
-        public static int FILTER = 0;
+        public static final int FILTER = 0;
     }
     
     public static class Extra {

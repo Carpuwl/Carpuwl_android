@@ -178,7 +178,7 @@
 
             <Button.RobotoRegular
                 android:id="@+id/post_ride_button_submit_event"
-                style="@style/button_generic_alternate"
+                style="@style/ButtonGeneric.Alternate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/generic_item_spacing"
@@ -200,14 +200,14 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:padding="@dimen/activity_margin"
-                android:text="Success" />
+                android:text="@string/success" />
 
             <Button
-                style="@style/button_generic_alternate"
+                style="@style/ButtonGeneric.Alternate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="0dp"
-                android:text="View post" />
+                android:text="@string/post_ride_text_view_post" />
         </LinearLayout>
     </FrameLayout>
 

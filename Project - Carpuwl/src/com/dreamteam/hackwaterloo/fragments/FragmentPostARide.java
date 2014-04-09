@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
@@ -22,15 +21,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
-import com.actionbarsherlock.internal.nineoldandroids.animation.AnimatorSet;
-import com.actionbarsherlock.internal.nineoldandroids.animation.ObjectAnimator;
 import com.dreamteam.carpuwl.R;
 import com.dreamteam.hackwaterloo.AppData;
+import com.dreamteam.hackwaterloo.Constants.Defaults;
 import com.dreamteam.hackwaterloo.Constants.StatusCode;
 import com.dreamteam.hackwaterloo.adapters.Feed.Event;
+import com.dreamteam.hackwaterloo.utils.CrossFadeViewSwitcher;
 import com.dreamteam.hackwaterloo.utils.DateTimePickerHelper;
 import com.dreamteam.hackwaterloo.utils.DateTimePickerHelper.OnDateTimeSelectedListener;
-import com.dreamteam.hackwaterloo.utils.CrossFadeViewSwitcher;
 import com.dreamteam.hackwaterloo.utils.TextWatcherPrice;
 import com.dreamteam.hackwaterloo.utils.Utils;
 import com.dreamteam.hackwaterloo.utils.server.BaseTaskV2.OnPostExecuteListener;
@@ -38,9 +36,6 @@ import com.dreamteam.hackwaterloo.utils.server.PostEventTask;
 
 public class FragmentPostARide extends SherlockFragment implements OnClickListener {
 
-    private static final int MINIMUM_SEATS_DEFUALT = 1;
-    private static final int ANIMATION_DURATION = 300;
-    
     private DateTimePickerHelper mDateTimePickerHelper;
 
     private LinearLayout mContainerEditPost;
@@ -90,11 +85,11 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
         mButtonSubmit.setOnClickListener(this);
         
         mSeekbarSeats.setOnSeekBarChangeListener(new SeekbarListener());
-        mSeekbarSeats.setProgress(MINIMUM_SEATS_DEFUALT);
+        mSeekbarSeats.setProgress(Defaults.MINIMUM_SEATS);
         
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
-                R.array.cities, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                R.array.cities, R.layout.spinner_selected_item);
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
         
         mSpinnerStart.setAdapter(adapter);
         mSpinnerEnd.setAdapter(adapter);
@@ -211,7 +206,7 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
         @Override
         public void onStopTrackingTouch(SeekBar seekBar) {
             if (mTextSeatsValue.getText().toString().equals("0")) {
-                seekBar.setProgress(MINIMUM_SEATS_DEFUALT);
+                seekBar.setProgress(Defaults.MINIMUM_SEATS);
             }
         }
     }

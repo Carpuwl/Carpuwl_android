@@ -26,7 +26,7 @@
     <dimen name="find_ride_listview_price_size">96dp</dimen>
 
     <!-- Navigation Drawer -->
-    <dimen name="nav_drawer_width">240dp</dimen>
+    <dimen name="nav_drawer_width">280dp</dimen>
     <dimen name="nav_drawer_list_item_height">48dp</dimen>
     <dimen name="nav_drawer_list_item_vertical_padding">20dp</dimen>
     <dimen name="nav_drawer_divider_height">1dp</dimen>

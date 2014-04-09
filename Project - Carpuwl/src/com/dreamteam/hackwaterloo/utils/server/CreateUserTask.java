@@ -6,13 +6,11 @@ import java.util.List;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
-import android.util.Log;
-
 import com.dreamteam.hackwaterloo.utils.NetworkHelper;
 
 public class CreateUserTask extends BaseTask<Void, Void, String> {
     
-    private static final String TAG = CreateUserTask.class.getSimpleName();
+//    private static final String TAG = CreateUserTask.class.getSimpleName();
     private static final String ENDPOINT = "user";
     private static final String PARAMETER_NAME = "name";
     private static final String PARAMETER_PHONE = "phone";

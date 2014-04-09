@@ -6,14 +6,12 @@ import java.util.List;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
-import android.util.Log;
-
 import com.dreamteam.hackwaterloo.AppData;
 import com.dreamteam.hackwaterloo.utils.NetworkHelper;
 
 public class GetMyProfileDataTask extends BaseTask <Void, Void, String> {
     
-    private static final String TAG = GetMyProfileDataTask.class.getSimpleName();
+//    private static final String TAG = GetMyProfileDataTask.class.getSimpleName();
     public static final String ENDPOINT = "user";
     private static final String PARAMETER_NAME = "fb_fk";
     
