@@ -14,6 +14,21 @@
         <item name="android:indeterminateDrawable">@drawable/dreamteam_progress_indeterminate_horizontal_holo_light</item>
     </style>
 
+    <style name="RatingBarDreamTeam" parent="android:Widget.Holo.Light.RatingBar">
+        <item name="android:progressDrawable">@drawable/dreamteam_ratingbar_full_holo_light</item>
+        <item name="android:indeterminateDrawable">@drawable/dreamteam_ratingbar_full_holo_light</item>
+    </style>
+
+    <style name="RatingBarBigDreamTeam" parent="android:Widget.Holo.Light.RatingBar.Indicator">
+        <item name="android:progressDrawable">@drawable/dreamteam_ratingbar_holo_light</item>
+        <item name="android:indeterminateDrawable">@drawable/dreamteam_ratingbar_holo_light</item>
+    </style>
+
+    <style name="RatingBarSmallDreamTeam" parent="android:Widget.Holo.Light.RatingBar.Small">
+        <item name="android:progressDrawable">@drawable/dreamteam_ratingbar_small_holo_light</item>
+        <item name="android:indeterminateDrawable">@drawable/dreamteam_ratingbar_small_holo_light</item>
+    </style>
+    
     <style name="SeekBarDreamTeam" parent="android:Widget.Holo.Light.SeekBar">
         <item name="android:progressDrawable">@drawable/dreamteam_scrubber_progress_horizontal_holo_light</item>
         <item name="android:indeterminateDrawable">@drawable/dreamteam_scrubber_progress_horizontal_holo_light</item>

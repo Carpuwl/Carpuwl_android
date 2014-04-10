@@ -3,30 +3,7 @@
 <!-- Generated with http://android-holo-colors.com -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <style name="Theme.DreamTeam" parent="@style/_DreamTeam" />
-
-    <style name="_DreamTeam" parent="Theme.Sherlock.Light.DarkActionBar">
-
-        <!-- Action Bar Theme -->
-        <item name="actionBarItemBackground">@drawable/selectable_background_dreamteam</item>
-        <item name="popupMenuStyle">@style/PopupMenu.DreamTeam</item>
-        <item name="dropDownListViewStyle">@style/DropDownListView.DreamTeam</item>
-        <item name="actionBarTabStyle">@style/ActionBarTabStyle.DreamTeam</item>
-        <item name="actionDropDownStyle">@style/DropDownNav.DreamTeam</item>
-        <item name="actionBarStyle">@style/ActionBar.Solid.DreamTeam</item>
-        <item name="actionModeBackground">@drawable/cab_background_top_dreamteam</item>
-        <item name="actionModeSplitBackground">@drawable/cab_background_bottom_dreamteam</item>
-        <item name="actionModeCloseButtonStyle">@style/ActionButton.CloseMode.DreamTeam</item>
-
-        <!-- Light.DarkActionBar specific -->
-        <item name="actionBarWidgetTheme">@style/Theme.DreamTeam.Widget</item>
-
-        <!-- Window Background Color -->
-        <item name="android:windowBackground">@color/app_theme_color_background</item>
-        
-        <!-- Widget Themes -->
-        <item name="android:buttonStyle">@style/ButtonDreamTeam</item>
-        <item name="android:editTextStyle">@style/EditTextDreamTeam</item>
+    <style name="Theme.DreamTeamTheme" parent="@style/_DreamTeam">
         <item name="android:editTextBackground">@drawable/dreamteam_edit_text_holo_light</item>
         <item name="android:textColorHighlight">#9996aa39</item>
         <item name="android:textSelectHandleLeft">@drawable/dreamteam_text_select_handle_left</item>
@@ -41,6 +18,9 @@
         <item name="android:listChoiceBackgroundIndicator">@drawable/dreamteam_list_selector_holo_light</item>
         <item name="android:activatedBackgroundIndicator">@drawable/dreamteam_activated_background_holo_light</item>
         <item name="android:fastScrollThumbDrawable">@drawable/dreamteam_fastscroll_thumb_holo</item>
+        <item name="android:ratingBarStyle">@style/RatingBarDreamTeam</item>
+        <item name="android:ratingBarStyleIndicator">@style/RatingBarBigDreamTeam</item>
+        <item name="android:ratingBarStyleSmall">@style/RatingBarSmallDreamTeam</item>
     </style>
 
 </resources>

@@ -20,7 +20,7 @@
 
         <!-- Light.DarkActionBar specific -->
         <item name="actionBarWidgetTheme">@style/Theme.DreamTeam.Widget</item>
-        
+
         <!-- Window Background Color -->
         <item name="android:windowBackground">@color/app_theme_color_background</item>
 
@@ -38,6 +38,10 @@
         <item name="android:listViewStyle">@style/ListViewDreamTeam</item>
         <item name="android:listViewWhiteStyle">@style/ListViewDreamTeam.White</item>
         <item name="android:spinnerItemStyle">@style/SpinnerItemDreamTeam</item>
+        <item name="android:ratingBarStyle">@style/RatingBarDreamTeam</item>
+        <item name="android:ratingBarStyleIndicator">@style/RatingBarBigDreamTeam</item>
+        <item name="android:ratingBarStyleSmall">@style/RatingBarSmallDreamTeam</item>
+        
     </style>
 
 </resources>

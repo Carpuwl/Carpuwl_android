@@ -20,5 +20,5 @@
         <item name="android:background">@drawable/btn_generic_alternate_selector</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
-
+    
 </resources>
