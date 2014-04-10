@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Action Bar Style -->
+    <style name="ActionBar.Solid.DreamTeam" parent="@style/Widget.Sherlock.Light.ActionBar.Solid.Inverse">
+        <item name="background">@drawable/ab_solid_dreamteam</item>
+        <item name="backgroundStacked">@drawable/ab_stacked_solid_dreamteam</item>
+        <item name="backgroundSplit">@drawable/ab_bottom_solid_dreamteam</item>
+        <item name="progressBarStyle">@style/ProgressBar.DreamTeam</item>
+    </style>
+
+    <style name="ActionBar.Transparent.DreamTeam" parent="@style/Widget.Sherlock.ActionBar">
+        <item name="background">@drawable/ab_transparent_dreamteam</item>
+        <item name="progressBarStyle">@style/ProgressBar.DreamTeam</item>
+    </style>
+
+    <style name="PopupMenu.DreamTeam" parent="@style/Widget.Sherlock.ListPopupWindow">
+        <item name="android:popupBackground">@drawable/menu_dropdown_panel_dreamteam</item>
+    </style>
+
+    <style name="DropDownListView.DreamTeam" parent="@style/Widget.Sherlock.ListView.DropDown">
+        <item name="android:listSelector">@drawable/selectable_background_dreamteam</item>
+    </style>
+
+    <style name="ActionBarTabStyle.DreamTeam" parent="@style/Widget.Sherlock.ActionBar.TabView">
+        <item name="android:background">@drawable/tab_indicator_ab_dreamteam</item>
+    </style>
+
+    <style name="DropDownNav.DreamTeam" parent="@style/Widget.Sherlock.Spinner.DropDown.ActionBar">
+        <item name="android:background">@drawable/spinner_background_ab_dreamteam</item>
+        <item name="android:popupBackground">@drawable/menu_dropdown_panel_dreamteam</item>
+        <item name="android:dropDownSelector">@drawable/selectable_background_dreamteam</item>
+    </style>
+
+    <style name="ProgressBar.DreamTeam" parent="@style/Widget.Sherlock.ProgressBar.Horizontal">
+        <item name="android:progressDrawable">@drawable/progress_horizontal_dreamteam</item>
+    </style>
+
+    <style name="ActionButton.CloseMode.DreamTeam" parent="@style/Widget.Sherlock.ActionButton.CloseMode">
+        <item name="android:background">@drawable/btn_cab_done_dreamteam</item>
+    </style>
+
+    <!-- this style is only referenced in a Light.DarkActionBar based theme -->
+    <style name="Theme.DreamTeam.Widget" parent="@style/Theme.Sherlock">
+        <item name="popupMenuStyle">@style/PopupMenu.DreamTeam</item>
+        <item name="dropDownListViewStyle">@style/DropDownListView.DreamTeam</item>
+    </style>
+
+    <!-- Widget Styles -->
+    <style name="ButtonDreamTeam" parent="android:style/Widget.Button">
+        <item name="android:padding">@dimen/generic_item_spacing</item>
+        <item name="android:background">@drawable/btn_generic_selector</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@drawable/btn_generic_text_color_selector</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+    
+    <style name="EditTextDreamTeam" parent="android:Widget.EditText">
+        <item name="android:background">@drawable/dreamteam_edit_text_holo_light</item>
+        <item name="android:textColor">@drawable/dream_text_color_selector</item>
+        <item name="android:textColorHint">@drawable/dream_text_hint_color_selector</item>
+    </style>
+
+    <style name="CheckBoxDreamTeam" parent="android:Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/dreamteam_btn_check_holo_light</item>
+    </style>
+
+    <style name="RadioButtonDreamTeam" parent="android:Widget.CompoundButton.RadioButton">
+        <item name="android:button">@drawable/dreamteam_btn_radio_holo_light</item>
+    </style>
+
+    <style name="SpinnerDreamTeam" parent="android:Widget.Spinner">
+        <item name="android:background">@drawable/dreamteam_spinner_background_holo_light</item>
+        <item name="android:dropDownSelector">@drawable/dreamteam_list_selector_holo_light</item>
+    </style>
+
+    <style name="SpinnerDropDownItemDreamTeam" parent="android:Widget.DropDownItem.Spinner">
+        <item name="android:checkMark">@drawable/dreamteam_btn_radio_holo_light</item>
+    </style>
+
+    <style name="ProgressBarDreamTeam" parent="android:Widget.ProgressBar.Horizontal">
+        <item name="android:progressDrawable">@drawable/dreamteam_progress_horizontal_holo_light</item>
+        <item name="android:indeterminateDrawable">@drawable/dreamteam_progress_indeterminate_horizontal_holo_light</item>
+        <item name="android:minHeight">16dip</item>
+        <item name="android:maxHeight">16dip</item>
+    </style>
+
+    <style name="SeekBarDreamTeam" parent="android:Widget.SeekBar">
+        <item name="android:progressDrawable">@drawable/dreamteam_scrubber_progress_horizontal_holo_light</item>
+        <item name="android:indeterminateDrawable">@drawable/dreamteam_scrubber_progress_horizontal_holo_light</item>
+        <item name="android:minHeight">13dip</item>
+        <item name="android:maxHeight">13dip</item>
+        <item name="android:thumb">@drawable/dreamteam_scrubber_control_selector_holo_light</item>
+        <item name="android:thumbOffset">16dip</item>
+        <item name="android:paddingLeft">16dip</item>
+        <item name="android:paddingRight">16dip</item>
+    </style>
+
+    <style name="ToggleDreamTeam" parent="android:Widget.Button.Toggle">
+        <item name="android:background">@drawable/dreamteam_btn_toggle_holo_light</item>
+        <item name="android:minHeight">48dip</item>
+        <item name="android:textColor">#000000</item>
+    </style>
+
+    <style name="ListViewDreamTeam" parent="android:Widget.ListView">
+        <item name="android:listSelector">@drawable/dreamteam_list_selector_holo_light</item>
+    </style>
+
+    <style name="ListViewDreamTeam.White" parent="android:Widget.ListView.White">
+        <item name="android:listSelector">@drawable/dreamteam_list_selector_holo_light</item>
+    </style>
+
+    <style name="SpinnerItemDreamTeam" parent="android:TextAppearance.Widget.TextView.SpinnerItem">
+        <item name="android:textColor">#000000</item>
+    </style>
+    
+</resources>

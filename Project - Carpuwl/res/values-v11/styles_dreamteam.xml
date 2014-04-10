@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Generated with http://android-holo-colors.com -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Widget Styles -->
+    <style name="SpinnerDreamTeam" parent="android:Widget.Holo.Light.Spinner">
+        <item name="android:background">@drawable/dreamteam_spinner_background_holo_light</item>
+        <item name="android:dropDownSelector">@drawable/dreamteam_list_selector_holo_light</item>
+    </style>
+
+    <style name="ProgressBarDreamTeam" parent="android:Widget.Holo.Light.ProgressBar.Horizontal">
+        <item name="android:progressDrawable">@drawable/dreamteam_progress_horizontal_holo_light</item>
+        <item name="android:indeterminateDrawable">@drawable/dreamteam_progress_indeterminate_horizontal_holo_light</item>
+    </style>
+
+    <style name="SeekBarDreamTeam" parent="android:Widget.Holo.Light.SeekBar">
+        <item name="android:progressDrawable">@drawable/dreamteam_scrubber_progress_horizontal_holo_light</item>
+        <item name="android:indeterminateDrawable">@drawable/dreamteam_scrubber_progress_horizontal_holo_light</item>
+        <item name="android:thumb">@drawable/dreamteam_scrubber_control_selector_holo_light</item>
+    </style>
+
+    <style name="ToggleDreamTeam" parent="android:Widget.Holo.Light.Button.Toggle">
+        <item name="android:background">@drawable/dreamteam_btn_toggle_holo_light</item>
+    </style>
+
+</resources>

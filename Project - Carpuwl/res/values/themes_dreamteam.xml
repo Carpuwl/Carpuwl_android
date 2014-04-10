@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Generated with http://android-holo-colors.com -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="Theme.DreamTeam" parent="@style/_DreamTeam" />
+
+    <style name="_DreamTeam" parent="Theme.Sherlock.Light.DarkActionBar">
+
+        <!-- Action Bar Theme -->
+        <item name="actionBarItemBackground">@drawable/selectable_background_dreamteam</item>
+        <item name="popupMenuStyle">@style/PopupMenu.DreamTeam</item>
+        <item name="dropDownListViewStyle">@style/DropDownListView.DreamTeam</item>
+        <item name="actionBarTabStyle">@style/ActionBarTabStyle.DreamTeam</item>
+        <item name="actionDropDownStyle">@style/DropDownNav.DreamTeam</item>
+        <item name="actionBarStyle">@style/ActionBar.Solid.DreamTeam</item>
+        <item name="actionModeBackground">@drawable/cab_background_top_dreamteam</item>
+        <item name="actionModeSplitBackground">@drawable/cab_background_bottom_dreamteam</item>
+        <item name="actionModeCloseButtonStyle">@style/ActionButton.CloseMode.DreamTeam</item>
+
+        <!-- Light.DarkActionBar specific -->
+        <item name="actionBarWidgetTheme">@style/Theme.DreamTeam.Widget</item>
+        
+        <!-- Window Background Color -->
+        <item name="android:windowBackground">@color/app_theme_color_background</item>
+
+        <!-- Widget Themes -->
+        <item name="android:buttonStyle">@style/ButtonDreamTeam</item>
+        <item name="android:editTextStyle">@style/EditTextDreamTeam</item>
+        <item name="android:textColorHighlight">#9996aa39</item>
+        <item name="android:checkboxStyle">@style/CheckBoxDreamTeam</item>
+        <item name="android:radioButtonStyle">@style/RadioButtonDreamTeam</item>
+        <item name="android:spinnerStyle">@style/SpinnerDreamTeam</item>
+        <item name="android:spinnerDropDownItemStyle">@style/SpinnerDropDownItemDreamTeam</item>
+        <item name="android:progressBarStyleHorizontal">@style/ProgressBarDreamTeam</item>
+        <item name="android:seekBarStyle">@style/SeekBarDreamTeam</item>
+        <item name="android:buttonStyleToggle">@style/ToggleDreamTeam</item>
+        <item name="android:listViewStyle">@style/ListViewDreamTeam</item>
+        <item name="android:listViewWhiteStyle">@style/ListViewDreamTeam.White</item>
+        <item name="android:spinnerItemStyle">@style/SpinnerItemDreamTeam</item>
+    </style>
+
+</resources>

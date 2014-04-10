@@ -16,7 +16,7 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/Theme.Dreamteamtheme" >
+        android:theme="@style/Theme.DreamTeam" >
         <activity
             android:name="com.dreamteam.hackwaterloo.activities.ActivitySplashPage"
             android:noHistory="true"
