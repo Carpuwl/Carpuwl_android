@@ -123,6 +123,7 @@
 
     <style name="ListViewDreamTeam" parent="android:Widget.ListView">
         <item name="android:listSelector">@drawable/dreamteam_list_selector_holo_light</item>
+        <item name="android:fadingEdge">none</item>
     </style>
 
     <style name="ListViewDreamTeam.White" parent="android:Widget.ListView.White">
