@@ -2,6 +2,10 @@ package com.dreamteam.hackwaterloo.fragments;
 
 import java.util.Arrays;
 
+import uk.co.senab.actionbarpulltorefresh.extras.actionbarsherlock.PullToRefreshLayout;
+import uk.co.senab.actionbarpulltorefresh.library.ActionBarPullToRefresh;
+import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -28,6 +32,7 @@ public class FragmentFindARide extends SherlockFragment implements OnScrollToSho
 
     public static final String FRAGMENT_TAG = FragmentFindARide.class.getSimpleName();
 
+    private PullToRefreshLayout mPullToRefresh;
     private ProgressBar mProgressBar;
     private ListView mListView;
     private FeedAdapter mListAdapter;
@@ -60,12 +65,29 @@ public class FragmentFindARide extends SherlockFragment implements OnScrollToSho
         mViewStubFilterPrompt = (ViewStub) rootView
                 .findViewById(R.id.find_ride_viewstub_filter_prompt);
 
+        setupPullToRefresh(rootView);
         getEvents();
 
         return rootView;
     }
 
+    private void setupPullToRefresh(View view) {
+        mPullToRefresh = (PullToRefreshLayout) view.findViewById(R.id.find_ride_pull_to_refresh);
+
+        ActionBarPullToRefresh.from(getActivity()).allChildrenArePullable()
+                .listener(new OnRefreshListener() {
+                    @Override
+                    public void onRefreshStarted(View view) {
+                        getEvents();
+                    }
+                }).setup(mPullToRefresh);
+    }
+
     private void getEvents() {
+        if (!mPullToRefresh.isRefreshing()) {
+            mPullToRefresh.setRefreshing(true);
+        }
+        
         GetEventsTask getEventsTask = new GetEventsTask();
         getEventsTask.setOnPostExecuteListener(new OnPostExecuteListener<Feed.Event[]>() {
             @Override
@@ -73,6 +95,7 @@ public class FragmentFindARide extends SherlockFragment implements OnScrollToSho
                 if (events != null && events.length > 0) {
                     setupListView(events);
                 }
+                mPullToRefresh.setRefreshComplete();
                 new CrossFadeViewSwitcher(mProgressBar, mListView, false).startAnimation();
             }
         });
