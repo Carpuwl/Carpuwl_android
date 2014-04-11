@@ -71,6 +71,11 @@ public class FeedAdapter extends BaseAdapter {
         return 0;
     }
     
+    public void addItemBatch(List<Event> events) {
+        mEvents.addAll(events);
+        notifyDataSetChanged();
+    }
+    
     public static class ViewHolder {
         public RelativeLayout parentView;
         public ImageView priceBackground;

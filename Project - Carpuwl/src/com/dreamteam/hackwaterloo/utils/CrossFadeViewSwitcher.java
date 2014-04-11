@@ -2,6 +2,7 @@ package com.dreamteam.hackwaterloo.utils;
 
 import java.lang.ref.WeakReference;
 
+import android.util.Log;
 import android.view.View;
 
 import com.nineoldandroids.animation.Animator;
@@ -14,6 +15,8 @@ public class CrossFadeViewSwitcher {
     
     private static final int ANIMATION_DURATION = 400;
     
+    private OnAnimationEndListener mOnAnimationEndListener;
+    private AnimatorSet mAnimatorSet;
     private WeakReference<View> mViewInitial;
     private WeakReference<View> mViewFinal;
     
@@ -23,6 +26,12 @@ public class CrossFadeViewSwitcher {
         mViewInitial = new WeakReference<View> (viewInitial);
         mViewFinal = new WeakReference<View> (viewFinal);
         mPlaySequential = playSequential;
+        mAnimatorSet = new AnimatorSet();
+        Log.d("ryan", "Yo!");
+    }
+    
+    public void setOnAnimationEndListener(OnAnimationEndListener listener) {
+        mOnAnimationEndListener = listener;
     }
     
     public void startAnimation() {
@@ -30,22 +39,25 @@ public class CrossFadeViewSwitcher {
         final View viewFinal = mViewFinal.get();
         
         if (viewInitial != null && viewFinal != null) {
-            AnimatorSet animatorSet = new AnimatorSet();
+            mAnimatorSet = new AnimatorSet();
             
-            animatorSet.setDuration(ANIMATION_DURATION);
+            mAnimatorSet.setDuration(ANIMATION_DURATION);
             ViewHelper.setAlpha(viewFinal, 0f);
             viewFinal.setVisibility(View.VISIBLE);
             
             if (mPlaySequential) {
-                playSequential(animatorSet, viewInitial, viewFinal);
+                playSequential(mAnimatorSet, viewInitial, viewFinal);
             } else {
-                playTogether(animatorSet, viewInitial, viewFinal);
+                playTogether(mAnimatorSet, viewInitial, viewFinal);
             }
             
-            animatorSet.addListener(new AnimatorListener() {
+            mAnimatorSet.addListener(new AnimatorListener() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
                     viewInitial.setVisibility(View.GONE);
+                    if (mOnAnimationEndListener != null) {
+                        mOnAnimationEndListener.onAnimationEnd();
+                    }
                 }
                 
                 @Override
@@ -78,5 +90,9 @@ public class CrossFadeViewSwitcher {
                 ObjectAnimator.ofFloat(viewInitial, "alpha", 0f),
                 ObjectAnimator.ofFloat(viewFinal, "alpha", 1f));
         animatorSet.start();
+    }
+    
+    public interface OnAnimationEndListener {
+        void onAnimationEnd();
     }
 }
