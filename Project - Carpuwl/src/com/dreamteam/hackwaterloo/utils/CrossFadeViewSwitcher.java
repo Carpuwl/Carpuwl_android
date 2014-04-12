@@ -4,7 +4,7 @@ import java.lang.ref.WeakReference;
 
 import android.view.View;
 
-import com.dreamteam.hackwaterloo.interfaces.OnAnimationEndListener;
+import com.dreamteam.hackwaterloo.sharedinterfaces.OnAnimationEndListener;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.Animator.AnimatorListener;
 import com.nineoldandroids.animation.AnimatorSet;

@@ -144,7 +144,7 @@ public class Utils {
 
         return stringBuilder.toString();
     }
-
+    
     public static double getDoubleFromPriceEditText(EditText editText) {
         String contentString = editText.getText().toString().replaceAll("[^\\d.]", "");
         return TextUtils.isEmpty(contentString) ? 0d : Double.parseDouble(contentString);

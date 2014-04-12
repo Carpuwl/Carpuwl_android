@@ -1,10 +1,10 @@
 package TextView;
 
-import com.dreamteam.hackwaterloo.Typefaces;
-
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.TextView;
+
+import com.dreamteam.hackwaterloo.Typefaces;
 
 public class RobotoCondensedRegular extends TextView {
     public RobotoCondensedRegular(Context context, AttributeSet attrs) {

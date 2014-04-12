@@ -17,6 +17,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 
 import com.actionbarsherlock.app.SherlockFragment;
+import com.actionbarsherlock.internal.nineoldandroids.animation.ObjectAnimator;
 import com.dreamteam.carpuwl.R;
 import com.dreamteam.hackwaterloo.adapters.Feed;
 import com.dreamteam.hackwaterloo.adapters.Feed.Event;
@@ -27,8 +28,8 @@ import com.dreamteam.hackwaterloo.utils.AnimationBottomPeak;
 import com.dreamteam.hackwaterloo.utils.CrossFadeViewSwitcher;
 import com.dreamteam.hackwaterloo.utils.server.BaseTask.OnPostExecuteListener;
 import com.dreamteam.hackwaterloo.utils.server.GetEventsTask;
-import com.nineoldandroids.animation.ObjectAnimator;
 import com.nineoldandroids.view.ViewHelper;
+
 
 public class FragmentFindARide extends SherlockFragment implements OnScrollToShowPromptListener,
         OnClickListener, OnRefreshListener {

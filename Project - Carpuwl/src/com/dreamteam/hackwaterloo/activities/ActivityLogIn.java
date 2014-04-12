@@ -2,6 +2,8 @@ package com.dreamteam.hackwaterloo.activities;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
+import java.util.Map;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -21,10 +23,13 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.android.volley.Response.Listener;
+import com.android.volley.VolleyError;
 import com.dreamteam.carpuwl.R;
 import com.dreamteam.hackwaterloo.AppData;
 import com.dreamteam.hackwaterloo.utils.Utils;
-import com.dreamteam.hackwaterloo.utils.server.CreateUserTask;
+import com.dreamteam.hackwaterloo.volley.CreateUser;
+import com.dreamteam.hackwaterloo.volley.MyVolley;
 import com.facebook.Request;
 import com.facebook.Response;
 import com.facebook.Session;
@@ -137,6 +142,7 @@ public class ActivityLogIn extends SherlockFragmentActivity implements OnClickLi
                             AppData.construct(user.getName(),
                                     ActivityLogIn.this.mPhoneInput,
                                     Long.valueOf(user.getId()));
+                            
                             createUser(user.getName(),
                                     ActivityLogIn.this.mPhoneInput,
                                     user.getId());
@@ -157,8 +163,27 @@ public class ActivityLogIn extends SherlockFragmentActivity implements OnClickLi
     }
 
     private void createUser(String name, String phone, String facebookPrivateKey) {
-        new CreateUserTask(name, phone, facebookPrivateKey).executeParallel();
+//        new CreateUserTask(name, phone, facebookPrivateKey).executeParallel();
+        MyVolley.getRequestQueue().add(new CreateUser( name, phone, facebookPrivateKey, createMyReqSuccessListener(), createMyErrorListener()));
     }
+    
+    private Listener<String> createMyReqSuccessListener() {
+        return new Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d("ryan", response);
+            }
+        };
+    } 
+    
+    private com.android.volley.Response.ErrorListener createMyErrorListener() {
+        return new com.android.volley.Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("ryan", error.getMessage());
+            }
+        };
+    } 
 
     @Override
     public void afterTextChanged(Editable arg0) {
