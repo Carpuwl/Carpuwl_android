@@ -2,9 +2,9 @@ package com.dreamteam.hackwaterloo.utils;
 
 import java.lang.ref.WeakReference;
 
-import android.util.Log;
 import android.view.View;
 
+import com.dreamteam.hackwaterloo.interfaces.OnAnimationEndListener;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.Animator.AnimatorListener;
 import com.nineoldandroids.animation.AnimatorSet;
@@ -27,7 +27,6 @@ public class CrossFadeViewSwitcher {
         mViewFinal = new WeakReference<View> (viewFinal);
         mPlaySequential = playSequential;
         mAnimatorSet = new AnimatorSet();
-        Log.d("ryan", "Yo!");
     }
     
     public void setOnAnimationEndListener(OnAnimationEndListener listener) {
@@ -90,9 +89,5 @@ public class CrossFadeViewSwitcher {
                 ObjectAnimator.ofFloat(viewInitial, "alpha", 0f),
                 ObjectAnimator.ofFloat(viewFinal, "alpha", 1f));
         animatorSet.start();
-    }
-    
-    public interface OnAnimationEndListener {
-        void onAnimationEnd();
     }
 }
