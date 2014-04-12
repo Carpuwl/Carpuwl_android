@@ -7,6 +7,7 @@ import uk.co.senab.actionbarpulltorefresh.library.ActionBarPullToRefresh;
 import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -15,10 +16,16 @@ import android.view.ViewStub;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.internal.nineoldandroids.animation.ObjectAnimator;
+import com.android.volley.Request.Method;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.dreamteam.carpuwl.R;
+import com.dreamteam.hackwaterloo.Constants.Endpoint;
 import com.dreamteam.hackwaterloo.adapters.Feed;
 import com.dreamteam.hackwaterloo.adapters.Feed.Event;
 import com.dreamteam.hackwaterloo.adapters.FeedAdapter;
@@ -26,14 +33,15 @@ import com.dreamteam.hackwaterloo.adapters.FeedAdapter.OnScrollToShowPromptListe
 import com.dreamteam.hackwaterloo.sharedinterfaces.OnAnimationEndListener;
 import com.dreamteam.hackwaterloo.utils.AnimationBottomPeak;
 import com.dreamteam.hackwaterloo.utils.CrossFadeViewSwitcher;
-import com.dreamteam.hackwaterloo.utils.server.BaseTask.OnPostExecuteListener;
-import com.dreamteam.hackwaterloo.utils.server.GetEventsTask;
+import com.dreamteam.hackwaterloo.volley.GsonRequest;
+import com.dreamteam.hackwaterloo.volley.MyVolley;
 import com.nineoldandroids.view.ViewHelper;
 
 
 public class FragmentFindARide extends SherlockFragment implements OnScrollToShowPromptListener,
         OnClickListener, OnRefreshListener {
 
+    private static final String LOG_TAG = FragmentFindARide.class.getSimpleName();
     public static final String FRAGMENT_TAG = FragmentFindARide.class.getSimpleName();
 
     private PullToRefreshLayout mPullToRefresh;
@@ -75,7 +83,7 @@ public class FragmentFindARide extends SherlockFragment implements OnScrollToSho
                 .listener(this)
                 .setup(mPullToRefresh);
         
-        getEvents();
+        getEEEvents();
 
         return rootView;
     }
@@ -86,26 +94,55 @@ public class FragmentFindARide extends SherlockFragment implements OnScrollToSho
         switcher.setOnAnimationEndListener(new OnAnimationEndListener() {
             @Override
             public void onAnimationEnd() {
-                getEvents();
+                getEEEvents();
             }
         });
         switcher.startAnimation();
     }
-
-    private void getEvents() {
-        GetEventsTask getEventsTask = new GetEventsTask();
-        getEventsTask.setOnPostExecuteListener(new OnPostExecuteListener<Feed.Event[]>() {
+    
+    public void getEEEvents() {
+        RequestQueue queue = MyVolley.getRequestQueue();
+        GsonRequest<Feed> request = new GsonRequest<Feed>(Method.GET, Endpoint.FEED, Feed.class, createSuccessListener(), createErrorListeners());
+        queue.add(request);
+    }
+    
+    private Response.Listener<Feed> createSuccessListener() {
+        return new Response.Listener<Feed>() {
             @Override
-            public void onFinish(Event[] events) {
-                if (events != null && events.length > 0) {
-                    updateList(events);
-                }
+            public void onResponse(Feed response) {
+                updateList(response.getEvents());
                 mPullToRefresh.setRefreshComplete();
                 new CrossFadeViewSwitcher(mProgressBar, mListView, false).startAnimation();
             }
-        });
-        getEventsTask.executeParallel();
+        };
     }
+    
+    private Response.ErrorListener createErrorListeners() {
+        return new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                if (error.networkResponse != null) {
+                    Log.e(LOG_TAG, "Error: " + error.networkResponse.statusCode);
+                }
+                Toast.makeText(getActivity(), "Error getting results", Toast.LENGTH_SHORT).show();
+            }
+        };
+    }
+
+//    private void getEvents() {
+//        GetEventsTask getEventsTask = new GetEventsTask();
+//        getEventsTask.setOnPostExecuteListener(new OnPostExecuteListener<Feed.Event[]>() {
+//            @Override
+//            public void onFinish(Event[] events) {
+//                if (events != null && events.length > 0) {
+//                    updateList(events);
+//                }
+//                mPullToRefresh.setRefreshComplete();
+//                new CrossFadeViewSwitcher(mProgressBar, mListView, false).startAnimation();
+//            }
+//        });
+//        getEventsTask.executeParallel();
+//    }
 
     private void updateList(Event[] events) {
         if (mListAdapter == null) {
@@ -113,7 +150,7 @@ public class FragmentFindARide extends SherlockFragment implements OnScrollToSho
             mListAdapter = new FeedAdapter(getActivity(), Arrays.asList(events), this);
             mListView.setAdapter(mListAdapter);
         } else {
-            mListAdapter.addItemBatch(Arrays.asList(events));
+            mListAdapter.replaceDataset(Arrays.asList(events));
         }
     }
 

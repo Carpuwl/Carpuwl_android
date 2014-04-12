@@ -5,11 +5,10 @@ import java.util.Map;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Response.ErrorListener;
-import com.android.volley.Response.Listener;
 import com.android.volley.toolbox.StringRequest;
 import com.dreamteam.hackwaterloo.Constants.Endpoint;
 
-public class CreateUser extends StringRequest {
+public class PostUser extends StringRequest {
     
     private static final String PARAMETER_NAME = "name";
     private static final String PARAMETER_PHONE = "phone";
@@ -19,8 +18,8 @@ public class CreateUser extends StringRequest {
     
     private Map<String, String> mParameters;
     
-    public CreateUser(String name, String phone, String facebookPrivateKey, Listener<String> listener, ErrorListener errorListener) {
-        super(Method.POST, MyVolley.getRequestUrl(Endpoint.USER), listener, errorListener);
+    public PostUser(String name, String phone, String facebookPrivateKey, ErrorListener errorListener) {
+        super(Method.POST, MyVolley.getRequestUrl(Endpoint.USER), null, errorListener);
         
         mParameters = new HashMap<String, String>();
         mParameters.put(PARAMETER_NAME, name);
@@ -32,4 +31,11 @@ public class CreateUser extends StringRequest {
     protected Map<String, String> getParams() throws AuthFailureError {
         return mParameters;
     }
+
+    @Override
+    protected void deliverResponse(String response) {
+        // Success.  No implementation needed
+    }
+    
+    
 }

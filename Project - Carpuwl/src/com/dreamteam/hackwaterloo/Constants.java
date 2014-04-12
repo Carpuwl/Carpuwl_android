@@ -6,7 +6,8 @@ public class Constants {
     public static final String BASE_URL = "http://s417363377.onlinehome.us/";
     
     public enum Endpoint {
-        USER("user");
+        USER("user"),
+        FEED("feed");
         
         private String mValue;
         

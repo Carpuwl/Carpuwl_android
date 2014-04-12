@@ -28,7 +28,7 @@ import com.android.volley.VolleyError;
 import com.dreamteam.carpuwl.R;
 import com.dreamteam.hackwaterloo.AppData;
 import com.dreamteam.hackwaterloo.utils.Utils;
-import com.dreamteam.hackwaterloo.volley.CreateUser;
+import com.dreamteam.hackwaterloo.volley.PostUser;
 import com.dreamteam.hackwaterloo.volley.MyVolley;
 import com.facebook.Request;
 import com.facebook.Response;
@@ -163,20 +163,10 @@ public class ActivityLogIn extends SherlockFragmentActivity implements OnClickLi
     }
 
     private void createUser(String name, String phone, String facebookPrivateKey) {
-//        new CreateUserTask(name, phone, facebookPrivateKey).executeParallel();
-        MyVolley.getRequestQueue().add(new CreateUser( name, phone, facebookPrivateKey, createMyReqSuccessListener(), createMyErrorListener()));
+        MyVolley.getRequestQueue().add(new PostUser( name, phone, facebookPrivateKey, createErrorListener()));
     }
     
-    private Listener<String> createMyReqSuccessListener() {
-        return new Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Log.d("ryan", response);
-            }
-        };
-    } 
-    
-    private com.android.volley.Response.ErrorListener createMyErrorListener() {
+    private com.android.volley.Response.ErrorListener createErrorListener() {
         return new com.android.volley.Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {

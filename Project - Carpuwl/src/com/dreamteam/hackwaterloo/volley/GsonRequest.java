@@ -19,26 +19,28 @@ import com.google.gson.JsonSyntaxException;
 
 public class GsonRequest<T> extends Request<T> {
 
-    private final Gson mGson;
     private final Class<T> mClazz;
     private final Listener<T> mListener;
     private final Map<String, String> mParams;
+    
+    public GsonRequest(int method, Endpoint endpoint, Class<T> clazz, Listener<T> listener, ErrorListener errorListener) {
+        this(method, endpoint, clazz, listener, errorListener, null);
+    }
 
     public GsonRequest(int method, Endpoint endpoint, Class<T> clazz, Listener<T> listener,
             ErrorListener errorListener, Map<String, String> params) {
-        
         super(method, Constants.BASE_URL + endpoint.getValue(), errorListener);
         this.mClazz = clazz;
         this.mListener = listener;
         mParams = params;
-        mGson = new Gson();
     }
 
     @Override
     protected Response<T> parseNetworkResponse(NetworkResponse response) {
         try {
+            Gson gson = new Gson();
             String json = new String(response.data, HttpHeaderParser.parseCharset(response.headers));
-            return Response.success(mGson.fromJson(json, mClazz),
+            return Response.success(gson.fromJson(json, mClazz),
                     HttpHeaderParser.parseCacheHeaders(response));
             
         } catch (UnsupportedEncodingException e) {
