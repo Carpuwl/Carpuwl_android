@@ -18,18 +18,15 @@ import android.widget.ProgressBar;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.dreamteam.carpuwl.R;
-import com.dreamteam.hackwaterloo.Constants.Defaults;
 import com.dreamteam.hackwaterloo.adapters.Feed;
 import com.dreamteam.hackwaterloo.adapters.Feed.Event;
 import com.dreamteam.hackwaterloo.adapters.FeedAdapter;
 import com.dreamteam.hackwaterloo.adapters.FeedAdapter.OnScrollToShowPromptListener;
-import com.dreamteam.hackwaterloo.interfaces.OnAnimationEndListener;
+import com.dreamteam.hackwaterloo.sharedinterfaces.OnAnimationEndListener;
 import com.dreamteam.hackwaterloo.utils.AnimationBottomPeak;
 import com.dreamteam.hackwaterloo.utils.CrossFadeViewSwitcher;
 import com.dreamteam.hackwaterloo.utils.server.BaseTask.OnPostExecuteListener;
 import com.dreamteam.hackwaterloo.utils.server.GetEventsTask;
-import com.nineoldandroids.animation.Animator;
-import com.nineoldandroids.animation.Animator.AnimatorListener;
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.nineoldandroids.view.ViewHelper;
 
@@ -124,8 +121,9 @@ public class FragmentFindARide extends SherlockFragment implements OnScrollToSho
         mButtonFilterPrompt = (Button) mViewStubFilterPrompt.inflate();
         mButtonFilterPrompt.setOnClickListener(this);
         
-        ObjectAnimator.ofFloat(mButtonFilterPrompt, "translationY", mButtonFilterPrompt.getHeight()).setDuration(0).start();
-        new AnimationBottomPeak(mButtonFilterPrompt, true).startAnimation();
+        ViewHelper.setAlpha(mViewStubFilterPrompt, 0f);
+        mButtonFilterPrompt.setVisibility(View.VISIBLE);
+        ObjectAnimator.ofFloat(mButtonFilterPrompt, "alpha", 1f);
     }
 
     @Override
