@@ -83,37 +83,37 @@ public class FragmentFindARide extends SherlockFragment implements OnScrollToSho
                 .listener(this)
                 .setup(mPullToRefresh);
 
-        getEvents();
+        updateEvents(null);
 
         return rootView;
     }
 
     @Override
     public void onRefreshStarted(View view) {
+        updateEvents(null);
+    }
+
+    public void updateEvents(final Map<String, String> params) {
+        if (!mPullToRefresh.isRefreshing()) {
+            mPullToRefresh.setRefreshing(true);
+        }
+        
         CrossFadeViewSwitcher switcher = new CrossFadeViewSwitcher(mListView, mProgressBar, false);
         switcher.setOnAnimationEndListener(new OnAnimationEndListener() {
             @Override
             public void onAnimationEnd() {
-                getEvents();
+                GsonRequest<Feed> request = new GsonRequest<Feed>(Method.GET, Endpoint.FEED,
+                        Feed.class,
+                        createSuccessListener(), createErrorListeners(), params);
+                MyVolley.getRequestQueue().add(request);
             }
         });
         switcher.startAnimation();
     }
-    
-    public void getEventsFiltered(Map<String, String> filterSettings) {
-        GsonRequest<Feed> request = new GsonRequest<Feed>(Method.GET, Endpoint.FEED, Feed.class,
-                createSuccessListener(), createErrorListeners(), filterSettings);
-        MyVolley.getRequestQueue().add(request);
-    }
-
-    public void getEvents() {
-        GsonRequest<Feed> request = new GsonRequest<Feed>(Method.GET, Endpoint.FEED, Feed.class,
-                createSuccessListener(), createErrorListeners());
-        MyVolley.getRequestQueue().add(request);
-    }
 
     /**
-     * @return Creates the listener that is invoked when the VolleyRequest is successful 
+     * @return Creates the listener that is invoked when the VolleyRequest is
+     *         successful
      */
     private Response.Listener<Feed> createSuccessListener() {
         return new Response.Listener<Feed>() {
@@ -127,7 +127,8 @@ public class FragmentFindARide extends SherlockFragment implements OnScrollToSho
     }
 
     /**
-     * @return Creates the listener that is invoked when the VolleyRequest is unsuccessful
+     * @return Creates the listener that is invoked when the VolleyRequest is
+     *         unsuccessful
      */
     private Response.ErrorListener createErrorListeners() {
         return new Response.ErrorListener() {
@@ -143,7 +144,9 @@ public class FragmentFindARide extends SherlockFragment implements OnScrollToSho
     }
 
     /**
-     * Updates the contents of the ListView's adapter, instantiating it if necessary
+     * Updates the contents of the ListView's adapter, instantiating it if
+     * necessary
+     * 
      * @param events The events to be inserted into the ListView
      */
     private void updateList(Event[] events) {
@@ -151,15 +154,16 @@ public class FragmentFindARide extends SherlockFragment implements OnScrollToSho
             mListView = (ListView) getView().findViewById(R.id.find_ride_list_view);
             mListAdapter = new FeedAdapter(getActivity(), this);
             mListView.setAdapter(mListAdapter);
-        } 
-        
+        }
+
         if (events != null) {
             mListAdapter.replaceDataset(Arrays.asList(events));
         }
     }
 
-    /* 
-     * The listener invoked when the listView has been scrolled past a certain number of items
+    /*
+     * The listener invoked when the listView has been scrolled past a certain
+     * number of items
      */
     @Override
     public void onScrollToShowPrompt() {

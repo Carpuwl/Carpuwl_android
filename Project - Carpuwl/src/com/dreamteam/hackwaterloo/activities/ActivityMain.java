@@ -217,18 +217,18 @@ public class ActivityMain extends SherlockFragmentActivity implements FilterProm
     }
 
     @Override
-    public void onFilterPromptToBeShown() {
-        if (mDrawerSecondary != null) {
-            mDrawerLayout.openDrawer(mDrawerSecondary);
-        }
-    }
-
-    @Override
     public void onBackPressed() {
         Intent intent = new Intent(this, ActivitySplashPage.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra("EXIT", true);
         super.onBackPressed();
+    }
+    
+    @Override
+    public void onFilterPromptToBeShown() {
+        if (mDrawerSecondary != null) {
+            mDrawerLayout.openDrawer(mDrawerSecondary);
+        }
     }
 
     /*
@@ -239,7 +239,7 @@ public class ActivityMain extends SherlockFragmentActivity implements FilterProm
     public void onFilterApplied(Map<String, String> filterSettings) {
         mDrawerLayout.closeDrawer(mDrawerSecondary);
         FragmentFindARide fragment = (FragmentFindARide) mFragmentManager.findFragmentByTag(FragmentFindARide.TAG);
-        fragment.getEventsFiltered(filterSettings);
+        fragment.updateEvents(filterSettings);
     }
 
 }
