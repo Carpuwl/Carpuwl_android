@@ -102,10 +102,6 @@ public class FragmentFindARide extends SherlockFragment implements OnScrollToSho
     }
 
     public void updateEvents(final Map<String, String> params) {
-        if (!mPullToRefresh.isRefreshing()) {
-            mPullToRefresh.setRefreshing(true);
-        }
-        
         CrossFadeViewSwitcher switcher = new CrossFadeViewSwitcher(mListView, mProgressBar, false);
         switcher.setOnAnimationEndListener(new OnAnimationEndListener() {
             @Override
@@ -127,8 +123,10 @@ public class FragmentFindARide extends SherlockFragment implements OnScrollToSho
         return new Response.Listener<Feed>() {
             @Override
             public void onResponse(Feed response) {
+                if (mPullToRefresh.isRefreshing()) {
+                    mPullToRefresh.setRefreshComplete();
+                }
                 updateList(response.getEvents());
-                mPullToRefresh.setRefreshComplete();
                 new CrossFadeViewSwitcher(mProgressBar, mListView, false).startAnimation();
             }
         };

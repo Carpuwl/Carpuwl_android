@@ -63,7 +63,7 @@ public class GsonRequest<T> extends Request<T> {
     /*
      * Returns a Map of parameters to be used for a POST or PUT request. Can
      * throw AuthFailureError as authentication may be required to provide these
-     * values.  GET parameters are handled via URL 
+     * values.  GET parameters are handled via URL
      */
     @Override
     protected Map<String, String> getParams() throws AuthFailureError {
