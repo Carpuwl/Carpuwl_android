@@ -31,7 +31,7 @@ import com.dreamteam.hackwaterloo.models.DrawerItem;
 public class ActivityMain extends SherlockFragmentActivity implements FilterPromptListener,
         OnFilterAppliedListener {
 
-    private static final String TAG = ActivityMain.class.getSimpleName();
+//    private static final String TAG = ActivityMain.class.getSimpleName();
     private static final String KEY_SELECTED_DRAWER_POSITION = "keySelectedDrawerPosition";
 
     private FragmentManager mFragmentManager;

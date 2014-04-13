@@ -41,7 +41,6 @@ import com.dreamteam.hackwaterloo.utils.Utils;
 
 /**
  * @author Ryan
- *
  */
 public class FragmentFilter extends SherlockFragment implements OnClickListener {
 
@@ -197,7 +196,7 @@ public class FragmentFilter extends SherlockFragment implements OnClickListener 
 
     private void restoreFilterSettings() {
         disableAllCheckBoxes();
-        
+
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(
                 SHARED_PREF_FILTER, Context.MODE_PRIVATE);
 
@@ -208,7 +207,7 @@ public class FragmentFilter extends SherlockFragment implements OnClickListener 
         mCheckBoxPrice.setChecked(sharedPreferences.getBoolean(KEY_CHECKBOX_PRICE, false));
         mCheckBoxSeats.setChecked(sharedPreferences.getBoolean(KEY_CHECKBOX_SEATS, false));
         mCheckBoxWhen.setChecked(sharedPreferences.getBoolean(KEY_CHECKBOX_WHEN, false));
-        
+
         mSpinnerDepart.setSelection(sharedPreferences.getInt(KEY_LOCATION_DEPART, 0));
         mSpinnerArrive.setSelection(sharedPreferences.getInt(KEY_LOCATION_ARRIVE, 0));
         mEditPrice.setText(sharedPreferences.getString(KEY_PRICE, String.valueOf(10.00d)));
@@ -217,29 +216,29 @@ public class FragmentFilter extends SherlockFragment implements OnClickListener 
                 + Defaults.MINIMUM_WHEN_OFFSET);
         mTextWhen.setText(Utils.multiCaseDateFormat(mTimeWhen));
     }
-    
+
     @Override
     public void onStop() {
         SharedPreferences.Editor editor = getActivity().getSharedPreferences(SHARED_PREF_FILTER,
                 Context.MODE_PRIVATE).edit();
-        
+
         editor.putBoolean(KEY_CHECKBOX_LOCATION_DEPART, mCheckBoxSpinnerDepart.isChecked());
         editor.putBoolean(KEY_CHECKBOX_LOCATION_ARRIVE, mCheckBoxSpinnerArrive.isChecked());
         editor.putBoolean(KEY_CHECKBOX_PRICE, mCheckBoxPrice.isChecked());
         editor.putBoolean(KEY_CHECKBOX_SEATS, mCheckBoxSeats.isChecked());
         editor.putBoolean(KEY_CHECKBOX_WHEN, mCheckBoxWhen.isChecked());
-        
+
         editor.putInt(KEY_LOCATION_DEPART, mSpinnerDepart.getSelectedItemPosition());
         editor.putInt(KEY_LOCATION_ARRIVE, mSpinnerArrive.getSelectedItemPosition());
         editor.putString(KEY_PRICE, String.valueOf(Utils.getDoubleFromPriceEditText(mEditPrice)));
         editor.putInt(KEY_SEATS, Integer.valueOf(mTextSeats.getText().toString()));
         editor.putLong(KEY_WHEN, mTimeWhen);
-        
+
         editor.commit();
-        
+
         super.onStop();
     }
-    
+
     @Override
     public void onResume() {
         // TODO Auto-generated method stub
@@ -416,19 +415,21 @@ public class FragmentFilter extends SherlockFragment implements OnClickListener 
                 filterSettings
                         .put(SerializedNames.SEATS_REMAINING, mTextSeats.getText().toString());
             }
-            
+
             if (mCheckBoxWhen.isChecked()) {
                 filterSettings.put(SerializedNames.DATE_DEPART, String.valueOf(mTimeWhen));
             }
-            
+
             if (mCheckBoxSpinnerDepart.isChecked()) {
-                filterSettings.put(SerializedNames.LOCATION_END, mSpinnerDepart.getSelectedItem().toString());
+                filterSettings.put(SerializedNames.LOCATION_START, mSpinnerDepart.getSelectedItem()
+                        .toString());
             }
-            
+
             if (mCheckBoxSpinnerArrive.isChecked()) {
-                filterSettings.put(SerializedNames.LOCATION_START, mSpinnerArrive.getSelectedItem().toString());
+                filterSettings.put(SerializedNames.LOCATION_END, mSpinnerArrive.getSelectedItem()
+                        .toString());
             }
-           
+
             Log.d(TAG, "Filter settings: " + filterSettings.toString());
             mListener.onFilterApplied(filterSettings);
             break;
