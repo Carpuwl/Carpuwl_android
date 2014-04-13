@@ -2,8 +2,6 @@ package com.dreamteam.hackwaterloo.activities;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.HashMap;
-import java.util.Map;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -23,13 +21,12 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.dreamteam.carpuwl.R;
 import com.dreamteam.hackwaterloo.AppData;
 import com.dreamteam.hackwaterloo.utils.Utils;
-import com.dreamteam.hackwaterloo.volley.PostUser;
 import com.dreamteam.hackwaterloo.volley.MyVolley;
+import com.dreamteam.hackwaterloo.volley.PostUser;
 import com.facebook.Request;
 import com.facebook.Response;
 import com.facebook.Session;

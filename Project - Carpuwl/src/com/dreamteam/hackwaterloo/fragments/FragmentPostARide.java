@@ -21,21 +21,27 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
+import com.android.volley.Request.Method;
+import com.android.volley.Response.ErrorListener;
+import com.android.volley.Response.Listener;
+import com.android.volley.VolleyError;
 import com.dreamteam.carpuwl.R;
 import com.dreamteam.hackwaterloo.AppData;
 import com.dreamteam.hackwaterloo.Constants.Defaults;
-import com.dreamteam.hackwaterloo.Constants.StatusCode;
-import com.dreamteam.hackwaterloo.adapters.Feed.Event;
+import com.dreamteam.hackwaterloo.Constants.Endpoint;
+import com.dreamteam.hackwaterloo.models.Feed.Event;
 import com.dreamteam.hackwaterloo.utils.CrossFadeViewSwitcher;
 import com.dreamteam.hackwaterloo.utils.DateTimePickerHelper;
 import com.dreamteam.hackwaterloo.utils.DateTimePickerHelper.OnDateTimeSelectedListener;
 import com.dreamteam.hackwaterloo.utils.TextWatcherPrice;
 import com.dreamteam.hackwaterloo.utils.Utils;
-import com.dreamteam.hackwaterloo.utils.server.BaseTaskV2.OnPostExecuteListener;
-import com.dreamteam.hackwaterloo.utils.server.PostEventTask;
+import com.dreamteam.hackwaterloo.volley.MyVolley;
+import com.dreamteam.hackwaterloo.volley.PostEventRequest;
 
 public class FragmentPostARide extends SherlockFragment implements OnClickListener {
 
+    private static final String TAG = FragmentPostARide.class.getSimpleName();
+    
     private DateTimePickerHelper mDateTimePickerHelper;
 
     private LinearLayout mContainerEditPost;
@@ -122,16 +128,6 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
             return true;
         }
         return false;
-        
-//        return (
-//                mSpinnerStart.getSelectedItemPosition() != mSpinnerEnd.getSelectedItemId() &&
-//                mSpinnerStart.getSelectedItemPosition() == 0 &&
-//                mSpinnerEnd.getSelectedItemPosition() == 0 &&
-//                mStartTime < mEndTime &&
-//                mStartTime > System.currentTimeMillis() &&
-//                Utils.getDoubleFromPriceEditText(mEditPrice) >= 1d &&
-//                !mTextSeatsRemaining.getText().toString().equals("0") &&
-//                mTextSeatsRemaining.getText().toString().equals(""));
     }
     
     private void enableSubmitButtonIfDataValid() {
@@ -159,26 +155,7 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.post_ride_button_submit_event:
-                Event event = new Event(
-                        mSpinnerStart.getSelectedItem().toString(), 
-                        mSpinnerEnd.getSelectedItem().toString(), 
-                        Utils.getDoubleFromPriceEditText(mEditPrice), 
-                        Integer.parseInt(mTextSeatsValue.getText().toString()),
-                        mStartTime, 
-                        mEndTime,
-                        AppData.getFacebookForeginKey(), 
-                        mEditDescription.getText().toString());
-                PostEventTask postEventTask = new PostEventTask(getActivity(), event);
-                postEventTask.setOnPostExecuteListener(new OnPostExecuteListener<Integer>() {
-                    @Override
-                    public void onFinish(Integer httpStatusCode) {
-                        if (httpStatusCode == StatusCode.OK) {
-                            Toast.makeText(getActivity(), "Successful", Toast.LENGTH_SHORT).show();
-                            new CrossFadeViewSwitcher(mContainerEditPost, mContainerSuccess, true).startAnimation();
-                        }
-                    }
-                });
-                postEventTask.executeParallel();
+                postRequest();
                 break;
 
             case R.id.post_ride_button_start_date:
@@ -190,6 +167,41 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
                 mDateTimePickerHelper.show();
                 break;
         }
+    }
+    
+    private void postRequest() {
+        Event event = new Event(
+                AppData.getFacebookForeginKey(), 
+                Utils.getDoubleFromPriceEditText(mEditPrice), 
+                Integer.parseInt(mTextSeatsValue.getText().toString()),
+                mEditDescription.getText().toString(),
+                mStartTime,
+                mEndTime,
+                mSpinnerStart.getSelectedItem().toString(),
+                mSpinnerEnd.getSelectedItem().toString());
+        
+        PostEventRequest request = new PostEventRequest(
+                Method.POST, 
+                Endpoint.CREATE_EVENT, 
+                new Listener<String>() {
+                    
+                    @Override
+                    public void onResponse(String response) {
+                        Toast.makeText(getActivity(), "Successful", Toast.LENGTH_SHORT).show();
+                        new CrossFadeViewSwitcher(mContainerEditPost, mContainerSuccess, true).startAnimation();
+                        
+                    }
+                }, 
+                new ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getActivity(), "Could not post", Toast.LENGTH_SHORT).show();
+                    }
+                },
+                event);
+        request.setTag(TAG);
+        MyVolley.getRequestQueue().add(request);
     }
     
     private class SeekbarListener implements OnSeekBarChangeListener {
@@ -238,7 +250,7 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
             enableSubmitButtonIfDataValid();
         }
     }
-    
+
     private class SeekBarButtonEnabler implements OnItemSelectedListener {
 
         @Override

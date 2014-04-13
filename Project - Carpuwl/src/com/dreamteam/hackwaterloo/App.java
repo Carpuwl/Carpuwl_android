@@ -1,9 +1,9 @@
 package com.dreamteam.hackwaterloo;
 
-import com.dreamteam.hackwaterloo.volley.MyVolley;
-
 import android.app.Application;
 import android.content.Context;
+
+import com.dreamteam.hackwaterloo.volley.MyVolley;
 
 public class App extends Application {
     

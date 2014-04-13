@@ -1,3 +1,4 @@
+
 package com.dreamteam.hackwaterloo.fragments;
 
 import java.util.Arrays;
@@ -26,17 +27,16 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.dreamteam.carpuwl.R;
 import com.dreamteam.hackwaterloo.Constants.Endpoint;
-import com.dreamteam.hackwaterloo.adapters.Feed;
-import com.dreamteam.hackwaterloo.adapters.Feed.Event;
 import com.dreamteam.hackwaterloo.adapters.FeedAdapter;
 import com.dreamteam.hackwaterloo.adapters.FeedAdapter.OnScrollToShowPromptListener;
+import com.dreamteam.hackwaterloo.models.Feed;
+import com.dreamteam.hackwaterloo.models.Feed.Event;
 import com.dreamteam.hackwaterloo.sharedinterfaces.OnAnimationEndListener;
 import com.dreamteam.hackwaterloo.utils.AnimationBottomPeak;
 import com.dreamteam.hackwaterloo.utils.CrossFadeViewSwitcher;
 import com.dreamteam.hackwaterloo.volley.GsonRequest;
 import com.dreamteam.hackwaterloo.volley.MyVolley;
 import com.nineoldandroids.view.ViewHelper;
-
 
 public class FragmentFindARide extends SherlockFragment implements OnScrollToShowPromptListener,
         OnClickListener, OnRefreshListener {
@@ -76,36 +76,41 @@ public class FragmentFindARide extends SherlockFragment implements OnScrollToSho
         mListView = (ListView) rootView.findViewById(R.id.find_ride_list_view);
         mViewStubFilterPrompt = (ViewStub) rootView
                 .findViewById(R.id.find_ride_viewstub_filter_prompt);
-        mPullToRefresh = (PullToRefreshLayout) rootView.findViewById(R.id.find_ride_pull_to_refresh);
+        mPullToRefresh = (PullToRefreshLayout) rootView
+                .findViewById(R.id.find_ride_pull_to_refresh);
 
         ActionBarPullToRefresh.from(getActivity())
                 .allChildrenArePullable()
                 .listener(this)
                 .setup(mPullToRefresh);
-        
-        getEEEvents();
+
+        getEvents();
 
         return rootView;
     }
-    
+
     @Override
     public void onRefreshStarted(View view) {
         CrossFadeViewSwitcher switcher = new CrossFadeViewSwitcher(mListView, mProgressBar, false);
         switcher.setOnAnimationEndListener(new OnAnimationEndListener() {
             @Override
             public void onAnimationEnd() {
-                getEEEvents();
+                getEvents();
             }
         });
         switcher.startAnimation();
     }
-    
-    public void getEEEvents() {
+
+    public void getEvents() {
         RequestQueue queue = MyVolley.getRequestQueue();
-        GsonRequest<Feed> request = new GsonRequest<Feed>(Method.GET, Endpoint.FEED, Feed.class, createSuccessListener(), createErrorListeners());
+        GsonRequest<Feed> request = new GsonRequest<Feed>(Method.GET, Endpoint.FEED, Feed.class,
+                createSuccessListener(), createErrorListeners());
         queue.add(request);
     }
-    
+
+    /**
+     * @return Creates the listener that is invoked when the VolleyRequest is successful 
+     */
     private Response.Listener<Feed> createSuccessListener() {
         return new Response.Listener<Feed>() {
             @Override
@@ -116,7 +121,10 @@ public class FragmentFindARide extends SherlockFragment implements OnScrollToSho
             }
         };
     }
-    
+
+    /**
+     * @return Creates the listener that is invoked when the VolleyRequest is unsuccessful
+     */
     private Response.ErrorListener createErrorListeners() {
         return new Response.ErrorListener() {
             @Override
@@ -124,26 +132,16 @@ public class FragmentFindARide extends SherlockFragment implements OnScrollToSho
                 if (error.networkResponse != null) {
                     Log.e(LOG_TAG, "Error: " + error.networkResponse.statusCode);
                 }
+                // TODO: make a string perhaps
                 Toast.makeText(getActivity(), "Error getting results", Toast.LENGTH_SHORT).show();
             }
         };
     }
 
-//    private void getEvents() {
-//        GetEventsTask getEventsTask = new GetEventsTask();
-//        getEventsTask.setOnPostExecuteListener(new OnPostExecuteListener<Feed.Event[]>() {
-//            @Override
-//            public void onFinish(Event[] events) {
-//                if (events != null && events.length > 0) {
-//                    updateList(events);
-//                }
-//                mPullToRefresh.setRefreshComplete();
-//                new CrossFadeViewSwitcher(mProgressBar, mListView, false).startAnimation();
-//            }
-//        });
-//        getEventsTask.executeParallel();
-//    }
-
+    /**
+     * Updates the contents of the ListView's adapter, instantiating it if necessary
+     * @param events The events to be inserted into the ListView
+     */
     private void updateList(Event[] events) {
         if (mListAdapter == null) {
             mListView = (ListView) getView().findViewById(R.id.find_ride_list_view);
@@ -154,23 +152,32 @@ public class FragmentFindARide extends SherlockFragment implements OnScrollToSho
         }
     }
 
+    /* 
+     * The listener invoked when the listView has been scrolled past a certain number of items
+     */
     @Override
     public void onScrollToShowPrompt() {
         mButtonFilterPrompt = (Button) mViewStubFilterPrompt.inflate();
         mButtonFilterPrompt.setOnClickListener(this);
-        
-        ViewHelper.setAlpha(mViewStubFilterPrompt, 0f);
+
+        ViewHelper.setAlpha(mButtonFilterPrompt, 0f);
         mButtonFilterPrompt.setVisibility(View.VISIBLE);
-        ObjectAnimator.ofFloat(mButtonFilterPrompt, "alpha", 1f);
+        ObjectAnimator.ofFloat(mButtonFilterPrompt, "alpha", 1f).start();
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.find_ride_button_filter_prompt:
-                mListener.onFilterPromptToBeShown();
-                new AnimationBottomPeak(mButtonFilterPrompt, false).startAnimation();
-                break;
+        case R.id.find_ride_button_filter_prompt:
+            mListener.onFilterPromptToBeShown();
+            new AnimationBottomPeak(mButtonFilterPrompt, false).startAnimation();
+            break;
         }
+    }
+
+    @Override
+    public void onStop() {
+        MyVolley.getRequestQueue().cancelAll(this);
+        super.onStop();
     }
 }

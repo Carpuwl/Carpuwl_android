@@ -36,6 +36,4 @@ public class PostUser extends StringRequest {
     protected void deliverResponse(String response) {
         // Success.  No implementation needed
     }
-    
-    
 }

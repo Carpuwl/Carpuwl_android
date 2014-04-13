@@ -1,10 +1,10 @@
 package com.dreamteam.hackwaterloo.volley;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
-
 import com.dreamteam.hackwaterloo.Constants.Endpoint;
 
 public enum MyVolley {
@@ -29,6 +29,7 @@ public enum MyVolley {
     }
     
     public static String getRequestUrl(Endpoint endpoint) {
+        Log.d("ryan", "Constructed requestUrl: " + BASE_URL + endpoint.getValue() + PHP_SUFFIX);
         return BASE_URL + endpoint.getValue() + PHP_SUFFIX;
     }
     
