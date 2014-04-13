@@ -27,6 +27,7 @@ import com.dreamteam.hackwaterloo.fragments.FragmentFindARide.FilterPromptListen
 import com.dreamteam.hackwaterloo.fragments.FragmentMyProfile;
 import com.dreamteam.hackwaterloo.fragments.FragmentPostARide;
 import com.dreamteam.hackwaterloo.models.DrawerItem;
+import com.dreamteam.hackwaterloo.utils.Utils;
 
 public class ActivityMain extends SherlockFragmentActivity implements FilterPromptListener,
         OnFilterAppliedListener {
@@ -45,6 +46,8 @@ public class ActivityMain extends SherlockFragmentActivity implements FilterProm
     private FrameLayout mDrawerSecondary;
 
     private int mSelectedDrawerPosition;
+    private CharSequence mTitle;
+    private CharSequence mDrawerTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +81,9 @@ public class ActivityMain extends SherlockFragmentActivity implements FilterProm
         if (mSelectedDrawerPosition == DrawerItem.POSITION_FIND_A_RIDE) {
             addOrRestoreSecondaryDrawer();
         }
+        
+        mTitle = getSupportActionBar().getTitle();
+        mDrawerTitle = Utils.getString(R.string.app_name);
     }
 
     private void initDrawers() {
@@ -112,6 +118,12 @@ public class ActivityMain extends SherlockFragmentActivity implements FilterProm
                     .commit();
         }
     }
+    
+    @Override
+    public void setTitle(CharSequence title) {
+        mTitle = title;
+        getSupportActionBar().setTitle(mTitle);
+    }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -130,12 +142,14 @@ public class ActivityMain extends SherlockFragmentActivity implements FilterProm
 
         @Override
         public void onDrawerClosed(View drawerView) {
-            super.onDrawerClosed(drawerView);
+            getSupportActionBar().setTitle(mTitle);
+            supportInvalidateOptionsMenu();
         }
 
         @Override
         public void onDrawerOpened(View drawerView) {
-            super.onDrawerOpened(drawerView);
+            getSupportActionBar().setTitle(mDrawerTitle);
+            supportInvalidateOptionsMenu();
         }
     }
 
@@ -147,7 +161,6 @@ public class ActivityMain extends SherlockFragmentActivity implements FilterProm
     }
 
     private void drawerSelectItem(int position) {
-        getSupportActionBar().setTitle(mDrawerItems[position].getTitle());
         switch (position) {
         case DrawerItem.POSITION_MY_PROFILE: // My Profile
             mFragmentManager
@@ -185,6 +198,8 @@ public class ActivityMain extends SherlockFragmentActivity implements FilterProm
             mFragmentManager.beginTransaction().remove(mFragmentFilter).commit();
             mDrawerSecondary = null;
         }
+        
+        setTitle(mDrawerItems[position].getTitle());
         mDrawerLayout.closeDrawer(mDrawerPrimary);
     }
 
