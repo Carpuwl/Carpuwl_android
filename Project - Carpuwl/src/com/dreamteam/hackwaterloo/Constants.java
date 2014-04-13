@@ -25,6 +25,7 @@ public class Constants {
         public static final int ANIMATION_DURATION = 400;
         public static final int MINIMUM_SEATS = 1;
         public static final double MINIMUM_PRICE = 1d;
+        public static final long MINIMUM_WHEN_OFFSET = 1000 * 60 * 60 * 24 * 2; // Two days
     }
     
     public static class RequestCode {

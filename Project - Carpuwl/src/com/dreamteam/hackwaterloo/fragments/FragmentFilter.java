@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -37,9 +39,26 @@ import com.dreamteam.hackwaterloo.utils.DateTimePickerHelper.OnDateTimeSelectedL
 import com.dreamteam.hackwaterloo.utils.TextWatcherPrice;
 import com.dreamteam.hackwaterloo.utils.Utils;
 
+/**
+ * @author Ryan
+ *
+ */
 public class FragmentFilter extends SherlockFragment implements OnClickListener {
 
     public static final String TAG = FragmentFilter.class.getSimpleName();
+    private static final String SHARED_PREF_FILTER = "filter_settings";
+
+    private static final String KEY_CHECKBOX_LOCATION_DEPART = "checkBoxLocationDepart";
+    private static final String KEY_CHECKBOX_LOCATION_ARRIVE = "checkBoxLocationArrive";
+    private static final String KEY_CHECKBOX_PRICE = "checkBoxPrice";
+    private static final String KEY_CHECKBOX_SEATS = "checkBoxSeats";
+    private static final String KEY_CHECKBOX_WHEN = "checkBoxWhen";
+
+    private static final String KEY_LOCATION_DEPART = "locationDepart";
+    private static final String KEY_LOCATION_ARRIVE = "locationArrive";
+    private static final String KEY_PRICE = "price";
+    private static final String KEY_SEATS = "seats";
+    private static final String KEY_WHEN = "when";
 
     private OnFilterAppliedListener mListener;
     private DateTimePickerHelper mDateTimePickerHelper;
@@ -97,10 +116,7 @@ public class FragmentFilter extends SherlockFragment implements OnClickListener 
         mButtonWhen.setOnClickListener(this);
         mButtonApply.setOnClickListener(this);
 
-        // First time this view is inflated
-        if (savedInstanceState == null) {
-            disableAllCheckBoxes();
-        }
+        restoreFilterSettings();
 
         enableButtonIfDataValid();
 
@@ -179,10 +195,55 @@ public class FragmentFilter extends SherlockFragment implements OnClickListener 
         }));
     }
 
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
+    private void restoreFilterSettings() {
+        disableAllCheckBoxes();
+        
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(
+                SHARED_PREF_FILTER, Context.MODE_PRIVATE);
 
-        super.onSaveInstanceState(outState);
+        mCheckBoxSpinnerDepart.setChecked(sharedPreferences.getBoolean(
+                KEY_CHECKBOX_LOCATION_DEPART, false));
+        mCheckBoxSpinnerArrive.setChecked(sharedPreferences.getBoolean(
+                KEY_CHECKBOX_LOCATION_ARRIVE, false));
+        mCheckBoxPrice.setChecked(sharedPreferences.getBoolean(KEY_CHECKBOX_PRICE, false));
+        mCheckBoxSeats.setChecked(sharedPreferences.getBoolean(KEY_CHECKBOX_SEATS, false));
+        mCheckBoxWhen.setChecked(sharedPreferences.getBoolean(KEY_CHECKBOX_WHEN, false));
+        
+        mSpinnerDepart.setSelection(sharedPreferences.getInt(KEY_LOCATION_DEPART, 0));
+        mSpinnerArrive.setSelection(sharedPreferences.getInt(KEY_LOCATION_ARRIVE, 0));
+        mEditPrice.setText(sharedPreferences.getString(KEY_PRICE, String.valueOf(10.00d)));
+        mSeekBarSeats.setProgress(sharedPreferences.getInt(KEY_SEATS, Defaults.MINIMUM_SEATS));
+        mTimeWhen = sharedPreferences.getLong(KEY_WHEN, System.currentTimeMillis()
+                + Defaults.MINIMUM_WHEN_OFFSET);
+        mTextWhen.setText(Utils.multiCaseDateFormat(mTimeWhen));
+    }
+    
+    @Override
+    public void onStop() {
+        SharedPreferences.Editor editor = getActivity().getSharedPreferences(SHARED_PREF_FILTER,
+                Context.MODE_PRIVATE).edit();
+        
+        editor.putBoolean(KEY_CHECKBOX_LOCATION_DEPART, mCheckBoxSpinnerDepart.isChecked());
+        editor.putBoolean(KEY_CHECKBOX_LOCATION_ARRIVE, mCheckBoxSpinnerArrive.isChecked());
+        editor.putBoolean(KEY_CHECKBOX_PRICE, mCheckBoxPrice.isChecked());
+        editor.putBoolean(KEY_CHECKBOX_SEATS, mCheckBoxSeats.isChecked());
+        editor.putBoolean(KEY_CHECKBOX_WHEN, mCheckBoxWhen.isChecked());
+        
+        editor.putInt(KEY_LOCATION_DEPART, mSpinnerDepart.getSelectedItemPosition());
+        editor.putInt(KEY_LOCATION_ARRIVE, mSpinnerArrive.getSelectedItemPosition());
+        editor.putString(KEY_PRICE, String.valueOf(Utils.getDoubleFromPriceEditText(mEditPrice)));
+        editor.putInt(KEY_SEATS, Integer.valueOf(mTextSeats.getText().toString()));
+        editor.putLong(KEY_WHEN, mTimeWhen);
+        
+        editor.commit();
+        
+        super.onStop();
+    }
+    
+    @Override
+    public void onResume() {
+        // TODO Auto-generated method stub
+        super.onResume();
     }
 
     private void disableAllCheckBoxes() {
