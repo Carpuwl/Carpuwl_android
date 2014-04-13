@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.actionbarsherlock.app.SherlockFragment;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
 import com.dreamteam.carpuwl.R;
 import com.dreamteam.hackwaterloo.AppData;
 import com.facebook.widget.ProfilePictureView;
@@ -24,5 +26,10 @@ public class FragmentMyProfile extends SherlockFragment{
         profilePictureView.setProfileId(String.valueOf(AppData.getFacebookForeginKey()));
         
         return rootView;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
     }
 }

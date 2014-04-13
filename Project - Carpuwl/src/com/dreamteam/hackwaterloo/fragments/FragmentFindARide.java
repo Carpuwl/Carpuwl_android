@@ -22,6 +22,8 @@ import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.internal.nineoldandroids.animation.ObjectAnimator;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
 import com.android.volley.Request.Method;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -64,6 +66,12 @@ public class FragmentFindARide extends SherlockFragment implements OnScrollToSho
                     + " must implement FilterPromptListener");
         }
         super.onAttach(activity);
+    }
+    
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
+        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -186,8 +194,8 @@ public class FragmentFindARide extends SherlockFragment implements OnScrollToSho
     }
 
     @Override
-    public void onStop() {
-        MyVolley.getRequestQueue().cancelAll(this);
-        super.onStop();
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.fragment_find_a_ride, menu);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 }

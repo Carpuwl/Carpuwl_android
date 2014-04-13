@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/action_find_ride_filter"
+        android:icon="@drawable/ic_action_sort_by_size"
+        android:showAsAction="always"
+        android:title="@string/filter_filter"/>
+
+</menu>

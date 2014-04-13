@@ -17,6 +17,7 @@ import android.widget.FrameLayout;
 import android.widget.ListView;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.dreamteam.carpuwl.R;
 import com.dreamteam.hackwaterloo.adapters.DrawerLayoutAdapter;
@@ -142,14 +143,18 @@ public class ActivityMain extends SherlockFragmentActivity implements FilterProm
 
         @Override
         public void onDrawerClosed(View drawerView) {
-            getSupportActionBar().setTitle(mTitle);
-            supportInvalidateOptionsMenu();
+            if (drawerView.equals(mDrawerPrimary)) {
+                getSupportActionBar().setTitle(mTitle);
+                supportInvalidateOptionsMenu();
+            }
         }
 
         @Override
         public void onDrawerOpened(View drawerView) {
-            getSupportActionBar().setTitle(mDrawerTitle);
-            supportInvalidateOptionsMenu();
+            if (drawerView.equals(mDrawerPrimary)) {
+                getSupportActionBar().setTitle(mDrawerTitle);
+                supportInvalidateOptionsMenu();
+            }
         }
     }
 
@@ -214,18 +219,48 @@ public class ActivityMain extends SherlockFragmentActivity implements FilterProm
         super.onConfigurationChanged(newConfig);
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
+    
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+//        if (menu.size() > 0) {
+//            boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerPrimary);
+//            for (int i = 0; i < menu.size(); i++) {
+//                MenuItem item = menu.findItem(i);
+//                item.setVisible(!drawerOpen);
+//            }
+//        }
+        return super.onPrepareOptionsMenu(menu);
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
+        
+        switch (item.getItemId()) {
+        case android.R.id.home:
             if (mDrawerLayout.isDrawerOpen(mDrawerPrimary)) {
                 mDrawerLayout.closeDrawer(mDrawerPrimary);
             } else {
                 mDrawerLayout.openDrawer(mDrawerPrimary);
             }
-
+            
             if (mDrawerSecondary != null && mDrawerLayout.isDrawerOpen(mDrawerSecondary)) {
                 mDrawerLayout.closeDrawer(mDrawerSecondary);
+            }
+            
+        case R.id.action_find_ride_filter:
+            if (mDrawerLayout.isDrawerOpen(mDrawerSecondary)) {
+                mDrawerLayout.closeDrawer(mDrawerSecondary);
+            } else {
+                mDrawerLayout.openDrawer(mDrawerSecondary);
+            }
+            
+            if (mDrawerLayout.isDrawerOpen(mDrawerPrimary)) {
+                mDrawerLayout.closeDrawer(mDrawerPrimary);
             }
         }
         return super.onOptionsItemSelected(item);
