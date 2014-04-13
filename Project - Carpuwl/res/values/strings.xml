@@ -67,7 +67,7 @@
     <string name="find_ride_rating">Rating: 4.5</string>
     <string name="find_ride_time">Departing:&#160;</string>
     <string name="find_ride_filter_max_price_hint">Maximum price</string>
-    <string name="find_ride_filter_prompt">Didn\'t find what you\'re looking filter?  Try applying a filter</string>
+    <string name="find_ride_filter_prompt">Didn\'t find what you\'re looking for?  Try applying a filter</string>
     <string name="dialog_filter_title">Filter results</string>
     <string name="dialog_spinner_start_promt">Starting location</string>
     <string name="dialog_spinner_end_prompt">Destination</string>
