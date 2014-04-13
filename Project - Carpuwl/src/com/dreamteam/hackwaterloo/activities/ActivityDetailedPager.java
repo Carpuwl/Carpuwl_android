@@ -8,7 +8,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 
-import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;
 import com.dreamteam.carpuwl.R;
 import com.dreamteam.hackwaterloo.Constants;
@@ -16,16 +15,16 @@ import com.dreamteam.hackwaterloo.fragments.FragmentDetailedEvent;
 import com.dreamteam.hackwaterloo.models.Feed.Event;
 import com.dreamteam.hackwaterloo.utils.Utils;
 
-public class ActivityDetailedPager extends SherlockFragmentActivity {
+public class ActivityDetailedPager extends ActivityDreamTeam {
 
     private EventDetailAdapter mAdapter;
     private ViewPager mPager;
     private ArrayList<Event> mEvents;
 
     @Override
-    protected void onCreate(Bundle arg0) {
-        super.onCreate(arg0);
-        setContentView(R.layout.fragment_detailed_event);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_detailed_event);
 
         mEvents = getIntent().getParcelableArrayListExtra(Constants.Extra.EVENT);
         int position = getIntent().getIntExtra(Constants.Extra.EVENT_POSITION, 0);
@@ -36,8 +35,6 @@ public class ActivityDetailedPager extends SherlockFragmentActivity {
         mPager.setCurrentItem(position);
 
         getSupportActionBar().setTitle(Utils.getString(R.string.actionbar_title_find_a_ride));
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
     
     @Override

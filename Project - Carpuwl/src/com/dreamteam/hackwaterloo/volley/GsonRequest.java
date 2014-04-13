@@ -54,7 +54,6 @@ public class GsonRequest<T> extends Request<T> {
             return Response.error(new ParseError(e));
         }
     }
-
     @Override
     protected void deliverResponse(T response) {
         mListener.onResponse(response);

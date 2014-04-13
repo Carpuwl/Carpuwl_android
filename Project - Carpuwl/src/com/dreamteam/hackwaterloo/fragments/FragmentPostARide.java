@@ -23,7 +23,9 @@ import android.widget.Toast;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request.Method;
+import com.android.volley.Response;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
@@ -206,7 +208,16 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
                         Toast.makeText(getActivity(), "Could not post", Toast.LENGTH_SHORT).show();
                     }
                 },
-                event);
+                event) {
+
+                    @Override
+                    protected Response<String> parseNetworkResponse(NetworkResponse response) {
+                        // TODO Auto-generated method stub
+                        return super.parseNetworkResponse(response);
+                    }
+            
+                };
+        
         request.setTag(TAG);
         MyVolley.getRequestQueue().add(request);
     }

@@ -30,7 +30,7 @@ import com.dreamteam.hackwaterloo.fragments.FragmentPostARide;
 import com.dreamteam.hackwaterloo.models.DrawerItem;
 import com.dreamteam.hackwaterloo.utils.Utils;
 
-public class ActivityMain extends SherlockFragmentActivity implements FilterPromptListener,
+public class ActivityMain extends ActivityDreamTeam implements FilterPromptListener,
         OnFilterAppliedListener {
 
 //    private static final String TAG = ActivityMain.class.getSimpleName();
@@ -61,9 +61,6 @@ public class ActivityMain extends SherlockFragmentActivity implements FilterProm
         mFragmentFilter = mFragmentManager.findFragmentByTag(FragmentFilter.TAG);
 
         initDrawers();
-
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         if (savedInstanceState == null) {
             mDrawerPrimary.setItemChecked(DrawerItem.POSITION_FIND_A_RIDE, true);
@@ -251,6 +248,7 @@ public class ActivityMain extends SherlockFragmentActivity implements FilterProm
             if (mDrawerSecondary != null && mDrawerLayout.isDrawerOpen(mDrawerSecondary)) {
                 mDrawerLayout.closeDrawer(mDrawerSecondary);
             }
+            break;
             
         case R.id.action_find_ride_filter:
             if (mDrawerLayout.isDrawerOpen(mDrawerSecondary)) {

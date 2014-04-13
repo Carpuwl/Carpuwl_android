@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-
-    <!--
-    This layout is NOT useless.  It fixes a bug where the scroll view does
-    not scroll to the bottom of it's child's bottom margin
-    -->
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true" >
 
     <LinearLayout
         android:layout_width="match_parent"

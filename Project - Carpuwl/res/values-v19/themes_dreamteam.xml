@@ -21,7 +21,7 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="Theme.DreamTeam" parent="@style/_DreamTeam" />
-
+    
     <style name="_DreamTeam" parent="@android:style/Theme.Holo.Light.DarkActionBar">
         
         <!-- Transparnet Status Bar -->
