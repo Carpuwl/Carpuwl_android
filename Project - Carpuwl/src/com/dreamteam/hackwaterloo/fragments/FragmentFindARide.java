@@ -2,6 +2,7 @@
 package com.dreamteam.hackwaterloo.fragments;
 
 import java.util.Arrays;
+import java.util.Map;
 
 import uk.co.senab.actionbarpulltorefresh.extras.actionbarsherlock.PullToRefreshLayout;
 import uk.co.senab.actionbarpulltorefresh.library.ActionBarPullToRefresh;
@@ -22,7 +23,6 @@ import android.widget.Toast;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.internal.nineoldandroids.animation.ObjectAnimator;
 import com.android.volley.Request.Method;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.dreamteam.carpuwl.R;
@@ -41,8 +41,7 @@ import com.nineoldandroids.view.ViewHelper;
 public class FragmentFindARide extends SherlockFragment implements OnScrollToShowPromptListener,
         OnClickListener, OnRefreshListener {
 
-    private static final String LOG_TAG = FragmentFindARide.class.getSimpleName();
-    public static final String FRAGMENT_TAG = FragmentFindARide.class.getSimpleName();
+    public static final String TAG = FragmentFindARide.class.getSimpleName();
 
     private PullToRefreshLayout mPullToRefresh;
     private ProgressBar mProgressBar;
@@ -100,12 +99,17 @@ public class FragmentFindARide extends SherlockFragment implements OnScrollToSho
         });
         switcher.startAnimation();
     }
+    
+    public void getEventsFiltered(Map<String, String> filterSettings) {
+        GsonRequest<Feed> request = new GsonRequest<Feed>(Method.GET, Endpoint.FEED, Feed.class,
+                createSuccessListener(), createErrorListeners(), filterSettings);
+        MyVolley.getRequestQueue().add(request);
+    }
 
     public void getEvents() {
-        RequestQueue queue = MyVolley.getRequestQueue();
         GsonRequest<Feed> request = new GsonRequest<Feed>(Method.GET, Endpoint.FEED, Feed.class,
                 createSuccessListener(), createErrorListeners());
-        queue.add(request);
+        MyVolley.getRequestQueue().add(request);
     }
 
     /**
@@ -130,7 +134,7 @@ public class FragmentFindARide extends SherlockFragment implements OnScrollToSho
             @Override
             public void onErrorResponse(VolleyError error) {
                 if (error.networkResponse != null) {
-                    Log.e(LOG_TAG, "Error: " + error.networkResponse.statusCode);
+                    Log.e(TAG, "Error: " + error.networkResponse.statusCode);
                 }
                 // TODO: make a string perhaps
                 Toast.makeText(getActivity(), "Error getting results", Toast.LENGTH_SHORT).show();
@@ -145,9 +149,11 @@ public class FragmentFindARide extends SherlockFragment implements OnScrollToSho
     private void updateList(Event[] events) {
         if (mListAdapter == null) {
             mListView = (ListView) getView().findViewById(R.id.find_ride_list_view);
-            mListAdapter = new FeedAdapter(getActivity(), Arrays.asList(events), this);
+            mListAdapter = new FeedAdapter(getActivity(), this);
             mListView.setAdapter(mListAdapter);
-        } else {
+        } 
+        
+        if (events != null) {
             mListAdapter.replaceDataset(Arrays.asList(events));
         }
     }

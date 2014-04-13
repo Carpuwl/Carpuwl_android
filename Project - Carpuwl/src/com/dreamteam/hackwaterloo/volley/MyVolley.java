@@ -1,18 +1,16 @@
 package com.dreamteam.hackwaterloo.volley;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
-import com.dreamteam.hackwaterloo.Constants.Endpoint;
 
+/**
+ * Singleton implementation for the Volley Networking Library.
+ */
 public enum MyVolley {
     
     INSTANCE;
-    
-    public static final String BASE_URL = "http://s417363377.onlinehome.us/";
-    public static final String PHP_SUFFIX = ".php";
     
     private RequestQueue mRequestQueue;
     
@@ -27,10 +25,4 @@ public enum MyVolley {
             throw new IllegalStateException("RequestQueue not initialized");
         }
     }
-    
-    public static String getRequestUrl(Endpoint endpoint) {
-        Log.d("ryan", "Constructed requestUrl: " + BASE_URL + endpoint.getValue() + PHP_SUFFIX);
-        return BASE_URL + endpoint.getValue() + PHP_SUFFIX;
-    }
-    
 }

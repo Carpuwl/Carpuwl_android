@@ -34,11 +34,10 @@ public class FeedAdapter extends BaseAdapter {
     
     private boolean promptShown;
     
-    public FeedAdapter(Activity context, List<Event> events, OnScrollToShowPromptListener listener) {
+    public FeedAdapter(Activity context, OnScrollToShowPromptListener listener) {
         mListener = listener;
         mContext = new WeakReference<Activity>(context);
         mEvents = new ArrayList<Event>();
-        mEvents.addAll(events);
         
         promptShown = false;
         

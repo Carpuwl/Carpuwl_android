@@ -20,7 +20,7 @@ public class PostEventRequest extends StringRequest {
 
     public PostEventRequest(int method, Endpoint endpoint, Listener<String> listener,
             ErrorListener errorListener, Event event) {
-        super(method, MyVolley.getRequestUrl(endpoint), listener, errorListener);
+        super(method, VolleyHelper.getRequestUrl(method, endpoint, null), listener, errorListener);
         mEvent = event;
     }
 

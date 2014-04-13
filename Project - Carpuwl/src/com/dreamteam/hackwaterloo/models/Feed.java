@@ -9,12 +9,12 @@ import com.google.gson.annotations.SerializedName;
 public class Feed {
 
     @SerializedName("feed")
-    private Event[] feeds;
+    private Event[] mEvents;
     private String message;
     private int success;
 
     public Event[] getEvents() {
-        return feeds;
+        return mEvents;
     }
 
     public String getMessage() {

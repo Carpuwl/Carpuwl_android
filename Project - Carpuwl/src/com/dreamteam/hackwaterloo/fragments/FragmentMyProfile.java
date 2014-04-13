@@ -12,7 +12,7 @@ import com.facebook.widget.ProfilePictureView;
 
 public class FragmentMyProfile extends SherlockFragment{
 	
-	public static final String FRAGMENT_TAG = FragmentMyProfile.class.getSimpleName();
+	public static final String TAG = FragmentMyProfile.class.getSimpleName();
 	
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

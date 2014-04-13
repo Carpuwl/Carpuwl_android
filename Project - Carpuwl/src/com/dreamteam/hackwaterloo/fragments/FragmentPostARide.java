@@ -40,7 +40,7 @@ import com.dreamteam.hackwaterloo.volley.PostEventRequest;
 
 public class FragmentPostARide extends SherlockFragment implements OnClickListener {
 
-    private static final String TAG = FragmentPostARide.class.getSimpleName();
+    public static final String TAG = FragmentPostARide.class.getSimpleName();
     
     private DateTimePickerHelper mDateTimePickerHelper;
 
