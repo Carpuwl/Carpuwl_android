@@ -6,7 +6,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.dreamteam.hackwaterloo.Constants.Defaults;
-import com.dreamteam.hackwaterloo.interfaces.OnAnimationEndListener;
+import com.dreamteam.hackwaterloo.sharedinterfaces.OnAnimationEndListener;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.Animator.AnimatorListener;
 import com.nineoldandroids.animation.ObjectAnimator;

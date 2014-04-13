@@ -1,3 +1,4 @@
+
 package com.dreamteam.hackwaterloo.fragments;
 
 import java.util.Arrays;
@@ -7,6 +8,7 @@ import uk.co.senab.actionbarpulltorefresh.library.ActionBarPullToRefresh;
 import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -15,27 +17,31 @@ import android.view.ViewStub;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
+import com.actionbarsherlock.internal.nineoldandroids.animation.ObjectAnimator;
+import com.android.volley.Request.Method;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.dreamteam.carpuwl.R;
-import com.dreamteam.hackwaterloo.Constants.Defaults;
-import com.dreamteam.hackwaterloo.adapters.Feed;
-import com.dreamteam.hackwaterloo.adapters.Feed.Event;
+import com.dreamteam.hackwaterloo.Constants.Endpoint;
 import com.dreamteam.hackwaterloo.adapters.FeedAdapter;
 import com.dreamteam.hackwaterloo.adapters.FeedAdapter.OnScrollToShowPromptListener;
-import com.dreamteam.hackwaterloo.interfaces.OnAnimationEndListener;
+import com.dreamteam.hackwaterloo.models.Feed;
+import com.dreamteam.hackwaterloo.models.Feed.Event;
+import com.dreamteam.hackwaterloo.sharedinterfaces.OnAnimationEndListener;
 import com.dreamteam.hackwaterloo.utils.AnimationBottomPeak;
 import com.dreamteam.hackwaterloo.utils.CrossFadeViewSwitcher;
-import com.dreamteam.hackwaterloo.utils.server.BaseTask.OnPostExecuteListener;
-import com.dreamteam.hackwaterloo.utils.server.GetEventsTask;
-import com.nineoldandroids.animation.Animator;
-import com.nineoldandroids.animation.Animator.AnimatorListener;
-import com.nineoldandroids.animation.ObjectAnimator;
+import com.dreamteam.hackwaterloo.volley.GsonRequest;
+import com.dreamteam.hackwaterloo.volley.MyVolley;
 import com.nineoldandroids.view.ViewHelper;
 
 public class FragmentFindARide extends SherlockFragment implements OnScrollToShowPromptListener,
         OnClickListener, OnRefreshListener {
 
+    private static final String LOG_TAG = FragmentFindARide.class.getSimpleName();
     public static final String FRAGMENT_TAG = FragmentFindARide.class.getSimpleName();
 
     private PullToRefreshLayout mPullToRefresh;
@@ -70,18 +76,19 @@ public class FragmentFindARide extends SherlockFragment implements OnScrollToSho
         mListView = (ListView) rootView.findViewById(R.id.find_ride_list_view);
         mViewStubFilterPrompt = (ViewStub) rootView
                 .findViewById(R.id.find_ride_viewstub_filter_prompt);
-        mPullToRefresh = (PullToRefreshLayout) rootView.findViewById(R.id.find_ride_pull_to_refresh);
+        mPullToRefresh = (PullToRefreshLayout) rootView
+                .findViewById(R.id.find_ride_pull_to_refresh);
 
         ActionBarPullToRefresh.from(getActivity())
                 .allChildrenArePullable()
                 .listener(this)
                 .setup(mPullToRefresh);
-        
+
         getEvents();
 
         return rootView;
     }
-    
+
     @Override
     public void onRefreshStarted(View view) {
         CrossFadeViewSwitcher switcher = new CrossFadeViewSwitcher(mListView, mProgressBar, false);
@@ -94,47 +101,83 @@ public class FragmentFindARide extends SherlockFragment implements OnScrollToSho
         switcher.startAnimation();
     }
 
-    private void getEvents() {
-        GetEventsTask getEventsTask = new GetEventsTask();
-        getEventsTask.setOnPostExecuteListener(new OnPostExecuteListener<Feed.Event[]>() {
+    public void getEvents() {
+        RequestQueue queue = MyVolley.getRequestQueue();
+        GsonRequest<Feed> request = new GsonRequest<Feed>(Method.GET, Endpoint.FEED, Feed.class,
+                createSuccessListener(), createErrorListeners());
+        queue.add(request);
+    }
+
+    /**
+     * @return Creates the listener that is invoked when the VolleyRequest is successful 
+     */
+    private Response.Listener<Feed> createSuccessListener() {
+        return new Response.Listener<Feed>() {
             @Override
-            public void onFinish(Event[] events) {
-                if (events != null && events.length > 0) {
-                    updateList(events);
-                }
+            public void onResponse(Feed response) {
+                updateList(response.getEvents());
                 mPullToRefresh.setRefreshComplete();
                 new CrossFadeViewSwitcher(mProgressBar, mListView, false).startAnimation();
             }
-        });
-        getEventsTask.executeParallel();
+        };
     }
 
+    /**
+     * @return Creates the listener that is invoked when the VolleyRequest is unsuccessful
+     */
+    private Response.ErrorListener createErrorListeners() {
+        return new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                if (error.networkResponse != null) {
+                    Log.e(LOG_TAG, "Error: " + error.networkResponse.statusCode);
+                }
+                // TODO: make a string perhaps
+                Toast.makeText(getActivity(), "Error getting results", Toast.LENGTH_SHORT).show();
+            }
+        };
+    }
+
+    /**
+     * Updates the contents of the ListView's adapter, instantiating it if necessary
+     * @param events The events to be inserted into the ListView
+     */
     private void updateList(Event[] events) {
         if (mListAdapter == null) {
             mListView = (ListView) getView().findViewById(R.id.find_ride_list_view);
             mListAdapter = new FeedAdapter(getActivity(), Arrays.asList(events), this);
             mListView.setAdapter(mListAdapter);
         } else {
-            mListAdapter.addItemBatch(Arrays.asList(events));
+            mListAdapter.replaceDataset(Arrays.asList(events));
         }
     }
 
+    /* 
+     * The listener invoked when the listView has been scrolled past a certain number of items
+     */
     @Override
     public void onScrollToShowPrompt() {
         mButtonFilterPrompt = (Button) mViewStubFilterPrompt.inflate();
         mButtonFilterPrompt.setOnClickListener(this);
-        
-        ObjectAnimator.ofFloat(mButtonFilterPrompt, "translationY", mButtonFilterPrompt.getHeight()).setDuration(0).start();
-        new AnimationBottomPeak(mButtonFilterPrompt, true).startAnimation();
+
+        ViewHelper.setAlpha(mButtonFilterPrompt, 0f);
+        mButtonFilterPrompt.setVisibility(View.VISIBLE);
+        ObjectAnimator.ofFloat(mButtonFilterPrompt, "alpha", 1f).start();
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.find_ride_button_filter_prompt:
-                mListener.onFilterPromptToBeShown();
-                new AnimationBottomPeak(mButtonFilterPrompt, false).startAnimation();
-                break;
+        case R.id.find_ride_button_filter_prompt:
+            mListener.onFilterPromptToBeShown();
+            new AnimationBottomPeak(mButtonFilterPrompt, false).startAnimation();
+            break;
         }
+    }
+
+    @Override
+    public void onStop() {
+        MyVolley.getRequestQueue().cancelAll(this);
+        super.onStop();
     }
 }

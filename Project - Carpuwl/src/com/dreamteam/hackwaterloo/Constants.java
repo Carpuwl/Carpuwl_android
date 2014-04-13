@@ -3,6 +3,23 @@ package com.dreamteam.hackwaterloo;
 public class Constants {
     
     public static final String UTF_8 = "UTF-8";
+    public static final String BASE_URL = "http://s417363377.onlinehome.us/";
+    
+    public enum Endpoint {
+        USER("user"),
+        CREATE_EVENT("create_event"), // TODO: Make this endpoint use feed instead
+        FEED("feed");
+        
+        private String mValue;
+        
+        private Endpoint(String value) {
+            this.mValue = value;
+        }
+        
+        public String getValue() {
+            return mValue;
+        }
+    }
     
     public static class Defaults {
         public static final int ANIMATION_DURATION = 400;

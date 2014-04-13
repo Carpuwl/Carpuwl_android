@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.dreamteam.carpuwl.R;
 import com.dreamteam.hackwaterloo.AppData;
-import com.dreamteam.hackwaterloo.utils.server.GetMyProfileDataTask;
 import com.facebook.widget.ProfilePictureView;
 
 public class FragmentMyProfile extends SherlockFragment{
@@ -23,8 +22,6 @@ public class FragmentMyProfile extends SherlockFragment{
         ProfilePictureView profilePictureView;
         profilePictureView = (ProfilePictureView) rootView.findViewById(R.id.selection_profile_pic);
         profilePictureView.setProfileId(String.valueOf(AppData.getFacebookForeginKey()));
-        
-        new GetMyProfileDataTask().executeParallel();
         
         return rootView;
     }

@@ -21,10 +21,12 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.android.volley.VolleyError;
 import com.dreamteam.carpuwl.R;
 import com.dreamteam.hackwaterloo.AppData;
 import com.dreamteam.hackwaterloo.utils.Utils;
-import com.dreamteam.hackwaterloo.utils.server.CreateUserTask;
+import com.dreamteam.hackwaterloo.volley.MyVolley;
+import com.dreamteam.hackwaterloo.volley.PostUser;
 import com.facebook.Request;
 import com.facebook.Response;
 import com.facebook.Session;
@@ -137,6 +139,7 @@ public class ActivityLogIn extends SherlockFragmentActivity implements OnClickLi
                             AppData.construct(user.getName(),
                                     ActivityLogIn.this.mPhoneInput,
                                     Long.valueOf(user.getId()));
+                            
                             createUser(user.getName(),
                                     ActivityLogIn.this.mPhoneInput,
                                     user.getId());
@@ -157,8 +160,17 @@ public class ActivityLogIn extends SherlockFragmentActivity implements OnClickLi
     }
 
     private void createUser(String name, String phone, String facebookPrivateKey) {
-        new CreateUserTask(name, phone, facebookPrivateKey).executeParallel();
+        MyVolley.getRequestQueue().add(new PostUser( name, phone, facebookPrivateKey, createErrorListener()));
     }
+    
+    private com.android.volley.Response.ErrorListener createErrorListener() {
+        return new com.android.volley.Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("ryan", error.getMessage());
+            }
+        };
+    } 
 
     @Override
     public void afterTextChanged(Editable arg0) {

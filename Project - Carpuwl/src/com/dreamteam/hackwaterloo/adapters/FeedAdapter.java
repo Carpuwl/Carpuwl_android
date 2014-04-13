@@ -19,7 +19,7 @@ import android.widget.TextView;
 import com.dreamteam.carpuwl.R;
 import com.dreamteam.hackwaterloo.Constants;
 import com.dreamteam.hackwaterloo.activities.ActivityDetailedPager;
-import com.dreamteam.hackwaterloo.adapters.Feed.Event;
+import com.dreamteam.hackwaterloo.models.Feed.Event;
 import com.dreamteam.hackwaterloo.utils.Utils;
 
 public class FeedAdapter extends BaseAdapter {
@@ -76,6 +76,12 @@ public class FeedAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
     
+    public void replaceDataset(List<Event> events) {
+        mEvents.clear();
+        mEvents.addAll(events);
+        notifyDataSetChanged();
+    }
+    
     public static class ViewHolder {
         public RelativeLayout parentView;
         public ImageView priceBackground;
@@ -114,10 +120,10 @@ public class FeedAdapter extends BaseAdapter {
         viewHolder.priceBackground.setBackgroundColor(mColorList[position % 5]);
         viewHolder.ratingBar.setRating((float) event.getRating());
         viewHolder.price.setText(String.format("$%.2f", event.getPrice()));
-        viewHolder.startingPoint.setText(event.getStartPoint());
-        viewHolder.endingPoint.setText(event.getEndPoint());
+        viewHolder.startingPoint.setText(event.getLocationStart());
+        viewHolder.endingPoint.setText(event.getLocationEnd());
         viewHolder.seats.setText(String.format(Utils.getString(R.string.find_ride_seats), event.getSeatsRemaining())) ;
-        viewHolder.timeValue.setText(Utils.multiCaseDateFormat(event.getDepartDate())); 
+        viewHolder.timeValue.setText(Utils.multiCaseDateFormat(event.getDateDepart())); 
         
         if (position > POSITION_TO_PROMPT_FILTER && !promptShown) {
             promptShown = true;
