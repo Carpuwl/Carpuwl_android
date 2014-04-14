@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,10 +21,12 @@ public class DrawerLayoutAdapter extends BaseAdapter {
 
     private ArrayList<DrawerItem> mItems;
     private WeakReference<Context> mContext;
+    private TypedArray mDrawerIcons;
 
     public DrawerLayoutAdapter(Context context) {
         mContext = new WeakReference<Context>(context);
         mItems = new ArrayList<DrawerItem>(Arrays.asList(DrawerItem.InitDrawerItems()));
+        mDrawerIcons = Utils.obtainTypedArray(R.array.drawer_item_selectors);
     }
 
     private static class ViewHolder {
@@ -62,7 +65,7 @@ public class DrawerLayoutAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         
-        viewHolder.itemIcon.setImageDrawable(Utils.getDrawable(drawerItem.getIconId()));
+        viewHolder.itemIcon.setImageDrawable(mDrawerIcons.getDrawable(position));
         viewHolder.itemTitle.setText(drawerItem.getTitle());
         
         return convertView;

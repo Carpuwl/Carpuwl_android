@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/nav_drawer_parent"
     android:layout_width="match_parent"
     android:layout_height="@dimen/nav_drawer_list_item_height"
-    android:paddingTop="@dimen/nav_drawer_list_item_vertical_padding"
-    android:paddingBottom="@dimen/nav_drawer_list_item_vertical_padding"
     android:background="@drawable/btn_drawer_item_selector"
     android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingBottom="@dimen/nav_drawer_list_item_vertical_padding"
     android:paddingLeft="@dimen/activity_margin"
-    android:orientation="horizontal" >
+    android:paddingTop="@dimen/nav_drawer_list_item_vertical_padding" >
 
     <ImageView
-        android:contentDescription="@string/OK"
         android:id="@+id/nav_drawer_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="@dimen/touchable_ui_spacing"
+        android:contentDescription="@string/OK"
         android:src="@drawable/ic_action_person" />
 
     <TextView.RobotoRegular

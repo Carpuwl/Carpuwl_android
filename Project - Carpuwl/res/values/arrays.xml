@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <array name="drawer_item_selectors">
+        <item>@drawable/ic_action_person_selector</item>
+        <item>@drawable/ic_action_search_selector</item>
+        <item>@drawable/ic_action_edit_selector</item>
+        <item>@drawable/ic_action_edit_selector</item>
+    </array>
+    
+</resources>

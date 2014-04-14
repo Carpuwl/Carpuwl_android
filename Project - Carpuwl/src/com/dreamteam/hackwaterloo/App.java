@@ -6,7 +6,6 @@ import java.text.SimpleDateFormat;
 import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
-import android.text.format.DateFormat;
 
 import com.dreamteam.hackwaterloo.utils.Utils;
 import com.dreamteam.hackwaterloo.volley.MyVolley;
@@ -63,9 +62,4 @@ public class App extends Application {
     public static SimpleDateFormat getTimeFormat() {
         return mTimeFormat;
     }
-
-    /**
-     * @return True if the time format is 24 hour, (Set in the Android's System
-     *         Clock settings)
-     */
 }

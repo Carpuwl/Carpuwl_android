@@ -8,6 +8,7 @@ import java.util.Date;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.text.TextUtils;
@@ -62,6 +63,11 @@ public class Utils {
      */
     public static int getColor(int colorId) {
         return App.getAppContext().getResources().getColor(colorId);
+    }
+    
+    @SuppressLint("Recycle")
+    public static TypedArray obtainTypedArray(int typedArrayId) {
+        return App.getAppContext().getResources().obtainTypedArray(typedArrayId);
     }
     
     public static Drawable getDrawable(int drawableId) {
@@ -185,7 +191,8 @@ public class Utils {
     }
     
     /**
-     * @return True if the user has chosen 24 hour time in Android's Clock settings
+     * @return True if the time format is 24 hour, (Set in the Android's System
+     *         Clock settings)
      */
     public static boolean is24Hour() {
         return DateFormat.is24HourFormat(App.getAppContext());
