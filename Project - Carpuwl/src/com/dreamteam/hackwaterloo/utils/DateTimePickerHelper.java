@@ -12,6 +12,9 @@ import com.zenkun.datetimepicker.time.TimePickerDialog.OnTimeSetListener;
 
 public class DateTimePickerHelper implements OnDateSetListener, OnTimeSetListener {
     
+    private int DEFAULT_MINUTE = 0;
+    private int DEFAULT_HOUR_OF_DAY= 12;
+    
     public interface OnDateTimeSelectedListener {
         public void onDateTimeSelected(long timeInMillis);
     }
@@ -37,7 +40,7 @@ public class DateTimePickerHelper implements OnDateSetListener, OnTimeSetListene
 
     @Override
     public void onDateSet(DatePickerDialog datePickerDialog, int year, int month, int day) {
-        TimePickerDialog.newInstance(this, mTime.hour, mTime.minute, Utils.is24Hour())
+        TimePickerDialog.newInstance(this, DEFAULT_HOUR_OF_DAY, DEFAULT_MINUTE, Utils.is24Hour())
                 .show(mFragmentManager, FragmentTag.DIALOG_TIME_PICKER);
         mTime.year = year;
         mTime.month = month;
