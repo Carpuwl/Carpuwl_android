@@ -1,6 +1,8 @@
 package com.dreamteam.hackwaterloo.utils;
 
+import java.text.Format;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import android.annotation.SuppressLint;
@@ -9,6 +11,7 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.text.TextUtils;
+import android.text.format.DateFormat;
 import android.text.format.Time;
 import android.view.Window;
 import android.widget.EditText;
@@ -19,10 +22,7 @@ import com.dreamteam.hackwaterloo.App;
 
 public class Utils {
 
-    private static final String SDF_DEFAULT = "hh':'mm a";
     private static final String SDF_DAY_OF_WEEK = "EEEE";
-    private static final String SDF_MONTH_AND_DAY = "MMMM dd";
-    private static final String SDF_VERBOSE = "yyyy MMMM dd";
 
     /**
      * @param quantityStringId
@@ -80,6 +80,44 @@ public class Utils {
         textView.setText(messageId);
         return dialog;
     }
+    
+    /**
+     * Helper method to grab the date format from the system
+     * @param context A context for the App to grab the System's date formatting
+     * @return String to be used for SimpleDateFormat
+     */
+    public static String detectDateFormat(Context context, boolean includeYear) {
+        Calendar testDate = Calendar.getInstance();
+        testDate.set(Calendar.YEAR, 2013);
+        testDate.set(Calendar.MONTH, Calendar.DECEMBER);
+        testDate.set(Calendar.DAY_OF_MONTH, 25);
+
+        Format format = android.text.format.DateFormat.getDateFormat(context);
+        String testDateFormat = format.format(testDate.getTime());
+        String[] parts = testDateFormat.split("/");
+        StringBuilder stringBuilder = new StringBuilder();
+        for (String s : parts) {
+            if (s.equals("25")) {
+                stringBuilder.append("dd ");
+            }
+            if (s.equals("12")) {
+                stringBuilder.append("MMM ");
+            }
+            if (s.equals("2013") && includeYear) {
+                stringBuilder.append("yyyy ");
+            }
+        }
+        return stringBuilder.toString().substring(0, stringBuilder.toString().length() - 1);
+    }
+    
+    /**
+     * Helper method to grab the User's chosen time formatting (from the system)
+     * @param context A context for the for the App to grab the System's time formatting
+     * @return String representing the time format as a SimpleDateFormat
+     */
+    public static String detectTimeFormat(Context context) {
+        return DateFormat.is24HourFormat(context) ? "HH:mm" : "hh:mm a";
+    }
 
     // TODO: grab the 12/24hr styling from the System on startup
     /**
@@ -106,44 +144,51 @@ public class Utils {
             if (currentTime.yearDay == eventTime.yearDay && eventTime.hour <= currentTime.hour + 1) {
 
                 verboseTimeStampNeeded = false;
-                stringBuilder.append(eventTime.minute - currentTime.minute).append(" ");
-                stringBuilder.append(Utils.getQuantityString(R.plurals.time_unit_minute,
-                        eventTime.minute - currentTime.minute));
+                stringBuilder.append(eventTime.minute - currentTime.minute)
+                        .append(" ")
+                        .append(Utils.getQuantityString(R.plurals.time_unit_minute,
+                                eventTime.minute - currentTime.minute));
 
-                // Same day
+            // Same day
             } else if (currentTime.yearDay == eventTime.yearDay) {
                 stringBuilder.append(Utils.getString(R.string.today));
 
-                // Tomorrow
+            // Tomorrow
             } else if (currentTime.yearDay == eventTime.yearDay - 1) {
                 stringBuilder.append(Utils.getString(R.string.tomorrow));
 
-                // Within a week
+            // Within a week
             } else if (eventTime.yearDay <= currentTime.yearDay + 6) {
                 stringBuilder.append(new SimpleDateFormat(SDF_DAY_OF_WEEK).format(new Date(
                         eventTime.toMillis(false))));
 
-                // Same year
+            // Same year
             } else {
-                stringBuilder.append(new SimpleDateFormat(SDF_MONTH_AND_DAY).format(new Date(
-                        eventTime.toMillis(false))));
+                stringBuilder.append(App.getDateFormat()
+                        .format(new Date(eventTime.toMillis(false))));
             }
 
-            // Different year
+        // Different year
         } else {
-            stringBuilder.append(new SimpleDateFormat(SDF_VERBOSE).format(new Date(eventTime
-                    .toMillis(false))));
+            stringBuilder.append(App.getDateFormatVerbose().format(
+                    new Date(eventTime.toMillis(false))));
         }
 
         if (verboseTimeStampNeeded) {
             stringBuilder.append(" ")
                     .append(Utils.getString(R.string.at))
                     .append(" ")
-                    .append(new SimpleDateFormat(SDF_DEFAULT).format(new Date(eventTime
-                            .toMillis(false))));
+                    .append(App.getTimeFormat().format(new Date(eventTime.toMillis(false))));
         }
 
         return stringBuilder.toString();
+    }
+    
+    /**
+     * @return True if the user has chosen 24 hour time in Android's Clock settings
+     */
+    public static boolean is24Hour() {
+        return DateFormat.is24HourFormat(App.getAppContext());
     }
     
     public static double getDoubleFromPriceEditText(EditText editText) {

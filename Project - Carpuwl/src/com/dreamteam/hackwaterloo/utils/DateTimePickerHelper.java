@@ -37,7 +37,7 @@ public class DateTimePickerHelper implements OnDateSetListener, OnTimeSetListene
 
     @Override
     public void onDateSet(DatePickerDialog datePickerDialog, int year, int month, int day) {
-        TimePickerDialog.newInstance(this, mTime.hour, mTime.minute, true)
+        TimePickerDialog.newInstance(this, mTime.hour, mTime.minute, Utils.is24Hour())
                 .show(mFragmentManager, FragmentTag.DIALOG_TIME_PICKER);
         mTime.year = year;
         mTime.month = month;
