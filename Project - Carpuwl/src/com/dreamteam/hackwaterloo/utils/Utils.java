@@ -122,7 +122,7 @@ public class Utils {
      * @return String representing the time format as a SimpleDateFormat
      */
     public static String detectTimeFormat(Context context) {
-        return DateFormat.is24HourFormat(context) ? "HH:mm" : "hh:mm a";
+        return DateFormat.is24HourFormat(context) ? "HH:mm" : "h:mm a";
     }
 
     // TODO: grab the 12/24hr styling from the System on startup

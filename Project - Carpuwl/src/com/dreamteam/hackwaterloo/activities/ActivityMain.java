@@ -10,6 +10,7 @@ import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -224,13 +225,10 @@ public class ActivityMain extends ActivityDreamTeam implements FilterPromptListe
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-//        if (menu.size() > 0) {
-//            boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerPrimary);
-//            for (int i = 0; i < menu.size(); i++) {
-//                MenuItem item = menu.findItem(i);
-//                item.setVisible(!drawerOpen);
-//            }
-//        }
+        boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerPrimary);
+        for (int i = 0; i < menu.size(); i++) {
+            menu.getItem(i).setVisible(!drawerOpen);
+        }
         return super.onPrepareOptionsMenu(menu);
     }
 
