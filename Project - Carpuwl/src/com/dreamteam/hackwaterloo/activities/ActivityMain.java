@@ -10,7 +10,6 @@ import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -21,27 +20,26 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.dreamteam.carpuwl.R;
-import com.dreamteam.hackwaterloo.adapters.DrawerLayoutAdapter;
+import com.dreamteam.hackwaterloo.adapters.AdapterNavDrawer;
 import com.dreamteam.hackwaterloo.fragments.FragmentFilter;
 import com.dreamteam.hackwaterloo.fragments.FragmentFilter.OnFilterAppliedListener;
 import com.dreamteam.hackwaterloo.fragments.FragmentFindARide;
 import com.dreamteam.hackwaterloo.fragments.FragmentFindARide.FilterPromptListener;
-import com.dreamteam.hackwaterloo.fragments.FragmentMyProfile;
 import com.dreamteam.hackwaterloo.fragments.FragmentPostARide;
-import com.dreamteam.hackwaterloo.models.DrawerItem;
+import com.dreamteam.hackwaterloo.models.NavDrawerItem;
 import com.dreamteam.hackwaterloo.utils.Utils;
 
 public class ActivityMain extends ActivityDreamTeam implements FilterPromptListener,
         OnFilterAppliedListener {
 
-//    private static final String TAG = ActivityMain.class.getSimpleName();
+    // private static final String TAG = ActivityMain.class.getSimpleName();
     private static final String KEY_SELECTED_DRAWER_POSITION = "keySelectedDrawerPosition";
+    private static final String KEY_CURRENT_TITLE = "keyCurrentTitle";
 
     private FragmentManager mFragmentManager;
     private LayoutInflater mLayoutInflater;
     private Fragment mFragmentFilter;
 
-    private DrawerItem[] mDrawerItems;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
     private ListView mDrawerPrimary;
@@ -64,24 +62,27 @@ public class ActivityMain extends ActivityDreamTeam implements FilterPromptListe
         initDrawers();
 
         if (savedInstanceState == null) {
-            mDrawerPrimary.setItemChecked(DrawerItem.POSITION_FIND_A_RIDE, true);
-            mSelectedDrawerPosition = DrawerItem.POSITION_FIND_A_RIDE;
-            getSupportActionBar().setTitle(
-                    (mDrawerItems[DrawerItem.POSITION_FIND_A_RIDE].getTitle()));
+            mDrawerPrimary.setItemChecked(NavDrawerItem.FIND_A_RIDE.getListPosition(), true);
+            mSelectedDrawerPosition = NavDrawerItem.FIND_A_RIDE.getListPosition();
             getSupportFragmentManager()
                     .beginTransaction()
                     .add(R.id.main_fragment_container, new FragmentFindARide(),
                             FragmentFindARide.TAG)
                     .commit();
+            mTitle = Utils.getString(NavDrawerItem.FIND_A_RIDE.getTitleId());
         } else {
             mSelectedDrawerPosition = savedInstanceState.getInt(KEY_SELECTED_DRAWER_POSITION);
+            mTitle = savedInstanceState.getCharSequence(KEY_CURRENT_TITLE);
         }
 
-        if (mSelectedDrawerPosition == DrawerItem.POSITION_FIND_A_RIDE) {
+        if (mSelectedDrawerPosition == NavDrawerItem.FIND_A_RIDE.getListPosition()) {
             addOrRestoreSecondaryDrawer();
         }
-        
-        mTitle = getSupportActionBar().getTitle();
+
+        setTitle(mTitle);
+        if (mDrawerLayout.isDrawerOpen(mDrawerPrimary)) {
+            getSupportActionBar().setTitle(Utils.getString(R.string.app_name));
+        }
         mDrawerTitle = Utils.getString(R.string.app_name);
     }
 
@@ -94,8 +95,7 @@ public class ActivityMain extends ActivityDreamTeam implements FilterPromptListe
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
         // set adapter
-        mDrawerItems = DrawerItem.InitDrawerItems();
-        mDrawerPrimary.setAdapter(new DrawerLayoutAdapter(this));
+        mDrawerPrimary.setAdapter(new AdapterNavDrawer(this));
         mDrawerPrimary.setOnItemClickListener(new DrawerItemClickListener());
     }
 
@@ -117,7 +117,7 @@ public class ActivityMain extends ActivityDreamTeam implements FilterPromptListe
                     .commit();
         }
     }
-    
+
     @Override
     public void setTitle(CharSequence title) {
         mTitle = title;
@@ -127,6 +127,7 @@ public class ActivityMain extends ActivityDreamTeam implements FilterPromptListe
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         outState.putInt(KEY_SELECTED_DRAWER_POSITION, mSelectedDrawerPosition);
+        outState.putCharSequence(KEY_CURRENT_TITLE, mTitle);
         super.onSaveInstanceState(outState);
     }
 
@@ -164,36 +165,47 @@ public class ActivityMain extends ActivityDreamTeam implements FilterPromptListe
     }
 
     private void drawerSelectItem(int position) {
-        switch (position) {
-        case DrawerItem.POSITION_MY_PROFILE: // My Profile
-            mFragmentManager
-                    .beginTransaction()
-                    .replace(R.id.main_fragment_container, new FragmentMyProfile(),
-                            FragmentMyProfile.TAG).commit();
-            break;
+        mDrawerPrimary.setItemChecked(position, true);
+        NavDrawerItem selectedNavDrawerItem = NavDrawerItem.values()[position];
 
-        case DrawerItem.POSITION_FIND_A_RIDE: // Find a ride
-            mFragmentManager
-                    .beginTransaction()
-                    .replace(R.id.main_fragment_container, new FragmentFindARide(),
-                            FragmentFindARide.TAG).commit();
-            break;
+        if (mSelectedDrawerPosition != position) {
+            mSelectedDrawerPosition = position;
+            Fragment theFragmentToSwitchTo = null;
+            String fragmentTag = null;
 
-        case DrawerItem.POSITION_POST_A_RIDE: // Post a Ride
-            mFragmentManager
-                    .beginTransaction()
-                    .replace(R.id.main_fragment_container, new FragmentPostARide(),
-                            FragmentPostARide.TAG).commit();
-            break;
+            switch (selectedNavDrawerItem) {
+                case MY_PROFILE:
+                    theFragmentToSwitchTo = new FragmentFindARide();
+                    fragmentTag = FragmentFindARide.TAG;
+                    break;
 
-        case DrawerItem.POSITION_LOG_OUT: // Sign out
-            break;
+                case FIND_A_RIDE:
+                    theFragmentToSwitchTo = new FragmentFindARide();
+                    fragmentTag = FragmentFindARide.TAG;
+                    break;
 
-        default:
-            throw new RuntimeException("Unhandled drawer item selection at position" + position);
+                case POST_A_RIDE:
+                    theFragmentToSwitchTo = new FragmentPostARide();
+                    fragmentTag = FragmentPostARide.TAG;
+                    break;
+
+                case LOG_OUT:
+                    break;
+
+                default:
+                    throw new IllegalStateException("Unhandled enum type: "
+                            + selectedNavDrawerItem.toString());
+
+            }
+
+            if (theFragmentToSwitchTo != null) {
+                mFragmentManager.beginTransaction()
+                        .replace(R.id.main_fragment_container, theFragmentToSwitchTo, fragmentTag)
+                        .commit();
+            }
         }
 
-        if (position == DrawerItem.POSITION_FIND_A_RIDE) {
+        if (selectedNavDrawerItem.equals(NavDrawerItem.FIND_A_RIDE)) {
             addOrRestoreSecondaryDrawer();
         } else if (mDrawerSecondary != null) {
             mDrawerSecondary.removeAllViews();
@@ -201,8 +213,8 @@ public class ActivityMain extends ActivityDreamTeam implements FilterPromptListe
             mFragmentManager.beginTransaction().remove(mFragmentFilter).commit();
             mDrawerSecondary = null;
         }
-        
-        setTitle(mDrawerItems[position].getTitle());
+
+        setTitle(Utils.getString(NavDrawerItem.values()[position].getTitleId()));
         mDrawerLayout.closeDrawer(mDrawerPrimary);
     }
 
@@ -217,14 +229,11 @@ public class ActivityMain extends ActivityDreamTeam implements FilterPromptListe
         super.onConfigurationChanged(newConfig);
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
-    
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        return super.onCreateOptionsMenu(menu);
-    }
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
+
+        // Hides all Menu Items if the drawer is open
         boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerPrimary);
         for (int i = 0; i < menu.size(); i++) {
             menu.getItem(i).setVisible(!drawerOpen);
@@ -234,32 +243,32 @@ public class ActivityMain extends ActivityDreamTeam implements FilterPromptListe
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        
+
         switch (item.getItemId()) {
-        case android.R.id.home:
-            if (mDrawerLayout.isDrawerOpen(mDrawerPrimary)) {
-                mDrawerLayout.closeDrawer(mDrawerPrimary);
-            } else {
-                mDrawerLayout.openDrawer(mDrawerPrimary);
-            }
-            
-            if (mDrawerSecondary != null && mDrawerLayout.isDrawerOpen(mDrawerSecondary)) {
-                mDrawerLayout.closeDrawer(mDrawerSecondary);
-            }
-            break;
-            
-        case R.id.action_find_ride_filter:
-            if (mDrawerLayout.isDrawerOpen(mDrawerSecondary)) {
-                mDrawerLayout.closeDrawer(mDrawerSecondary);
-            } else {
-                mDrawerLayout.openDrawer(mDrawerSecondary);
-            }
-            
-            if (mDrawerLayout.isDrawerOpen(mDrawerPrimary)) {
-                mDrawerLayout.closeDrawer(mDrawerPrimary);
-            }
+            case android.R.id.home:
+                toggleThisDrawerAndCloseOthers(mDrawerPrimary);
+                break;
+
+            case R.id.action_find_ride_filter:
+                toggleThisDrawerAndCloseOthers(mDrawerSecondary);
+                break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void toggleThisDrawerAndCloseOthers(View drawerToToggle) {
+        View drawerToClose = (drawerToToggle.equals(mDrawerPrimary)) ? mDrawerSecondary
+                : mDrawerPrimary;
+
+        if (mDrawerLayout.isDrawerOpen(drawerToToggle)) {
+            mDrawerLayout.closeDrawer(drawerToToggle);
+        } else {
+            mDrawerLayout.openDrawer(drawerToToggle);
+        }
+
+        if (drawerToClose != null && mDrawerLayout.isDrawerOpen(drawerToClose)) {
+            mDrawerLayout.closeDrawer(drawerToClose);
+        }
     }
 
     @Override
@@ -269,7 +278,10 @@ public class ActivityMain extends ActivityDreamTeam implements FilterPromptListe
         intent.putExtra("EXIT", true);
         super.onBackPressed();
     }
-    
+
+    /**
+     * The filter prompt has been pressed, open the filter drawer
+     */
     @Override
     public void onFilterPromptToBeShown() {
         if (mDrawerSecondary != null) {
@@ -278,14 +290,14 @@ public class ActivityMain extends ActivityDreamTeam implements FilterPromptListe
     }
 
     /*
-     * A filter was applied from the right hand drawer.  Close the drawer and pass the data
-     * to the Find A Ride fragment to handle.
+     * A filter was applied from the right hand drawer. Close the drawer and
+     * pass the data to the Find A Ride fragment to handle.
      */
     @Override
     public void onFilterApplied(Map<String, String> filterSettings) {
         mDrawerLayout.closeDrawer(mDrawerSecondary);
-        FragmentFindARide fragment = (FragmentFindARide) mFragmentManager.findFragmentByTag(FragmentFindARide.TAG);
+        FragmentFindARide fragment = (FragmentFindARide) mFragmentManager
+                .findFragmentByTag(FragmentFindARide.TAG);
         fragment.updateEvents(filterSettings);
     }
-
 }

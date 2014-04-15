@@ -99,14 +99,7 @@
         <item>Vaughn</item>
     </string-array>
 
-    <!-- Navigation Drawer Items -->
-    <string-array name="drawer_item_names">
-        <item>My Profile</item>
-        <item>Find a ride</item>
-        <item>Post a ride</item>
-        <item>Log out</item>
-    </string-array>
-
+    <!-- Navigation Drawer Titles -->
     <string name="drawer_item_my_profile">My Profile</string>
     <string name="drawer_item_find_a_ride">Find a Ride</string>
     <string name="drawer_item_post_a_ride">Post A Ride</string>

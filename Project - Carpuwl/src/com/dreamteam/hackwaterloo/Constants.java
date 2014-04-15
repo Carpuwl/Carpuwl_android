@@ -2,9 +2,6 @@ package com.dreamteam.hackwaterloo;
 
 public class Constants {
     
-    public static final String UTF_8 = "UTF-8";
-    public static final String BASE_URL = "http://s417363377.onlinehome.us/";
-    
     public enum Endpoint {
         USER("user"),
         CREATE_EVENT("create_event"), // TODO: Make this endpoint use feed instead
@@ -35,11 +32,6 @@ public class Constants {
     public static class Extra {
         public static final String EVENT = "com.dreamteam.carpuwl.eventParcelable";
         public static final String EVENT_POSITION = "com.dreamteam.carpuwl.eventPosition";
-    }
-    
-    public static class FragmentTag {
-        public static final String DIALOG_DATE_PICKER = "fragmentTagDatePicker";
-        public static final String DIALOG_TIME_PICKER = "fragmenTagTimePicker";
     }
     
     public static class StatusCode {

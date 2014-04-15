@@ -1,11 +1,6 @@
 package com.dreamteam.hackwaterloo.adapters;
 
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.Arrays;
-
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,34 +9,28 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dreamteam.carpuwl.R;
-import com.dreamteam.hackwaterloo.models.DrawerItem;
+import com.dreamteam.hackwaterloo.models.NavDrawerItem;
 import com.dreamteam.hackwaterloo.utils.Utils;
 
-public class DrawerLayoutAdapter extends BaseAdapter {
+public class AdapterNavDrawer extends BaseAdapter {
 
-    private ArrayList<DrawerItem> mItems;
-    private WeakReference<Context> mContext;
-    private TypedArray mDrawerIcons;
+    private Context mContext;
 
-    public DrawerLayoutAdapter(Context context) {
-        mContext = new WeakReference<Context>(context);
-        mItems = new ArrayList<DrawerItem>(Arrays.asList(DrawerItem.InitDrawerItems()));
-        mDrawerIcons = Utils.obtainTypedArray(R.array.drawer_item_selectors);
-    }
-
-    private static class ViewHolder {
-        ImageView itemIcon;
-        TextView itemTitle;
+    /**
+     * @param context A context for the arrayAdapter to grab a layoutInflater instance
+     */
+    public AdapterNavDrawer(Context context) {
+        mContext = context;
     }
 
     @Override
     public int getCount() {
-        return mItems.size();
+        return NavDrawerItem.values().length;
     }
 
     @Override
-    public DrawerItem getItem(int position) {
-        return mItems.get(position);
+    public NavDrawerItem getItem(int position) {
+        return NavDrawerItem.values()[position];
     }
 
     @Override
@@ -49,14 +38,22 @@ public class DrawerLayoutAdapter extends BaseAdapter {
         // Not used by android framework. No implementation needed.
         return 0;
     }
+    
+    /**
+     * @author Ryan
+     *
+     */
+    private static class ViewHolder {
+        ImageView itemIcon;
+        TextView itemTitle;
+    }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        DrawerItem drawerItem = getItem(position);
         ViewHolder viewHolder;
         if (convertView == null) {
             viewHolder = new ViewHolder();
-            LayoutInflater inflater = LayoutInflater.from(mContext.get());
+            LayoutInflater inflater = LayoutInflater.from(mContext);
             convertView = inflater.inflate(R.layout.listview_item_drawer, null);
             viewHolder.itemIcon = (ImageView) convertView.findViewById(R.id.nav_drawer_icon);
             viewHolder.itemTitle = (TextView) convertView.findViewById(R.id.nav_drawer_title);
@@ -65,8 +62,9 @@ public class DrawerLayoutAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         
-        viewHolder.itemIcon.setImageDrawable(mDrawerIcons.getDrawable(position));
-        viewHolder.itemTitle.setText(drawerItem.getTitle());
+        NavDrawerItem drawerItem = getItem(position);
+        viewHolder.itemIcon.setImageDrawable(Utils.getDrawable(drawerItem.getIconId()));
+        viewHolder.itemTitle.setText(Utils.getString(drawerItem.getTitleId()));
         
         return convertView;
     }
