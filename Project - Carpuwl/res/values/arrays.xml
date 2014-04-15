@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     
+    <array name="find_ride_post_colors">
+        <item>@color/green</item>
+        <item>@color/red</item>
+        <item>@color/orange</item>
+        <item>@color/blue</item>
+        <item>@color/purple</item>
+    </array>
+    
 </resources>

@@ -6,6 +6,7 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.TypedArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -30,7 +31,7 @@ public class FeedAdapter extends BaseAdapter {
     
     private WeakReference<Activity> mContext;
     private ArrayList<Event> mEvents;
-    private int[] mColorList;
+    private TypedArray mColorList;
     
     private boolean promptShown;
     
@@ -41,13 +42,7 @@ public class FeedAdapter extends BaseAdapter {
         
         promptShown = false;
         
-        mColorList = new int[]{
-                Utils.getColor(R.color.red),
-                Utils.getColor(R.color.orange),
-                Utils.getColor(R.color.green),
-                Utils.getColor(R.color.blue),
-                Utils.getColor(R.color.purple)
-        };
+        mColorList = Utils.obtainTypedArray(R.array.find_ride_post_colors);
     }
     
     public interface OnScrollToShowPromptListener {
@@ -116,7 +111,7 @@ public class FeedAdapter extends BaseAdapter {
         
         Event event = getItem(position);
         viewHolder.parentView.setOnClickListener(new OnEventClickedListener(position));
-        viewHolder.priceBackground.setBackgroundColor(mColorList[position % 5]);
+        viewHolder.priceBackground.setBackgroundColor(mColorList.getColor((position % 5), 0));
         viewHolder.ratingBar.setRating((float) event.getRating());
         viewHolder.price.setText(String.format("$%.2f", event.getPrice()));
         viewHolder.startingPoint.setText(event.getLocationStart());

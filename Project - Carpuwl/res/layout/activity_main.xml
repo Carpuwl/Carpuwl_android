@@ -16,7 +16,7 @@
         android:id="@+id/drawer_listview"
         android:layout_width="@dimen/nav_drawer_width"
         android:layout_height="match_parent"
-        android:layout_gravity="start"
+        android:layout_gravity="left"
         android:background="@android:color/white"
         android:choiceMode="singleChoice"
         android:divider="@android:drawable/divider_horizontal_bright"
