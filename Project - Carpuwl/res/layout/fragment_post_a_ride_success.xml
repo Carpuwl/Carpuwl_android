@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/post_ride_container_successful"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/google_now_style_card"
+    android:orientation="vertical" >
+
+    <TextView.RobotoLight
+        style="@style/DreamTextHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:padding="@dimen/touchable_ui_spacing"
+        android:layout_margin="@dimen/touchable_ui_spacing"
+        android:text="@string/success" />
+
+    <Button
+        style="@style/ButtonDreamTeam.Alternate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="0dp"
+        android:text="@string/post_ride_text_view_post" />
+
+</LinearLayout>

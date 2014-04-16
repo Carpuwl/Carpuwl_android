@@ -23,6 +23,7 @@ import com.actionbarsherlock.view.MenuItem;
 import com.dreamteam.carpuwl.R;
 import com.dreamteam.hackwaterloo.adapters.AdapterNavDrawer;
 import com.dreamteam.hackwaterloo.fragments.FragmentFilter;
+import com.dreamteam.hackwaterloo.fragments.FragmentMyProfile;
 import com.dreamteam.hackwaterloo.fragments.FragmentFilter.OnFilterAppliedListener;
 import com.dreamteam.hackwaterloo.fragments.FragmentFindARide;
 import com.dreamteam.hackwaterloo.fragments.FragmentFindARide.FilterPromptListener;
@@ -178,8 +179,8 @@ public class ActivityMain extends ActivityDreamTeam implements FilterPromptListe
 
             switch (selectedNavDrawerItem) {
                 case MY_PROFILE:
-                    theFragmentToSwitchTo = new FragmentFindARide();
-                    fragmentTag = FragmentFindARide.TAG;
+                    theFragmentToSwitchTo = new FragmentMyProfile();
+                    fragmentTag = FragmentMyProfile.TAG;
                     break;
 
                 case FIND_A_RIDE:
@@ -203,6 +204,7 @@ public class ActivityMain extends ActivityDreamTeam implements FilterPromptListe
 
             if (theFragmentToSwitchTo != null) {
                 mFragmentManager.beginTransaction()
+                        .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
                         .replace(R.id.main_fragment_container, theFragmentToSwitchTo, fragmentTag)
                         .commit();
             }

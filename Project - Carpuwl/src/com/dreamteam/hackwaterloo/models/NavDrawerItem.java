@@ -12,12 +12,10 @@ public enum NavDrawerItem {
 
     private int mIconId;
     private int mTitleId;
-    private int mPosition;
 
     private NavDrawerItem(int iconId, int titleId) {
         mIconId = iconId;
         mTitleId = titleId;
-        mPosition = this.ordinal();
     }
 
     public int getIconId() {
@@ -29,6 +27,6 @@ public enum NavDrawerItem {
     }
 
     public int getListPosition() {
-        return mPosition;
+        return this.ordinal();
     }
 }
