@@ -61,6 +61,7 @@ public class Feed {
         @SerializedName(SerializedNames.RATING_COUNT)
         private int mRatingCount;
 
+        // TODO: Change this into an int. fuh real
         @SerializedName(SerializedNames.PRICE)
         private double mPrice;
 
@@ -92,9 +93,9 @@ public class Feed {
          * @param locationStart
          * @param locationEnd
          */
-        public Event(long userId, double price, int seatsRemaining, String description,
+        public Event(long userId, int price, int seatsRemaining, String description,
                 long dateDepart, long dateArrive, String locationStart, String locationEnd) {
-            mPrice = price;
+            mPrice = Double.valueOf(price).intValue();
             mSeatsRemaining = seatsRemaining;
             mDescription = description;
             mDateDepart = dateDepart;
@@ -110,7 +111,7 @@ public class Feed {
             mPhone = in.readString();
             mRating = in.readDouble();
             mRatingCount = in.readInt();
-            mPrice = in.readDouble();
+            mPrice = in.readInt();
             mSeatsRemaining = in.readInt();
             mDescription = in.readString();
             mDateDepart = in.readLong();
@@ -132,7 +133,7 @@ public class Feed {
             dest.writeString(mPhone);
             dest.writeDouble(mRating);
             dest.writeInt(mRatingCount);
-            dest.writeDouble(mPrice);
+            dest.writeInt(getPrice());
             dest.writeInt(mSeatsRemaining);
             dest.writeString(mDescription);
             dest.writeLong(mDateDepart);
@@ -177,8 +178,8 @@ public class Feed {
             return mRatingCount;
         }
 
-        public double getPrice() {
-            return mPrice;
+        public int getPrice() {
+            return Double.valueOf(mPrice).intValue();
         }
 
         public int getSeatsRemaining() {

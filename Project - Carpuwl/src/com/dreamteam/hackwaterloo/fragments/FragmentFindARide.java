@@ -142,7 +142,7 @@ public class FragmentFindARide extends SherlockFragment implements OnScrollToSho
             public void onErrorResponse(VolleyError error) {
                 if (error.networkResponse != null) {
                     Log.e(TAG, "Error: " + error.networkResponse.statusCode);
-                }
+                } 
                 // TODO: make a string perhaps
                 Toast.makeText(getActivity(), "Error getting results", Toast.LENGTH_SHORT).show();
             }

@@ -37,7 +37,6 @@ import com.dreamteam.hackwaterloo.models.Feed.Event;
 import com.dreamteam.hackwaterloo.utils.CrossFadeViewSwitcher;
 import com.dreamteam.hackwaterloo.utils.DateTimePickerHelper;
 import com.dreamteam.hackwaterloo.utils.DateTimePickerHelper.OnDateTimeSelectedListener;
-import com.dreamteam.hackwaterloo.utils.TextWatcherPrice;
 import com.dreamteam.hackwaterloo.utils.Utils;
 import com.dreamteam.hackwaterloo.volley.MyVolley;
 import com.dreamteam.hackwaterloo.volley.PostEventRequest;
@@ -115,7 +114,6 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
         mSpinnerStart.setOnItemSelectedListener(new SeekBarButtonEnabler());
         mSpinnerEnd.setOnItemSelectedListener(new SeekBarButtonEnabler());
 
-        mEditPrice.addTextChangedListener(new TextWatcherPrice(mEditPrice));
         mEditPrice.addTextChangedListener(new TextWatcherPriceButtonEnabler());
     }
 
@@ -141,12 +139,10 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
             Log.d("ryan", "failed due to start time being later than end time");
         } else if (mStartTime < System.currentTimeMillis()) {
             Log.d("ryan", "failed due to start time being before current time");
-        } else if (Utils.getDoubleFromPriceEditText(mEditPrice) <= 1d) {
+        } else if (Integer.parseInt(mEditPrice.getText().toString()) < Defaults.MINIMUM_PRICE) {
             Log.d("ryan", "failed due to price being less than one dollar");
         } else if (mTextSeatsValue.getText().toString().equals("0")) {
             Log.d("ryan", "failed due to seats remaining equalling 0");
-        } else if (mTextSeatsValue.getText().toString().equals("")) {
-            Log.d("ryan", "failed due to seats remaining being empty");
         } else {
             Log.d("ryan", "success");
             return true;
@@ -196,7 +192,7 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
     private void postRequest() {
         Event event = new Event(
                 AppData.getFacebookForeginKey(),
-                Utils.getDoubleFromPriceEditText(mEditPrice),
+                Integer.parseInt(mEditPrice.getText().toString()),
                 Integer.parseInt(mTextSeatsValue.getText().toString()),
                 mEditDescription.getText().toString(),
                 mStartTime,

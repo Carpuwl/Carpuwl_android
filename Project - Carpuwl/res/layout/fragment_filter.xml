@@ -81,15 +81,13 @@
 
             <EditText.RobotoLight
                 android:id="@+id/filter_edittext_price"
-                android:textColor="@drawable/dream_text_color_selector"
+                style="@style/DreamEditPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@id/filter_text_title_price"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@id/filter_text_price_currency_symbol"
-                android:hint="@string/filter_edittext_hint_price"
-                android:inputType="number"
-                android:maxLength="5" />
+                android:hint="@string/filter_edittext_hint_price" />
 
             <CheckBox
                 android:id="@+id/filter_checkbox_price"

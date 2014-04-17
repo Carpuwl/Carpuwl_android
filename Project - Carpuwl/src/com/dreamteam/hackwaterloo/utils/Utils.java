@@ -11,11 +11,9 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.format.Time;
 import android.view.Window;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.dreamteam.carpuwl.R;
@@ -196,11 +194,6 @@ public class Utils {
      */
     public static boolean is24Hour() {
         return DateFormat.is24HourFormat(App.getAppContext());
-    }
-    
-    public static double getDoubleFromPriceEditText(EditText editText) {
-        String contentString = editText.getText().toString().replaceAll("[^\\d.]", "");
-        return TextUtils.isEmpty(contentString) ? 0d : Double.parseDouble(contentString);
     }
     
     public static boolean supportsSdk(int sdkLevel) {

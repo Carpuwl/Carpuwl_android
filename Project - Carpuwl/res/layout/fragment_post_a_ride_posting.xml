@@ -56,6 +56,7 @@
                 android:text="@string/price" />
 
             <TextView.RobotoLight
+                style="@style/DreamTextContent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -65,13 +66,12 @@
 
         <EditText.RobotoLight
             android:id="@+id/post_ride_edittext_price"
+            style="@style/DreamEditPrice"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:gravity="center"
-            android:inputType="number"
-            android:maxLength="5" />
+            android:hint="" />
     </LinearLayout>
 
     <LinearLayout
@@ -89,7 +89,7 @@
             android:orientation="horizontal" >
 
             <TextView.RobotoLight
-                android:id="@+id/post_ride_text_seats_static"
+                android:id="@+id/post_ride_text_seats_header"
                 style="@style/DreamTextHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -98,6 +98,7 @@
 
             <TextView.RobotoLight
                 android:id="@+id/post_ride_text_seats_value"
+                style="@style/DreamTextContent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
