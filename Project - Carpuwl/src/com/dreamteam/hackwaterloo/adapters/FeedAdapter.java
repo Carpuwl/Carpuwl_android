@@ -10,6 +10,7 @@ import android.content.res.TypedArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.DecelerateInterpolator;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
@@ -22,10 +23,15 @@ import com.dreamteam.hackwaterloo.Constants;
 import com.dreamteam.hackwaterloo.activities.ActivityDetailedPager;
 import com.dreamteam.hackwaterloo.models.Feed.Event;
 import com.dreamteam.hackwaterloo.utils.Utils;
+import com.nineoldandroids.animation.AnimatorSet;
+import com.nineoldandroids.animation.ObjectAnimator;
 
 public class FeedAdapter extends BaseAdapter {
 
     private static final int POSITION_TO_PROMPT_FILTER = 10;
+    private static final int TRANSLATION_DISTANCE_DP = 300;
+    private static final float ANIMATION_ROTATION_DEGREES = 30f;
+    private static final float DECELLERATION_INTERPOLATION_FACTOR = 2f;
 
     private OnScrollToShowPromptListener mListener;
 
@@ -34,6 +40,8 @@ public class FeedAdapter extends BaseAdapter {
     private TypedArray mColorList;
 
     private boolean promptShown;
+    private int mLastDrawnViewPosition;
+    private int mTranslationDistance;
 
     public FeedAdapter(Activity activity, OnScrollToShowPromptListener listener) {
         mListener = listener;
@@ -41,6 +49,9 @@ public class FeedAdapter extends BaseAdapter {
         mEvents = new ArrayList<Event>();
         promptShown = false;
         mColorList = Utils.obtainTypedArray(R.array.find_ride_post_colors);
+        mLastDrawnViewPosition = -1;
+        mTranslationDistance = (int) (TRANSLATION_DISTANCE_DP * activity.getResources()
+                .getDisplayMetrics().density);
     }
 
     public interface OnScrollToShowPromptListener {
@@ -94,7 +105,7 @@ public class FeedAdapter extends BaseAdapter {
             LayoutInflater inflater = LayoutInflater.from(mActivity);
             convertView = inflater.inflate(R.layout.listview_item_feed_posting, null, false);
             viewHolder = new ViewHolder();
-            
+
             viewHolder.parentView = (RelativeLayout) convertView
                     .findViewById(R.id.find_ride_listview_item_parent);
             viewHolder.priceBackground = (ImageView) convertView
@@ -129,6 +140,19 @@ public class FeedAdapter extends BaseAdapter {
         if (position > POSITION_TO_PROMPT_FILTER && !promptShown) {
             promptShown = true;
             mListener.onScrollToShowPrompt();
+        }
+
+        if (position > mLastDrawnViewPosition) {
+            AnimatorSet animatorSet = new AnimatorSet();
+            animatorSet.playTogether(ObjectAnimator.ofFloat(convertView, "rotationX",
+                    ANIMATION_ROTATION_DEGREES, 0f),
+                    ObjectAnimator.ofFloat(convertView, "translationY", mTranslationDistance, 0f),
+                    ObjectAnimator.ofFloat(convertView, "alpha", 0f, 1f));
+            animatorSet.setDuration(Constants.Defaults.ANIMATION_DURATION);
+            animatorSet.setInterpolator(new DecelerateInterpolator(
+                    DECELLERATION_INTERPOLATION_FACTOR));
+            animatorSet.start();
+            mLastDrawnViewPosition = position;
         }
 
         return convertView;
