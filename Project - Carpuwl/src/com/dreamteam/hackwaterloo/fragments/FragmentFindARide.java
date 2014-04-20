@@ -158,9 +158,9 @@ public class FragmentFindARide extends SherlockFragment implements OnScrollToSho
     private void updateList(Event[] events) {
         if (mListAdapter == null) {
             mListView = (ListView) getView().findViewById(R.id.find_ride_list_view);
-            mListAdapter = new FeedAdapter(getActivity(), this);
-            mListView.setAdapter(mListAdapter);
         }
+        mListAdapter = new FeedAdapter(getActivity(), this);
+        mListView.setAdapter(mListAdapter);
 
         if (events != null) {
             mListAdapter.replaceDataset(Arrays.asList(events));
