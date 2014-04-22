@@ -173,12 +173,21 @@ public class FragmentFindARide extends SherlockFragment implements OnScrollToSho
      */
     @Override
     public void onScrollToShowPrompt() {
+        // Safety check against re-inflating an already inflated ViewStub
+        if (mViewStubFilterPrompt == null) {
+            return;
+        }
+        
+        // Instantiate the button
         mButtonFilterPrompt = (Button) mViewStubFilterPrompt.inflate();
         mButtonFilterPrompt.setOnClickListener(this);
 
+        // Animate the view
         ViewHelper.setAlpha(mButtonFilterPrompt, 0f);
         mButtonFilterPrompt.setVisibility(View.VISIBLE);
         ObjectAnimator.ofFloat(mButtonFilterPrompt, "alpha", 1f).start();
+        
+        // Allow GC to eat up the ViewStub
     }
 
     @Override

@@ -32,9 +32,6 @@ import com.nineoldandroids.animation.ObjectAnimator;
 public class FeedAdapter extends BaseAdapter {
 
     private static final int POSITION_TO_PROMPT_FILTER = 10;
-    private static final int TRANSLATION_DISTANCE_DP = 300;
-    private static final float ANIMATION_ROTATION_DEGREES = 30f;
-    private static final float DECELLERATION_INTERPOLATION_FACTOR = 2f;
 
     private OnScrollToShowPromptListener mListener;
 
@@ -44,7 +41,6 @@ public class FeedAdapter extends BaseAdapter {
 
     private boolean promptShown;
     private int mLastDrawnViewPosition;
-    private int mTranslationDistance;
 
     public FeedAdapter(Activity activity, OnScrollToShowPromptListener listener) {
         mListener = listener;
@@ -53,8 +49,6 @@ public class FeedAdapter extends BaseAdapter {
         promptShown = false;
         mColorList = Utils.obtainTypedArray(R.array.find_ride_post_colors);
         mLastDrawnViewPosition = -1;
-        mTranslationDistance = (int) (TRANSLATION_DISTANCE_DP * activity.getResources()
-                .getDisplayMetrics().density);
     }
 
     public interface OnScrollToShowPromptListener {
