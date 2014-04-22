@@ -7,6 +7,7 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.TypedArray;
+import android.nfc.cardemulation.CardEmulation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -20,8 +21,10 @@ import android.widget.TextView;
 
 import com.dreamteam.carpuwl.R;
 import com.dreamteam.hackwaterloo.Constants;
+import com.dreamteam.hackwaterloo.Constants.Animation;
 import com.dreamteam.hackwaterloo.activities.ActivityDetailedPager;
 import com.dreamteam.hackwaterloo.models.Feed.Event;
+import com.dreamteam.hackwaterloo.utils.AnimationCardEntrance;
 import com.dreamteam.hackwaterloo.utils.Utils;
 import com.nineoldandroids.animation.AnimatorSet;
 import com.nineoldandroids.animation.ObjectAnimator;
@@ -143,15 +146,7 @@ public class FeedAdapter extends BaseAdapter {
         }
 
         if (position > mLastDrawnViewPosition) {
-            AnimatorSet animatorSet = new AnimatorSet();
-            animatorSet.playTogether(ObjectAnimator.ofFloat(convertView, "rotationX",
-                    ANIMATION_ROTATION_DEGREES, 0f),
-                    ObjectAnimator.ofFloat(convertView, "translationY", mTranslationDistance, 0f),
-                    ObjectAnimator.ofFloat(convertView, "alpha", 0f, 1f));
-            animatorSet.setDuration(Constants.Defaults.ANIMATION_DURATION);
-            animatorSet.setInterpolator(new DecelerateInterpolator(
-                    DECELLERATION_INTERPOLATION_FACTOR));
-            animatorSet.start();
+            AnimationCardEntrance.withView(convertView);
             mLastDrawnViewPosition = position;
         }
 

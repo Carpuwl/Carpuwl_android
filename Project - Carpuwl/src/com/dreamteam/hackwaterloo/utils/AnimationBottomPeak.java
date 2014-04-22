@@ -5,7 +5,7 @@ import java.lang.ref.WeakReference;
 import android.util.Log;
 import android.view.View;
 
-import com.dreamteam.hackwaterloo.Constants.Defaults;
+import com.dreamteam.hackwaterloo.Constants.Animation;
 import com.dreamteam.hackwaterloo.sharedinterfaces.OnAnimationEndListener;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.Animator.AnimatorListener;
@@ -35,7 +35,7 @@ public class AnimationBottomPeak {
         if (view != null) {
             float value = mShow ? -view.getHeight() : view.getHeight();
             ObjectAnimator peekAnimator = ObjectAnimator.ofFloat(view, "translationY", value);
-            peekAnimator.setDuration(Defaults.ANIMATION_DURATION);
+            peekAnimator.setDuration(Animation.DURATION);
             peekAnimator.addListener(new AnimatorListener() {
                 
                 @Override
