@@ -20,9 +20,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.dreamteam.carpuwl.R;
-import com.dreamteam.hackwaterloo.Constants;
-import com.dreamteam.hackwaterloo.Constants.Animation;
 import com.dreamteam.hackwaterloo.activities.ActivityDetailedPager;
+import com.dreamteam.hackwaterloo.common.Constants;
+import com.dreamteam.hackwaterloo.common.Constants.Animation;
 import com.dreamteam.hackwaterloo.models.Feed.Event;
 import com.dreamteam.hackwaterloo.utils.AnimationCardEntrance;
 import com.dreamteam.hackwaterloo.utils.Utils;

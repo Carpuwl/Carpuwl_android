@@ -28,12 +28,12 @@ import com.android.volley.Request.Method;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.dreamteam.carpuwl.R;
-import com.dreamteam.hackwaterloo.Constants.Endpoint;
 import com.dreamteam.hackwaterloo.adapters.FeedAdapter;
 import com.dreamteam.hackwaterloo.adapters.FeedAdapter.OnScrollToShowPromptListener;
+import com.dreamteam.hackwaterloo.common.OnAnimationEndListener;
+import com.dreamteam.hackwaterloo.common.Constants.Endpoint;
 import com.dreamteam.hackwaterloo.models.Feed;
 import com.dreamteam.hackwaterloo.models.Feed.Event;
-import com.dreamteam.hackwaterloo.sharedinterfaces.OnAnimationEndListener;
 import com.dreamteam.hackwaterloo.utils.AnimationBottomPeak;
 import com.dreamteam.hackwaterloo.utils.CrossFadeViewSwitcher;
 import com.dreamteam.hackwaterloo.volley.GsonRequest;
@@ -174,7 +174,7 @@ public class FragmentFindARide extends SherlockFragment implements OnScrollToSho
     @Override
     public void onScrollToShowPrompt() {
         // Safety check against re-inflating an already inflated ViewStub
-        if (mViewStubFilterPrompt == null) {
+        if (mViewStubFilterPrompt == null || mViewStubFilterPrompt.getParent() == null) {
             return;
         }
         

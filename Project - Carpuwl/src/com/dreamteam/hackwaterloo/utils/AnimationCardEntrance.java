@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 
 import com.dreamteam.hackwaterloo.App;
-import com.dreamteam.hackwaterloo.Constants;
+import com.dreamteam.hackwaterloo.common.Constants;
 import com.nineoldandroids.animation.AnimatorSet;
 import com.nineoldandroids.animation.ObjectAnimator;
 

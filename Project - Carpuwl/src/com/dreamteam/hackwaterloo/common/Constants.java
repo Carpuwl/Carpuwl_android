@@ -1,10 +1,10 @@
-package com.dreamteam.hackwaterloo;
+package com.dreamteam.hackwaterloo.common;
 
 public class Constants {
     
     public enum Endpoint {
         USER("user"),
-        CREATE_EVENT("create_event"), // TODO: Make this endpoint use feed instead
+        EVENT("event"), // TODO: Make this endpoint use feed instead
         FEED("feed");
         
         private String mValue;

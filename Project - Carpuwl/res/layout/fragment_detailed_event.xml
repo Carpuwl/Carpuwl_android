@@ -18,12 +18,11 @@
             android:layout_margin="@dimen/touchable_ui_spacing"
             android:background="@drawable/google_now_style_card" >
 
-            <com.facebook.widget.ProfilePictureView
+            <com.dreamteam.hackwaterloo.common.CircularImageView
                 android:id="@+id/event_user_profile_picture"
                 android:layout_width="@dimen/event_user_profile_size"
                 android:layout_height="@dimen/event_user_profile_size"
-                android:contentDescription="@string/app_name"
-                android:src="@color/red" />
+                android:contentDescription="@string/app_name" />
 
             <TextView
                 android:id="@+id/event_user_name"

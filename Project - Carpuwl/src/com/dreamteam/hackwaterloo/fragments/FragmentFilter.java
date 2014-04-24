@@ -33,7 +33,7 @@ import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.dreamteam.carpuwl.R;
-import com.dreamteam.hackwaterloo.Constants.Defaults;
+import com.dreamteam.hackwaterloo.common.Constants.Defaults;
 import com.dreamteam.hackwaterloo.models.Feed.SerializedNames;
 import com.dreamteam.hackwaterloo.utils.DateTimePickerHelper;
 import com.dreamteam.hackwaterloo.utils.DateTimePickerHelper.OnDateTimeSelectedListener;

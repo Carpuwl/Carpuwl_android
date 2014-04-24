@@ -10,7 +10,7 @@ import android.support.v4.view.ViewPager;
 
 import com.actionbarsherlock.view.MenuItem;
 import com.dreamteam.carpuwl.R;
-import com.dreamteam.hackwaterloo.Constants;
+import com.dreamteam.hackwaterloo.common.Constants;
 import com.dreamteam.hackwaterloo.fragments.FragmentDetailedEvent;
 import com.dreamteam.hackwaterloo.models.Feed.Event;
 import com.dreamteam.hackwaterloo.utils.Utils;

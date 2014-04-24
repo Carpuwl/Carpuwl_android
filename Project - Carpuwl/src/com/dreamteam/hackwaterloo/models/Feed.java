@@ -205,5 +205,17 @@ public class Feed {
         public String getLocationEnd() {
             return mLocationEnd;
         }
+
+        @Override
+        public String toString() {
+            return "Event [mUserId=" + mUserId + ", mEventId=" + mEventId + ", mDriverName="
+                    + mDriverName + ", mPhone=" + mPhone + ", mRating=" + mRating
+                    + ", mRatingCount=" + mRatingCount + ", mPrice=" + mPrice
+                    + ", mSeatsRemaining=" + mSeatsRemaining + ", mDescription=" + mDescription
+                    + ", mDateDepart=" + mDateDepart + ", mDateArrive=" + mDateArrive
+                    + ", mLocationStart=" + mLocationStart + ", mLocationEnd=" + mLocationEnd + "]";
+        }
+        
+        
     }
 }

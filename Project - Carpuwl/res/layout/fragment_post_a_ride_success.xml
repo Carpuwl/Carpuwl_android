@@ -16,6 +16,7 @@
         android:text="@string/success" />
 
     <Button
+        android:id="@+id/post_success_button_view_post"
         style="@style/ButtonDreamTeam.Alternate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

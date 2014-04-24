@@ -14,7 +14,8 @@ import com.android.volley.Response;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.toolbox.HttpHeaderParser;
-import com.dreamteam.hackwaterloo.Constants.Endpoint;
+import com.dreamteam.hackwaterloo.common.Constants.Endpoint;
+import com.dreamteam.hackwaterloo.models.Feed;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 
@@ -36,13 +37,19 @@ public class GsonRequest<T> extends Request<T> {
         this.mClazz = clazz;
         this.mListener = listener;
         mParams = params;
+        
+        if (params != null) {
+            Log.d(TAG, "Params: " + params.toString());
+        }
     }
 
     @Override
     protected Response<T> parseNetworkResponse(NetworkResponse response) {
         try {
             Log.d(TAG, "StatusCode: " + response.statusCode);
-            Log.d(TAG, new String(response.data));
+            if (mClazz != Feed.class) {
+                Log.d(TAG, new String(response.data));
+            }
             Gson gson = new Gson();
             String json = new String(response.data, HttpHeaderParser.parseCharset(response.headers));
             return Response.success(gson.fromJson(json, mClazz),
@@ -54,6 +61,7 @@ public class GsonRequest<T> extends Request<T> {
             return Response.error(new ParseError(e));
         }
     }
+    
     @Override
     protected void deliverResponse(T response) {
         mListener.onResponse(response);

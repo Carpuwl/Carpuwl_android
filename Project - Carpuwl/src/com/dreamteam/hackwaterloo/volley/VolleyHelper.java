@@ -5,7 +5,7 @@ import java.util.Map;
 import android.util.Log;
 
 import com.android.volley.Request.Method;
-import com.dreamteam.hackwaterloo.Constants.Endpoint;
+import com.dreamteam.hackwaterloo.common.Constants.Endpoint;
 
 
 public class VolleyHelper {
@@ -18,6 +18,7 @@ public class VolleyHelper {
     public static String getRequestUrl(int method, Endpoint endpoint, Map<String, String> params) {
         StringBuilder urlBuilder = new StringBuilder(BASE_URL + endpoint.getValue() + PHP_SUFFIX);
         
+        // If it's a get request, the parameters must be appended to the url
         if (method == Method.GET && params != null && params.size() > 0) {
             urlBuilder.append("?");
             for (Map.Entry<String, String> entry : params.entrySet()) {

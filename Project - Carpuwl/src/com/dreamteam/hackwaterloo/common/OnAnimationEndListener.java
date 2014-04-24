@@ -1,4 +1,4 @@
-package com.dreamteam.hackwaterloo.sharedinterfaces;
+package com.dreamteam.hackwaterloo.common;
 
 public interface OnAnimationEndListener {
     void onAnimationEnd();

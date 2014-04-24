@@ -7,7 +7,7 @@ import java.util.Map;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.toolbox.StringRequest;
-import com.dreamteam.hackwaterloo.Constants.Endpoint;
+import com.dreamteam.hackwaterloo.common.Constants.Endpoint;
 
 public class PostUser extends StringRequest {
 

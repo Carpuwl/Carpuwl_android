@@ -1,6 +1,9 @@
 
 package com.dreamteam.hackwaterloo.fragments;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -31,15 +34,16 @@ import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.dreamteam.carpuwl.R;
 import com.dreamteam.hackwaterloo.AppData;
-import com.dreamteam.hackwaterloo.Constants.Defaults;
-import com.dreamteam.hackwaterloo.Constants.Endpoint;
+import com.dreamteam.hackwaterloo.common.Constants.Defaults;
+import com.dreamteam.hackwaterloo.common.Constants.Endpoint;
 import com.dreamteam.hackwaterloo.models.Feed.Event;
+import com.dreamteam.hackwaterloo.models.Feed.SerializedNames;
 import com.dreamteam.hackwaterloo.utils.CrossFadeViewSwitcher;
 import com.dreamteam.hackwaterloo.utils.DateTimePickerHelper;
 import com.dreamteam.hackwaterloo.utils.DateTimePickerHelper.OnDateTimeSelectedListener;
 import com.dreamteam.hackwaterloo.utils.Utils;
+import com.dreamteam.hackwaterloo.volley.GsonRequest;
 import com.dreamteam.hackwaterloo.volley.MyVolley;
-import com.dreamteam.hackwaterloo.volley.PostEventRequest;
 
 public class FragmentPostARide extends SherlockFragment implements OnClickListener {
 
@@ -51,9 +55,11 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
     private ViewStub mViewStubPosting;
     private ViewStub mViewStubSuccess;
     private LinearLayout mContainerEditPost;
+    private LinearLayout mContainerSuccess;
     private Button mButtonSubmit;
     private Button mButtonDatePicker;
     private Button mButtonTimePicker;
+    private Button mButtonViewPost;
     private SeekBar mSeekbarSeats;
     private Spinner mSpinnerStart;
     private Spinner mSpinnerEnd;
@@ -73,17 +79,31 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
 
         mViewStubSuccess = (ViewStub) rootView.findViewById(R.id.post_ride_viewstub_success);
         if (savedInstanceState != null && savedInstanceState.getBoolean(KEY_DONE_POSTING, false)) {
-            mViewStubSuccess.inflate();
+            initSuccessPost();
             mDonePosting = true;
         } else {
-            initUi(rootView);
+            mEditPost(rootView);
             enableSubmitButtonIfDataValid();
         }
 
         return rootView;
     }
+    
+    private void initSuccessPost() {
+        mContainerSuccess = (LinearLayout) mViewStubSuccess.inflate();
+        mButtonViewPost = (Button) mContainerSuccess
+                .findViewById(R.id.post_success_button_view_post);
+        
+        mButtonViewPost.setOnClickListener(new OnClickListener() {
+            
+            @Override
+            public void onClick(View v) {
+                
+            }
+        });
+    }
 
-    private void initUi(View rootView) {
+    private void mEditPost(View rootView) {
         mViewStubPosting = (ViewStub) rootView.findViewById(R.id.post_ride_viewstub_posting);
         mContainerEditPost = (LinearLayout) mViewStubPosting.inflate();
         mButtonSubmit = (Button) rootView.findViewById(R.id.post_ride_button_submit_event);
@@ -190,41 +210,42 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
     }
 
     private void postRequest() {
-        Event event = new Event(
-                AppData.getFacebookForeginKey(),
-                Integer.parseInt(mEditPrice.getText().toString()),
-                Integer.parseInt(mTextSeatsValue.getText().toString()),
-                mEditDescription.getText().toString(),
-                mStartTime,
-                mEndTime,
-                mSpinnerStart.getSelectedItem().toString(),
-                mSpinnerEnd.getSelectedItem().toString());
-
-        PostEventRequest request = new PostEventRequest(
-                Method.POST,
-                Endpoint.CREATE_EVENT,
-                new Listener<String>() {
-
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("fb_fk", String.valueOf(AppData.getFacebookForeginKey())); // TODO: wtf?
+        params.put(SerializedNames.PRICE, mEditPrice.getText().toString());
+        params.put(SerializedNames.SEATS_REMAINING, mTextSeatsValue.getText().toString());
+        params.put(SerializedNames.DESCRIPTION, mEditDescription.getText().toString());
+        params.put(SerializedNames.DATE_DEPART, String.valueOf(mStartTime));
+        params.put(SerializedNames.DATE_ARRIVE, String.valueOf(mEndTime));
+        params.put(SerializedNames.LOCATION_START, mSpinnerStart.getSelectedItem().toString());
+        params.put(SerializedNames.LOCATION_END, mSpinnerEnd.getSelectedItem().toString());
+        
+        Log.d("ryan", "PARAMETERS: " + params.toString());
+        
+        GsonRequest<Event> request = new GsonRequest<Event>(
+                Method.POST, 
+                Endpoint.EVENT, 
+                Event.class, 
+                new Listener<Event>() {
                     @Override
-                    public void onResponse(String response) {
+                    public void onResponse(Event response) {
+                        Log.d("ryan", response.toString());
                         Toast.makeText(getActivity(), "Successful", Toast.LENGTH_SHORT).show();
-                        new CrossFadeViewSwitcher(mContainerEditPost, mViewStubSuccess.inflate(),
-                                true)
+                        initSuccessPost();
+                        new CrossFadeViewSwitcher(mContainerEditPost, mContainerSuccess, true)
                                 .startAnimation();
                         mDonePosting = true;
-
                     }
-                },
+                }, 
                 new ErrorListener() {
-
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Toast.makeText(getActivity(), "Could not post", Toast.LENGTH_SHORT).show();
+                        Log.d("ryan", error.toString());
                     }
                 },
-                event);
+                params);
 
-        request.setTag(TAG);
         MyVolley.getRequestQueue().add(request);
     }
 
