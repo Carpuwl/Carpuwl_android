@@ -4,7 +4,7 @@ public class Constants {
     
     public enum Endpoint {
         USER("user"),
-        EVENT("event"), // TODO: Make this endpoint use feed instead
+        EVENT("create_event"), 
         FEED("feed");
         
         private String mValue;

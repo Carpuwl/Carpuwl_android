@@ -161,7 +161,7 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
             Log.d("ryan", "failed due to start time being later than end time");
         } else if (mStartTime < System.currentTimeMillis()) {
             Log.d("ryan", "failed due to start time being before current time");
-        } else if (Integer.parseInt(mEditPrice.getText().toString()) < Defaults.MINIMUM_PRICE) {
+        } else if (Double.parseDouble(mEditPrice.getText().toString()) < Defaults.MINIMUM_PRICE) {
             Log.d("ryan", "failed due to price being less than one dollar");
         } else if (mTextSeatsValue.getText().toString().equals("0")) {
             Log.d("ryan", "failed due to seats remaining equalling 0");
