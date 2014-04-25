@@ -15,7 +15,7 @@ public class ActivityDreamTeam extends SherlockFragmentActivity {
         super.onCreate(savedInstanceState);
         
         getSupportActionBar().setHomeButtonEnabled(true);
-        if (Utils.supportsSdk(Build.VERSION_CODES.HONEYCOMB)) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         } else {
             getSupportActionBar().setDisplayHomeAsUpEnabled(false);

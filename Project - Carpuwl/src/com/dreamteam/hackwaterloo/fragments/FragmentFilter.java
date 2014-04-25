@@ -37,6 +37,7 @@ import com.dreamteam.hackwaterloo.common.Constants.Defaults;
 import com.dreamteam.hackwaterloo.models.Feed.SerializedNames;
 import com.dreamteam.hackwaterloo.utils.DateTimePickerHelper;
 import com.dreamteam.hackwaterloo.utils.DateTimePickerHelper.OnDateTimeSelectedListener;
+import com.dreamteam.hackwaterloo.utils.TextWatcherPrice;
 import com.dreamteam.hackwaterloo.utils.Utils;
 
 /**
@@ -105,7 +106,8 @@ public class FragmentFilter extends SherlockFragment implements OnClickListener 
         initCheckBoxGroups(rootView);
         initSpinners(rootView);
 
-        mEditPrice.addTextChangedListener(new EditTextWatcher());
+        mEditPrice.addTextChangedListener(new TextWatcherButtonEnabler());
+        mEditPrice.addTextChangedListener(new TextWatcherPrice(mEditPrice));
 
         mSeekBarSeats.setOnSeekBarChangeListener(new FilterSeekBarListener());
         mSeekBarSeats.setOnTouchListener(new SeekBarTouchOverride());
@@ -201,7 +203,8 @@ public class FragmentFilter extends SherlockFragment implements OnClickListener 
 
         mSpinnerDepart.setSelection(sharedPreferences.getInt(KEY_LOCATION_DEPART, 0));
         mSpinnerArrive.setSelection(sharedPreferences.getInt(KEY_LOCATION_ARRIVE, 0));
-        mEditPrice.setText((sharedPreferences.getString(KEY_PRICE, "")));
+        mEditPrice.setText((sharedPreferences.getString(KEY_PRICE,
+                String.valueOf(Defaults.MINIMUM_PRICE))));
         mSeekBarSeats.setProgress(sharedPreferences.getInt(KEY_SEATS, Defaults.MINIMUM_SEATS));
         mTimeWhen = sharedPreferences.getLong(KEY_WHEN, System.currentTimeMillis()
                 + Defaults.MINIMUM_WHEN_OFFSET);
@@ -275,7 +278,7 @@ public class FragmentFilter extends SherlockFragment implements OnClickListener 
         } else if (mCheckBoxPrice.isChecked() && TextUtils.isEmpty(mEditPrice.getText().toString())) {
             Log.d(TAG, "cannot apply filter where price field is empty");
         } else if (mCheckBoxPrice.isChecked()
-                && Integer.parseInt(mEditPrice.getText().toString()) < Defaults.MINIMUM_PRICE) {
+                && Double.parseDouble(mEditPrice.getText().toString()) < Defaults.MINIMUM_PRICE) {
             Log.d(TAG, "cannot apply filter where price is less than $1");
         } else if (mCheckBoxSeats.isChecked() && mSeekBarSeats.getProgress() == 0) {
             Log.d(TAG, "cannot appl filter where seats remaining is 0");
@@ -326,24 +329,24 @@ public class FragmentFilter extends SherlockFragment implements OnClickListener 
     }
 
     // OnTouchListener implementation in order to stop the NavigationDrawer from
-    // hijacking touch events that should be registered with the SeekBar.
+    // hijacking touch events that should be registered to the SeekBar.
     private class SeekBarTouchOverride implements OnTouchListener {
 
         @Override
         public boolean onTouch(View view, MotionEvent event) {
             switch (event.getAction()) {
-                case MotionEvent.ACTION_DOWN:
-                    // Disallow Drawer to intercept touch events.
-                    view.getParent().requestDisallowInterceptTouchEvent(true);
-                    break;
+            case MotionEvent.ACTION_DOWN:
+                // Disallow Drawer to intercept touch events.
+                view.getParent().requestDisallowInterceptTouchEvent(true);
+                break;
 
-                case MotionEvent.ACTION_UP:
-                    // Allow Drawer to intercept touch events.
-                    view.getParent().requestDisallowInterceptTouchEvent(false);
-                    break;
+            case MotionEvent.ACTION_UP:
+                // Allow Drawer to intercept touch events.
+                view.getParent().requestDisallowInterceptTouchEvent(false);
+                break;
             }
 
-            // Delegate the touch event to the seekbar
+            // Delegate the touch event to the SeekBar
             view.onTouchEvent(event);
             return true;
         }
@@ -359,6 +362,7 @@ public class FragmentFilter extends SherlockFragment implements OnClickListener 
 
         @Override
         public void onStartTrackingTouch(SeekBar seekBar) {
+            // No implementation
         }
 
         @Override
@@ -369,7 +373,7 @@ public class FragmentFilter extends SherlockFragment implements OnClickListener 
         }
     }
 
-    private class EditTextWatcher implements TextWatcher {
+    private class TextWatcherButtonEnabler implements TextWatcher {
 
         @Override
         public void onTextChanged(CharSequence s, int start, int count, int after) {
@@ -378,54 +382,55 @@ public class FragmentFilter extends SherlockFragment implements OnClickListener 
 
         @Override
         public void afterTextChanged(Editable s) {
+            // No implementation
         }
 
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            // No implementation
         }
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.filter_button_when:
-                mDateTimePickerHelper = new DateTimePickerHelper(getActivity()
-                        .getSupportFragmentManager());
-                mDateTimePickerHelper.setOnDateTimeSelectedListener(new DateTimePickerListener());
-                mDateTimePickerHelper.show();
-                break;
+        case R.id.filter_button_when:
+            mDateTimePickerHelper = new DateTimePickerHelper(getActivity()
+                    .getSupportFragmentManager());
+            mDateTimePickerHelper.setOnDateTimeSelectedListener(new DateTimePickerListener());
+            mDateTimePickerHelper.show();
+            break;
 
-            case R.id.filter_button_apply:
-                Map<String, String> filterSettings = new HashMap<String, String>();
+        case R.id.filter_button_apply:
+            Map<String, String> filterSettings = new HashMap<String, String>();
 
-                if (mCheckBoxPrice.isChecked()) {
-                    filterSettings.put(SerializedNames.PRICE, mEditPrice.getText().toString());
-                }
+            if (mCheckBoxPrice.isChecked()) {
+                filterSettings.put(SerializedNames.PRICE, mEditPrice.getText().toString());
+            }
 
-                if (mCheckBoxSeats.isChecked()) {
-                    filterSettings
-                            .put(SerializedNames.SEATS_REMAINING, mTextSeats.getText().toString());
-                }
+            if (mCheckBoxSeats.isChecked()) {
+                filterSettings
+                        .put(SerializedNames.SEATS_REMAINING, mTextSeats.getText().toString());
+            }
 
-                if (mCheckBoxWhen.isChecked()) {
-                    filterSettings.put(SerializedNames.DATE_DEPART, String.valueOf(mTimeWhen));
-                }
+            if (mCheckBoxWhen.isChecked()) {
+                filterSettings.put(SerializedNames.DATE_DEPART, String.valueOf(mTimeWhen));
+            }
 
-                if (mCheckBoxSpinnerDepart.isChecked()) {
-                    filterSettings.put(SerializedNames.LOCATION_START, mSpinnerDepart
-                            .getSelectedItem()
-                            .toString());
-                }
+            if (mCheckBoxSpinnerDepart.isChecked()) {
+                filterSettings.put(SerializedNames.LOCATION_START, mSpinnerDepart
+                        .getSelectedItem()
+                        .toString());
+            }
 
-                if (mCheckBoxSpinnerArrive.isChecked()) {
-                    filterSettings.put(SerializedNames.LOCATION_END, mSpinnerArrive
-                            .getSelectedItem()
-                            .toString());
-                }
+            if (mCheckBoxSpinnerArrive.isChecked()) {
+                filterSettings.put(SerializedNames.LOCATION_END, mSpinnerArrive
+                        .getSelectedItem()
+                        .toString());
+            }
 
-                Log.d(TAG, "Filter settings: " + filterSettings.toString());
-                mListener.onFilterApplied(filterSettings);
-                break;
+            mListener.onFilterApplied(filterSettings);
+            break;
         }
     }
 
@@ -439,6 +444,6 @@ public class FragmentFilter extends SherlockFragment implements OnClickListener 
     }
 
     public interface OnFilterAppliedListener {
-        void onFilterApplied(Map<String, String> filterSettings);
+        void onFilterApplied(Map<String, String> filterParameters);
     }
 }

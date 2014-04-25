@@ -188,6 +188,7 @@ public class FragmentFindARide extends SherlockFragment implements OnScrollToSho
         ObjectAnimator.ofFloat(mButtonFilterPrompt, "alpha", 1f).start();
         
         // Allow GC to eat up the ViewStub
+        mViewStubFilterPrompt = null;
     }
 
     @Override

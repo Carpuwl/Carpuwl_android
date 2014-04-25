@@ -87,11 +87,13 @@ public class FragmentDetailedEvent extends SherlockFragment {
 
         mRatingBar.setRating((float) mEvent.getRating());
         mTextViewUserName.setText(mEvent.getDriverName());
-        mRatingNumber.setText(String.format("(%s)", mEvent.getRatingCount()));
+        mRatingNumber.setText(String.format("(%d)", mEvent.getRatingCount()));
         mTextViewStart.setText(mEvent.getLocationStart());
         mTextViewEnd.setText(mEvent.getLocationEnd());
-        mTextViewPrice.setText(String.format("$%s", mEvent.getPrice()));
-        mTextViewSeats.setText(String.format("Seats Remaining: %s", mEvent.getSeatsRemaining()));
+        mTextViewPrice.setText(String.format("$%.2f", mEvent.getPrice()));
+        mTextViewSeats
+                .setText(String.format(Utils.getString(R.string.event_details_seats_remaining),
+                        mEvent.getSeatsRemaining()));
         mTextViewStartTime.setText(Utils.multiCaseDateFormat((mEvent.getDateDepart())));
         mTextViewArrivalTime.setText(Utils.multiCaseDateFormat((mEvent.getDateArrive())));
         mTextViewDescription.setText(mEvent.getDescription());

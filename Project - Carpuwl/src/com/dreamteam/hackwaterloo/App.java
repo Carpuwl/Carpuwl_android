@@ -29,9 +29,9 @@ public class App extends Application {
         super.onCreate();
         mApp = this;
         MyVolley.init(getAppContext());
-        mDateFormat = new SimpleDateFormat(Utils.detectDateFormat(getAppContext(), false));
-        mDateFormatVerbose = new SimpleDateFormat(Utils.detectDateFormat(getAppContext(), true));
-        mTimeFormat = new SimpleDateFormat(Utils.detectTimeFormat(getAppContext()));
+        mDateFormat = new SimpleDateFormat(Utils.detectDateFormat(false));
+        mDateFormatVerbose = new SimpleDateFormat(Utils.detectDateFormat(true));
+        mTimeFormat = new SimpleDateFormat(Utils.detectTimeFormat());
     }
 
     /**

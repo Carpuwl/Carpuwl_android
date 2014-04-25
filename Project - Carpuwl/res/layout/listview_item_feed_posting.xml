@@ -19,7 +19,7 @@
         android:gravity="center"
         android:text="@string/find_ride_price_filler"
         android:textColor="@android:color/white"
-        android:textSize="30sp" />
+        android:textSize="24sp" />
 
     <LinearLayout
         android:id="@+id/find_ride_listview_item_location_container"

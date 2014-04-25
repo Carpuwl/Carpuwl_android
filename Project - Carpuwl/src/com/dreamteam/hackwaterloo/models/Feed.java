@@ -61,7 +61,6 @@ public class Feed {
         @SerializedName(SerializedNames.RATING_COUNT)
         private int mRatingCount;
 
-        // TODO: Change this into an int. fuh real
         @SerializedName(SerializedNames.PRICE)
         private double mPrice;
 
@@ -83,27 +82,6 @@ public class Feed {
         @SerializedName(SerializedNames.LOCATION_END)
         private String mLocationEnd;
         
-        /**
-         * @param userId
-         * @param price
-         * @param seatsRemaining
-         * @param description
-         * @param dateDepart
-         * @param dateArrive
-         * @param locationStart
-         * @param locationEnd
-         */
-        public Event(long userId, int price, int seatsRemaining, String description,
-                long dateDepart, long dateArrive, String locationStart, String locationEnd) {
-            mPrice = Double.valueOf(price).intValue();
-            mSeatsRemaining = seatsRemaining;
-            mDescription = description;
-            mDateDepart = dateDepart;
-            mDateArrive = dateArrive;
-            mLocationStart = locationStart;
-            mLocationEnd = locationEnd;
-        }
-
         protected Event(Parcel in) {
             mUserId = in.readLong();
             mEventId = in.readLong();
@@ -111,7 +89,7 @@ public class Feed {
             mPhone = in.readString();
             mRating = in.readDouble();
             mRatingCount = in.readInt();
-            mPrice = in.readInt();
+            mPrice = in.readDouble();
             mSeatsRemaining = in.readInt();
             mDescription = in.readString();
             mDateDepart = in.readLong();
@@ -133,7 +111,7 @@ public class Feed {
             dest.writeString(mPhone);
             dest.writeDouble(mRating);
             dest.writeInt(mRatingCount);
-            dest.writeInt(getPrice());
+            dest.writeDouble(mPrice);
             dest.writeInt(mSeatsRemaining);
             dest.writeString(mDescription);
             dest.writeLong(mDateDepart);
@@ -178,8 +156,8 @@ public class Feed {
             return mRatingCount;
         }
 
-        public int getPrice() {
-            return Double.valueOf(mPrice).intValue();
+        public double getPrice() {
+            return mPrice;
         }
 
         public int getSeatsRemaining() {
@@ -215,7 +193,5 @@ public class Feed {
                     + ", mDateDepart=" + mDateDepart + ", mDateArrive=" + mDateArrive
                     + ", mLocationStart=" + mLocationStart + ", mLocationEnd=" + mLocationEnd + "]";
         }
-        
-        
     }
 }

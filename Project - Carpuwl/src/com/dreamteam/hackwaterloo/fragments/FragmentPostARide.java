@@ -41,6 +41,7 @@ import com.dreamteam.hackwaterloo.models.Feed.SerializedNames;
 import com.dreamteam.hackwaterloo.utils.CrossFadeViewSwitcher;
 import com.dreamteam.hackwaterloo.utils.DateTimePickerHelper;
 import com.dreamteam.hackwaterloo.utils.DateTimePickerHelper.OnDateTimeSelectedListener;
+import com.dreamteam.hackwaterloo.utils.TextWatcherPrice;
 import com.dreamteam.hackwaterloo.utils.Utils;
 import com.dreamteam.hackwaterloo.volley.GsonRequest;
 import com.dreamteam.hackwaterloo.volley.MyVolley;
@@ -88,17 +89,17 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
 
         return rootView;
     }
-    
+
     private void initSuccessPost() {
         mContainerSuccess = (LinearLayout) mViewStubSuccess.inflate();
         mButtonViewPost = (Button) mContainerSuccess
                 .findViewById(R.id.post_success_button_view_post);
-        
+
         mButtonViewPost.setOnClickListener(new OnClickListener() {
-            
+
             @Override
             public void onClick(View v) {
-                
+
             }
         });
     }
@@ -135,6 +136,7 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
         mSpinnerEnd.setOnItemSelectedListener(new SeekBarButtonEnabler());
 
         mEditPrice.addTextChangedListener(new TextWatcherPriceButtonEnabler());
+        mEditPrice.addTextChangedListener(new TextWatcherPrice(mEditPrice));
     }
 
     @Override
@@ -194,24 +196,25 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.post_ride_button_submit_event:
-                postRequest();
-                break;
+        case R.id.post_ride_button_submit_event:
+            postRequest();
+            break;
 
-            case R.id.post_ride_button_start_date:
-            case R.id.post_ride_button_end_date:
-                mDateTimePickerHelper = new DateTimePickerHelper(getActivity()
-                        .getSupportFragmentManager());
-                mDateTimePickerHelper.setOnDateTimeSelectedListener(
-                        new DateTimePickerListener(view.getId()));
-                mDateTimePickerHelper.show();
-                break;
+        case R.id.post_ride_button_start_date:
+        case R.id.post_ride_button_end_date:
+            mDateTimePickerHelper = new DateTimePickerHelper(getActivity()
+                    .getSupportFragmentManager());
+            mDateTimePickerHelper.setOnDateTimeSelectedListener(
+                    new DateTimePickerListener(view.getId()));
+            mDateTimePickerHelper.show();
+            break;
         }
     }
 
     private void postRequest() {
         Map<String, String> params = new HashMap<String, String>();
-        params.put("fb_fk", String.valueOf(AppData.getFacebookForeginKey())); // TODO: wtf?
+        params.put("fb_fk", String.valueOf(AppData.getFacebookForeginKey())); // TODO:
+                                                                              // wtf?
         params.put(SerializedNames.PRICE, mEditPrice.getText().toString());
         params.put(SerializedNames.SEATS_REMAINING, mTextSeatsValue.getText().toString());
         params.put(SerializedNames.DESCRIPTION, mEditDescription.getText().toString());
@@ -219,13 +222,13 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
         params.put(SerializedNames.DATE_ARRIVE, String.valueOf(mEndTime));
         params.put(SerializedNames.LOCATION_START, mSpinnerStart.getSelectedItem().toString());
         params.put(SerializedNames.LOCATION_END, mSpinnerEnd.getSelectedItem().toString());
-        
+
         Log.d("ryan", "PARAMETERS: " + params.toString());
-        
+
         GsonRequest<Event> request = new GsonRequest<Event>(
-                Method.POST, 
-                Endpoint.EVENT, 
-                Event.class, 
+                Method.POST,
+                Endpoint.EVENT,
+                Event.class,
                 new Listener<Event>() {
                     @Override
                     public void onResponse(Event response) {
@@ -236,7 +239,7 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
                                 .startAnimation();
                         mDonePosting = true;
                     }
-                }, 
+                },
                 new ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
@@ -279,18 +282,18 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
         @Override
         public void onDateTimeSelected(long timeInMillis) {
             switch (mButtonId) {
-                case R.id.post_ride_button_start_date:
-                    mTextTimeStart.setText(Utils.multiCaseDateFormat(timeInMillis));
-                    mStartTime = timeInMillis;
-                    break;
+            case R.id.post_ride_button_start_date:
+                mTextTimeStart.setText(Utils.multiCaseDateFormat(timeInMillis));
+                mStartTime = timeInMillis;
+                break;
 
-                case R.id.post_ride_button_end_date:
-                    mTextTimeEnd.setText(Utils.multiCaseDateFormat(timeInMillis));
-                    mEndTime = timeInMillis;
-                    break;
+            case R.id.post_ride_button_end_date:
+                mTextTimeEnd.setText(Utils.multiCaseDateFormat(timeInMillis));
+                mEndTime = timeInMillis;
+                break;
 
-                default:
-                    assert false : "Unhandled datepicker for view with id " + mButtonId;
+            default:
+                throw new UnsupportedOperationException("Unhandled button");
             }
             enableSubmitButtonIfDataValid();
         }

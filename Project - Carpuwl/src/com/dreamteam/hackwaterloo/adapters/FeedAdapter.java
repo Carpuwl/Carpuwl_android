@@ -2,16 +2,15 @@
 package com.dreamteam.hackwaterloo.adapters;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.TypedArray;
-import android.nfc.cardemulation.CardEmulation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.animation.DecelerateInterpolator;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
@@ -22,12 +21,9 @@ import android.widget.TextView;
 import com.dreamteam.carpuwl.R;
 import com.dreamteam.hackwaterloo.activities.ActivityDetailedPager;
 import com.dreamteam.hackwaterloo.common.Constants;
-import com.dreamteam.hackwaterloo.common.Constants.Animation;
 import com.dreamteam.hackwaterloo.models.Feed.Event;
 import com.dreamteam.hackwaterloo.utils.AnimationCardEntrance;
 import com.dreamteam.hackwaterloo.utils.Utils;
-import com.nineoldandroids.animation.AnimatorSet;
-import com.nineoldandroids.animation.ObjectAnimator;
 
 public class FeedAdapter extends BaseAdapter {
 
@@ -66,13 +62,13 @@ public class FeedAdapter extends BaseAdapter {
     }
 
     @Override
-    public long getItemId(int arg0) {
+    public long getItemId(int position) {
         // No Implementation. Not used by android framework.
         return 0;
     }
 
-    public void addItemBatch(List<Event> events) {
-        mEvents.addAll(events);
+    public void addAll(Collection<? extends Event> newEvents) {
+        mEvents.addAll(newEvents);
         notifyDataSetChanged();
     }
 
@@ -127,7 +123,8 @@ public class FeedAdapter extends BaseAdapter {
         viewHolder.parentView.setOnClickListener(new OnEventClickedListener(position));
         viewHolder.priceBackground.setBackgroundColor(mColorList.getColor((position % 5), 0));
         viewHolder.ratingBar.setRating((float) event.getRating());
-        viewHolder.price.setText(String.format("$%s", String.valueOf(event.getPrice())));
+        viewHolder.price.setText(String.format("%s%.2f", Utils.getCurrencySymbol(),
+                event.getPrice()));
         viewHolder.startingPoint.setText(event.getLocationStart());
         viewHolder.endingPoint.setText(event.getLocationEnd());
         viewHolder.seats.setText(String.format(Utils.getString(R.string.find_ride_seats),
