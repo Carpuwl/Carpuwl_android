@@ -1,22 +1,17 @@
+
 package com.dreamteam.hackwaterloo.fragments;
 
-import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
-import com.android.volley.Response.ErrorListener;
-import com.android.volley.Response.Listener;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.ImageRequest;
+import com.android.volley.toolbox.NetworkImageView;
 import com.dreamteam.carpuwl.R;
-import com.dreamteam.hackwaterloo.AppData;
 import com.dreamteam.hackwaterloo.models.Feed.Event;
 import com.dreamteam.hackwaterloo.utils.Utils;
 import com.dreamteam.hackwaterloo.volley.MyVolley;
@@ -50,29 +45,11 @@ public class FragmentDetailedEvent extends SherlockFragment {
 
         Event mEvent = getArguments().getParcelable(KEY_PARCELABLE);
 
-        final ImageView profilePicture = (ImageView) rootView
-                .findViewById(R.id.event_user_profile_picture);
-        
-        MyVolley.getRequestQueue().add(new ImageRequest(
-                "http://graph.facebook.com/"+AppData.getFacebookForeginKey()+"/picture", 
-                new Listener<Bitmap>() {
-                    @Override
-                    public void onResponse(Bitmap response) {
-                        if (response != null) {
-                            profilePicture.setImageBitmap(response);
-                        }
-                    }
-                }, 
-                profilePicture.getWidth(), 
-                profilePicture.getHeight(), 
-                Bitmap.Config.ARGB_8888, 
-                new ErrorListener() {
-
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getActivity(), "no", Toast.LENGTH_SHORT).show();;
-                    }
-                }));
+        NetworkImageView profilePicture = (NetworkImageView) rootView
+                .findViewById(R.id.event_details_profile_picture);
+        Log.d("ryan", "facebook id: " + mEvent.getFacebookId());
+        profilePicture.setImageUrl("http://graph.facebook.com/" + mEvent.getFacebookId()
+                + "/picture?type=large", MyVolley.getImageLoader());
 
         mRatingBar = (RatingBar) rootView.findViewById(R.id.event_user_rating_bar);
         mTextViewUserName = (TextView) rootView.findViewById(R.id.event_user_name);

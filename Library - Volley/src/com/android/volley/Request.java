@@ -68,6 +68,9 @@ public abstract class Request<T> implements Comparable<Request<T>> {
 
     /** URL of this request. */
     private final String mUrl;
+    
+    /** The redirect url to use for 3xx http responses */
+    private String mRedirectUrl;
 
     /** Default tag for {@link TrafficStats}. */
     private final int mDefaultTrafficStatsTag;
@@ -134,7 +137,7 @@ public abstract class Request<T> implements Comparable<Request<T>> {
         mErrorListener = listener;
         setRetryPolicy(new DefaultRetryPolicy());
 
-        mDefaultTrafficStatsTag = findDefaultTrafficStatsTag(url);
+        mDefaultTrafficStatsTag = TextUtils.isEmpty(url) ? 0: Uri.parse(url).getHost().hashCode();
     }
 
     /**
@@ -168,22 +171,6 @@ public abstract class Request<T> implements Comparable<Request<T>> {
      */
     public int getTrafficStatsTag() {
         return mDefaultTrafficStatsTag;
-    }
-
-    /**
-     * @return The hashcode of the URL's host component, or 0 if there is none.
-     */
-    private static int findDefaultTrafficStatsTag(String url) {
-        if (!TextUtils.isEmpty(url)) {
-            Uri uri = Uri.parse(url);
-            if (uri != null) {
-                String host = uri.getHost();
-                if (host != null) {
-                    return host.hashCode();
-                }
-            }
-        }
-        return 0;
     }
 
     /**
@@ -277,7 +264,21 @@ public abstract class Request<T> implements Comparable<Request<T>> {
      * Returns the URL of this request.
      */
     public String getUrl() {
-        return mUrl;
+        return (mRedirectUrl != null) ? mRedirectUrl : mUrl;
+    }
+    
+    /**
+     * Returns the URL of the request before any redirects have occurred.
+     */
+    public String getOriginUrl() {
+    	return mUrl;
+    }
+    
+    /**
+     * Sets the redirect url to handle 3xx http responses.
+     */
+    public void setRedirectUrl(String redirectUrl) {
+    	mRedirectUrl = redirectUrl;
     }
 
     /**

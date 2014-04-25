@@ -27,6 +27,7 @@ public class Feed {
 
     public static final class SerializedNames {
         public static final String USER_ID = "user_fk";
+        public static final String FACEBOOK_ID = "fb_fk";
         public static final String EVENT_ID = "event_pk";
         public static final String NAME = "name";
         public static final String PHONE = "phone";
@@ -46,6 +47,9 @@ public class Feed {
         @SerializedName(SerializedNames.USER_ID)
         private long mUserId;
 
+        @SerializedName(SerializedNames.FACEBOOK_ID)
+        private long mFacebookId;
+        
         @SerializedName(SerializedNames.EVENT_ID)
         private long mEventId;
 
@@ -84,6 +88,7 @@ public class Feed {
         
         protected Event(Parcel in) {
             mUserId = in.readLong();
+            mFacebookId = in.readLong();
             mEventId = in.readLong();
             mDriverName = in.readString();
             mPhone = in.readString();
@@ -106,6 +111,7 @@ public class Feed {
         @Override
         public void writeToParcel(Parcel dest, int flags) {
             dest.writeLong(mUserId);
+            dest.writeLong(mFacebookId);
             dest.writeLong(mEventId);
             dest.writeString(mDriverName);
             dest.writeString(mPhone);
@@ -134,6 +140,10 @@ public class Feed {
 
         public long getUserId() {
             return mUserId;
+        }
+        
+        public long getFacebookId() {
+            return mFacebookId;
         }
 
         public long getEventId() {

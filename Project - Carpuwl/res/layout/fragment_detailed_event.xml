@@ -18,8 +18,8 @@
             android:layout_margin="@dimen/touchable_ui_spacing"
             android:background="@drawable/google_now_style_card" >
 
-            <com.dreamteam.hackwaterloo.common.CircularImageView
-                android:id="@+id/event_user_profile_picture"
+            <com.android.volley.toolbox.NetworkImageView
+                android:id="@+id/event_details_profile_picture"
                 android:layout_width="@dimen/event_user_profile_size"
                 android:layout_height="@dimen/event_user_profile_size"
                 android:contentDescription="@string/app_name" />
@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/touchable_ui_spacing"
                 android:layout_marginLeft="@dimen/touchable_ui_spacing"
-                android:layout_toRightOf="@id/event_user_profile_picture"
+                android:layout_toRightOf="@id/event_details_profile_picture"
                 android:text="@string/event_user_name"
                 android:textSize="28sp"
                 android:textStyle="bold" />
@@ -39,7 +39,7 @@
                 android:id="@+id/event_user_rating_bar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/event_user_profile_picture"
+                android:layout_below="@+id/event_details_profile_picture"
                 android:layout_marginTop="@dimen/touchable_ui_spacing"
                 android:isIndicator="true"
                 android:numStars="5" />

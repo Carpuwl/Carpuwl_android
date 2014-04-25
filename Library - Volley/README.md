@@ -13,7 +13,7 @@ Maven and Gradle support is already added.
 
 Current Version:
 
-    1.0.3 (updated at 2014.04.01)
+    1.0.2 (updated at 2014.02.28)
 
 ###Mirror
 
@@ -30,7 +30,7 @@ format: jar
 <dependency>
     <groupId>com.mcxiaoke.volley</groupId>
     <artifactId>library</artifactId>
-    <version>{lastest-version}</version>
+    <version>1.0.0</version>
 </dependency>
 ```
 

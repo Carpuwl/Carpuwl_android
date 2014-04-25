@@ -275,10 +275,10 @@ public class ImageLoader {
         // Remove this request from the list of in-flight requests.
         BatchedImageRequest request = mInFlightRequests.remove(cacheKey);
 
-        if (request != null) {
-            // Set the error for this request
-            request.setError(error);
+        // Set the error for this request
+        request.setError(error);
 
+        if (request != null) {
             // Send the batched response
             batchResponse(cacheKey, request);
         }
