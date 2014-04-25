@@ -16,7 +16,7 @@ public class Feed {
     public Event[] getEvents() {
         return mEvents;
     }
-
+    
     public String getMessage() {
         return message;
     }

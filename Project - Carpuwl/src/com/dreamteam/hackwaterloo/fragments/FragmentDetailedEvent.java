@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.android.volley.toolbox.NetworkImageView;
 import com.dreamteam.carpuwl.R;
+import com.dreamteam.hackwaterloo.AppData;
 import com.dreamteam.hackwaterloo.models.Feed.Event;
 import com.dreamteam.hackwaterloo.utils.Utils;
 import com.dreamteam.hackwaterloo.volley.MyVolley;
@@ -47,9 +48,10 @@ public class FragmentDetailedEvent extends SherlockFragment {
 
         NetworkImageView profilePicture = (NetworkImageView) rootView
                 .findViewById(R.id.event_details_profile_picture);
-        Log.d("ryan", "facebook id: " + mEvent.getFacebookId());
+        Log.d("ryan", "facebook id: " + AppData.getFacebookForeginKey());
         profilePicture.setImageUrl("http://graph.facebook.com/" + mEvent.getFacebookId()
                 + "/picture?type=large", MyVolley.getImageLoader());
+        
 
         mRatingBar = (RatingBar) rootView.findViewById(R.id.event_user_rating_bar);
         mTextViewUserName = (TextView) rootView.findViewById(R.id.event_user_name);

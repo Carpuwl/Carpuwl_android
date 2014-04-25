@@ -4,7 +4,7 @@ public class Constants {
     
     public enum Endpoint {
         USER("user"),
-        EVENT("create_event"), 
+        EVENT("event"), 
         FEED("feed");
         
         private String mValue;
@@ -35,6 +35,7 @@ public class Constants {
     public static class Extra {
         public static final String EVENT = "com.dreamteam.carpuwl.eventParcelable";
         public static final String EVENT_POSITION = "com.dreamteam.carpuwl.eventPosition";
+        public static final String EVENT_SINGLE = "com.dreamteam.carpuwl.eventMultiple";
     }
     
     public static class StatusCode {

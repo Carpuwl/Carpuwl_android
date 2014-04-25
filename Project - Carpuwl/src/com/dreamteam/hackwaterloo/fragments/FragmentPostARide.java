@@ -4,6 +4,7 @@ package com.dreamteam.hackwaterloo.fragments;
 import java.util.HashMap;
 import java.util.Map;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -34,8 +35,10 @@ import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.dreamteam.carpuwl.R;
 import com.dreamteam.hackwaterloo.AppData;
+import com.dreamteam.hackwaterloo.activities.ActivityDetailedPager;
 import com.dreamteam.hackwaterloo.common.Constants.Defaults;
 import com.dreamteam.hackwaterloo.common.Constants.Endpoint;
+import com.dreamteam.hackwaterloo.common.Constants.Extra;
 import com.dreamteam.hackwaterloo.models.Feed.Event;
 import com.dreamteam.hackwaterloo.models.Feed.SerializedNames;
 import com.dreamteam.hackwaterloo.utils.CrossFadeViewSwitcher;
@@ -50,7 +53,9 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
 
     public static final String TAG = FragmentPostARide.class.getSimpleName();
     private static final String KEY_DONE_POSTING = "keyDonePosting";
+    private static final String KEY_EVENT = "keyEvent";
 
+    private Event mEvent;
     private DateTimePickerHelper mDateTimePickerHelper;
 
     private ViewStub mViewStubPosting;
@@ -80,8 +85,9 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
 
         mViewStubSuccess = (ViewStub) rootView.findViewById(R.id.post_ride_viewstub_success);
         if (savedInstanceState != null && savedInstanceState.getBoolean(KEY_DONE_POSTING, false)) {
-            initSuccessPost();
+            mEvent = savedInstanceState.getParcelable(KEY_EVENT);
             mDonePosting = true;
+            initSuccessPost();
         } else {
             mEditPost(rootView);
             enableSubmitButtonIfDataValid();
@@ -99,7 +105,10 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
 
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(getActivity(), ActivityDetailedPager.class);
+                intent.putExtra(Extra.EVENT_SINGLE, true);
+                intent.putExtra(Extra.EVENT, mEvent);
+                startActivity(intent);
             }
         });
     }
@@ -142,6 +151,9 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
     @Override
     public void onSaveInstanceState(Bundle outState) {
         outState.putBoolean(KEY_DONE_POSTING, mDonePosting);
+        if (mDonePosting && mEvent != null) {
+            outState.putParcelable(KEY_EVENT, mEvent);
+        }
         super.onSaveInstanceState(outState);
     }
 
@@ -232,7 +244,7 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
                 new Listener<Event>() {
                     @Override
                     public void onResponse(Event response) {
-                        Log.d("ryan", response.toString());
+                        mEvent = response;
                         Toast.makeText(getActivity(), "Successful", Toast.LENGTH_SHORT).show();
                         initSuccessPost();
                         new CrossFadeViewSwitcher(mContainerEditPost, mContainerSuccess, true)

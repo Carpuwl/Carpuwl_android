@@ -1,3 +1,4 @@
+
 package com.dreamteam.hackwaterloo.activities;
 
 import java.util.ArrayList;
@@ -26,17 +27,26 @@ public class ActivityDetailedPager extends ActivityDreamTeam {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detailed_event);
 
-        mEvents = getIntent().getParcelableArrayListExtra(Constants.Extra.EVENT);
-        int position = getIntent().getIntExtra(Constants.Extra.EVENT_POSITION, 0);
-
-        mAdapter = new EventDetailAdapter(getSupportFragmentManager(), mEvents);
-        mPager = (ViewPager) findViewById(R.id.event_pager);
-        mPager.setAdapter(mAdapter);
-        mPager.setCurrentItem(position);
+        if (getIntent().getBooleanExtra(Constants.Extra.EVENT_SINGLE, false)) {
+            Event event = getIntent().getParcelableExtra(Constants.Extra.EVENT);
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .add(android.R.id.content,
+                            FragmentDetailedEvent.newInstance(event))
+                    .commit();
+        } else {
+            mEvents = getIntent().getParcelableArrayListExtra(Constants.Extra.EVENT);
+            int position = getIntent().getIntExtra(Constants.Extra.EVENT_POSITION, 0);
+            
+            mAdapter = new EventDetailAdapter(getSupportFragmentManager(), mEvents);
+            mPager = (ViewPager) findViewById(R.id.event_pager);
+            mPager.setAdapter(mAdapter);
+            mPager.setCurrentItem(position);
+        }
 
         getSupportActionBar().setTitle(Utils.getString(R.string.actionbar_title_find_a_ride));
     }
-    
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
