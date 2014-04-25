@@ -107,7 +107,7 @@
     <string name="event_user_name">Christopher Ciufo</string>
     <string name="event_user_num_ratings">(2)</string>
     <string name="event_details_price">Price: $15</string>
-    <string name="event_details_seats_remaining">Seats Remaining: %f</string>
+    <string name="event_details_seats_remaining">Seats Remaining: %d</string>
     <string name="event_details_seats">Seats: 3</string>
     <string name="event_details_start_time">Start Time: </string>
     <string name="event_details_eta">ETA: </string>

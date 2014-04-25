@@ -5,7 +5,6 @@ import android.text.TextWatcher;
 import java.text.NumberFormat;
 import java.util.Locale;
 import android.text.Editable;
-import android.util.Log;
 import android.widget.EditText;
 
 @SuppressLint("DefaultLocale")
