@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/com.dreamteam.carpuwl"
     android:id="@+id/post_ride_container_successful"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/google_now_style_card"
     android:orientation="vertical" >
 
-    <TextView.RobotoLight
+    <com.rperryng.roboto.RobotoTextView
         style="@style/DreamTextHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:padding="@dimen/touchable_ui_spacing"
         android:layout_margin="@dimen/touchable_ui_spacing"
-        android:text="@string/success" />
+        android:padding="@dimen/touchable_ui_spacing"
+        android:text="@string/success"
+        app:font="light" />
 
     <Button
         android:id="@+id/post_success_button_view_post"

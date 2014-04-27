@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!-- Visibility initially set to gone, as the view will be faded in smoothly instead -->
-<Button.RobotoCondensedLightItalic xmlns:android="http://schemas.android.com/apk/res/android"
+<com.rperryng.roboto.RobotoButton xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/com.dreamteam.carpuwl"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:minHeight="@dimen/generic_item_height"
     android:layout_margin="0dp"
     android:background="@drawable/btn_filter_prompt_selector"
-    android:padding="@dimen/touchable_ui_spacing"
     android:gravity="center"
+    android:minHeight="@dimen/generic_item_height"
+    android:padding="@dimen/touchable_ui_spacing"
     android:text="@string/find_ride_filter_prompt"
     android:textColor="@android:color/white"
-    android:visibility="gone" />
+    android:visibility="gone"
+    app:font="condensedRegularItalic" />

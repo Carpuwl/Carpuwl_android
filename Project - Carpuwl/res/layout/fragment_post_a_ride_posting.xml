@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/com.dreamteam.carpuwl"
     android:id="@+id/post_ride_container_edit_post"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -46,32 +47,35 @@
             android:layout_height="wrap_content"
             android:layout_weight="1" >
 
-            <TextView.RobotoLight
+            <com.rperryng.roboto.RobotoTextView
                 android:id="@+id/post_ride_text_price_prefix"
                 style="@style/DreamTextHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
-                android:text="@string/price" />
+                android:text="@string/price"
+                app:font="light" />
 
-            <TextView.RobotoLight
+            <com.rperryng.roboto.RobotoTextView
                 style="@style/DreamTextContent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:text="@string/currency_symbol" />
+                android:text="@string/currency_symbol"
+                app:font="light" />
         </RelativeLayout>
 
-        <EditText.RobotoLight
+        <com.rperryng.roboto.RobotoEditText
             android:id="@+id/post_ride_edittext_price"
             style="@style/DreamEditPrice"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:hint="" />
+            android:hint=""
+            app:font="light" />
     </LinearLayout>
 
     <LinearLayout
@@ -88,21 +92,23 @@
             android:layout_weight="1"
             android:orientation="horizontal" >
 
-            <TextView.RobotoLight
+            <com.rperryng.roboto.RobotoTextView
                 android:id="@+id/post_ride_text_seats_header"
                 style="@style/DreamTextHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/touchable_ui_spacing"
-                android:text="@string/post_ride_text_seats_hint" />
+                android:text="@string/post_ride_text_seats_hint"
+                app:font="light" />
 
-            <TextView.RobotoLight
+            <com.rperryng.roboto.RobotoTextView
                 android:id="@+id/post_ride_text_seats_value"
                 style="@style/DreamTextContent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:maxLength="2" />
+                android:maxLength="2"
+                app:font="light" />
         </LinearLayout>
 
         <SeekBar
@@ -120,20 +126,22 @@
         android:layout_marginTop="@dimen/generic_item_spacing"
         android:orientation="horizontal" >
 
-        <Button.RobotoRegular
+        <com.rperryng.roboto.RobotoButton
             android:id="@+id/post_ride_button_start_date"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/post_ride_button_start_date" />
+            android:text="@string/post_ride_button_start_date"
+            app:font="regular" />
 
-        <TextView.RobotoCondensedRegular
+        <com.rperryng.roboto.RobotoTextView
             android:id="@+id/post_ride_text_start_date"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:hint="@string/post_ride_text_location_hint" />
+            android:hint="@string/post_ride_text_location_hint"
+            app:font="condensedRegular" />
     </LinearLayout>
 
     <LinearLayout
@@ -142,36 +150,40 @@
         android:layout_marginTop="@dimen/generic_item_spacing"
         android:orientation="horizontal" >
 
-        <Button.RobotoRegular
+        <com.rperryng.roboto.RobotoButton
             android:id="@+id/post_ride_button_end_date"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/post_ride_button_end_date" />
+            android:text="@string/post_ride_button_end_date"
+            app:font="regular" />
 
-        <TextView.RobotoCondensedRegular
+        <com.rperryng.roboto.RobotoTextView
             android:id="@+id/post_ride_text_end_date"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:hint="@string/post_ride_text_location_hint" />
+            android:hint="@string/post_ride_text_location_hint"
+            app:font="condensedRegular" />
     </LinearLayout>
 
-    <EditText.RobotoLight
+    <com.rperryng.roboto.RobotoEditText
         android:id="@+id/post_ride_edittext_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/generic_item_spacing"
         android:gravity="bottom"
-        android:hint="@string/post_ride_edittext_hint_description" />
+        android:hint="@string/post_ride_edittext_hint_description"
+        app:font="light" />
 
-    <Button.RobotoRegular
+    <com.rperryng.roboto.RobotoButton
         android:id="@+id/post_ride_button_submit_event"
         style="@style/ButtonDreamTeam.Alternate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/generic_item_spacing"
-        android:text="@string/submit" />
+        android:text="@string/submit"
+        app:font="regular" />
 
 </LinearLayout>

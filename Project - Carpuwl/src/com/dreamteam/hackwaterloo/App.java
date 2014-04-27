@@ -14,7 +14,7 @@ import com.dreamteam.hackwaterloo.volley.MyVolley;
  * A singleton for all objects that must be instantiated at Application start
  * time and require a context
  * 
- * @author Ryan
+ * @author Ryan Perry-Nguyen
  */
 @SuppressLint("SimpleDateFormat")
 public class App extends Application {

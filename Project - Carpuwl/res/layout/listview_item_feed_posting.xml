@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/com.dreamteam.carpuwl"
     android:id="@+id/find_ride_listview_item_parent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -12,14 +13,15 @@
         android:layout_height="@dimen/find_ride_listview_price_size"
         android:contentDescription="@string/app_name" />
 
-    <TextView.RobotoRegular
+    <com.rperryng.roboto.RobotoTextView
         android:id="@+id/find_ride_listview_item_price"
         android:layout_width="@dimen/find_ride_listview_price_size"
         android:layout_height="@dimen/find_ride_listview_price_size"
         android:gravity="center"
         android:text="@string/find_ride_price_filler"
         android:textColor="@android:color/white"
-        android:textSize="24sp" />
+        android:textSize="24sp"
+        app:font="regular" />
 
     <LinearLayout
         android:id="@+id/find_ride_listview_item_location_container"
@@ -27,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/find_ride_listview_item_price" >
 
-        <TextView.RobotoRegular
+        <com.rperryng.roboto.RobotoTextView
             android:id="@+id/find_ride_listview_item_start"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -35,7 +37,8 @@
             android:layout_marginLeft="@dimen/touchable_ui_spacing"
             android:text="@string/app_name"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:font="regular" />
 
         <ImageView
             android:id="@+id/find_ride_listview_item_arrow"
@@ -44,7 +47,7 @@
             android:contentDescription="@string/app_name"
             android:src="@drawable/ic_action_next_item" />
 
-        <TextView.RobotoRegular
+        <com.rperryng.roboto.RobotoTextView
             android:id="@+id/find_ride_listview_item_end"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -53,7 +56,8 @@
             android:singleLine="true"
             android:text="@string/app_name"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:font="regular" />
     </LinearLayout>
 
     <RatingBar
@@ -62,37 +66,40 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/find_ride_listview_item_location_container"
-        android:layout_toRightOf="@id/find_ride_listview_item_price"
         android:layout_marginLeft="@dimen/touchable_ui_spacing"
+        android:layout_toRightOf="@id/find_ride_listview_item_price"
         android:isIndicator="true"
         android:numStars="5" />
 
-    <TextView.RobotoLight
+    <com.rperryng.roboto.RobotoTextView
         android:id="@+id/find_ride_listview_item_seats"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/find_ride_rating_bar"
-        android:layout_marginTop="@dimen/touchable_ui_spacing"
         android:layout_marginLeft="@dimen/touchable_ui_spacing"
+        android:layout_marginTop="@dimen/touchable_ui_spacing"
         android:layout_toRightOf="@id/find_ride_listview_item_price"
-        android:text="@string/find_ride_seats" />
+        android:text="@string/find_ride_seats"
+        app:font="light" />
 
-    <TextView.RobotoLight
+    <com.rperryng.roboto.RobotoTextView
         android:id="@+id/find_ride_listview_item_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/find_ride_listview_item_seats"
         android:layout_marginLeft="@dimen/touchable_ui_spacing"
         android:layout_toRightOf="@id/find_ride_listview_item_price_background"
-        android:text="@string/find_ride_time" />
+        android:text="@string/find_ride_time"
+        app:font="light" />
 
-    <TextView.RobotoCondensedRegular
+    <com.rperryng.roboto.RobotoTextView
         android:id="@+id/find_ride_listview_item_time_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/find_ride_listview_item_seats"
         android:layout_toRightOf="@id/find_ride_listview_item_time"
         android:text="@string/app_name"
-        android:textColor="@color/red" />
+        android:textColor="@color/red"
+        app:font="condensedRegular" />
 
 </RelativeLayout>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/com.dreamteam.carpuwl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true" >
@@ -59,16 +60,17 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/generic_item_spacing" >
 
-            <TextView.RobotoLight
+            <com.rperryng.roboto.RobotoTextView
                 android:id="@+id/filter_text_title_price"
                 style="@style/DreamTextHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
-                android:text="@string/price" />
+                android:text="@string/price"
+                app:font="light" />
 
-            <TextView.RobotoLight
+            <com.rperryng.roboto.RobotoTextView
                 android:id="@+id/filter_text_price_currency_symbol"
                 style="@style/DreamTextContent"
                 android:layout_width="wrap_content"
@@ -77,9 +79,10 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/touchable_ui_spacing"
                 android:layout_toRightOf="@id/filter_text_title_price"
-                android:text="@string/currency_symbol" />
+                android:text="@string/currency_symbol"
+                app:font="light" />
 
-            <EditText.RobotoLight
+            <com.rperryng.roboto.RobotoEditText
                 android:id="@+id/filter_edittext_price"
                 style="@style/DreamEditPrice"
                 android:layout_width="wrap_content"
@@ -87,7 +90,8 @@
                 android:layout_alignBaseline="@id/filter_text_title_price"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@id/filter_text_price_currency_symbol"
-                android:hint="@string/filter_edittext_hint_price" />
+                android:hint="@string/filter_edittext_hint_price"
+                app:font="light" />
 
             <CheckBox
                 android:id="@+id/filter_checkbox_price"
@@ -102,21 +106,23 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/generic_item_spacing" >
 
-            <TextView.RobotoLight
+            <com.rperryng.roboto.RobotoTextView
                 android:id="@+id/filter_text_title_seats"
                 style="@style/DreamTextHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/seats" />
+                android:text="@string/seats"
+                app:font="light" />
 
-            <TextView.RobotoLight
+            <com.rperryng.roboto.RobotoTextView
                 android:id="@+id/filter_text_content_seats"
                 style="@style/DreamTextContent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@id/filter_text_title_seats"
                 android:layout_marginLeft="@dimen/touchable_ui_spacing"
-                android:layout_toRightOf="@id/filter_text_title_seats" />
+                android:layout_toRightOf="@id/filter_text_title_seats"
+                app:font="light" />
 
             <CheckBox
                 android:id="@+id/filter_checkbox_seats"
@@ -140,21 +146,23 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/generic_item_spacing" >
 
-            <TextView.RobotoLight
+            <com.rperryng.roboto.RobotoTextView
                 android:id="@+id/filter_text_title_when"
                 style="@style/DreamTextHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/when" />
+                android:text="@string/when"
+                app:font="light" />
 
-            <TextView.RobotoCondensedRegular
+            <com.rperryng.roboto.RobotoTextView
                 android:id="@+id/filter_text_content_when"
                 style="@style/DreamTextContent.Condensed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@id/filter_text_title_when"
                 android:layout_marginLeft="@dimen/touchable_ui_spacing"
-                android:layout_toRightOf="@id/filter_text_title_when" />
+                android:layout_toRightOf="@id/filter_text_title_when"
+                app:font="condensedRegular" />
 
             <CheckBox
                 android:id="@+id/filter_checkbox_button_when"
@@ -171,23 +179,25 @@
                 android:layout_marginTop="@dimen/touchable_ui_spacing"
                 android:layout_toLeftOf="@id/filter_checkbox_button_when" />
 
-            <Button.RobotoRegular
+            <com.rperryng.roboto.RobotoButton
                 android:id="@+id/filter_button_when"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/filter_spinner_when"
                 android:layout_marginTop="@dimen/touchable_ui_spacing"
                 android:layout_toLeftOf="@id/filter_checkbox_button_when"
-                android:text="@string/filter_button_when" />
+                android:text="@string/filter_button_when"
+                app:font="regular" />
         </RelativeLayout>
 
-        <Button.RobotoRegular
+        <com.rperryng.roboto.RobotoButton
             android:id="@+id/filter_button_apply"
             style="@style/ButtonDreamTeam.Alternate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/generic_item_spacing"
-            android:text="@string/filter_button_apply" />
+            android:text="@string/filter_button_apply"
+            app:font="regular" />
     </LinearLayout>
 
 </ScrollView>
