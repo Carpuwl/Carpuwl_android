@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name="font" format="enum">
+        <enum name="regular" value="0" />
+        <enum name="regularBold" value="1" />
+        <enum name="regularItalic" value="2" />
+        <enum name="regularBoldItalic" value="3" />
+        <enum name="medium" value="4" />
+        <enum name="mediumItalic" value="5" />
+        <enum name="black" value="6" />
+        <enum name="blackItalic" value="7" />
+        <enum name="light" value="8" />
+        <enum name="lightItalic" value="9" />
+        <enum name="thin" value="10" />
+        <enum name="thinItalic" value="11" />
+        <enum name="condensedRegular" value="12" />
+        <enum name="condensedRegularBold" value="13" />
+        <enum name="condensedRegularItalic" value="14" />
+        <enum name="condensedRegularBoldItalic" value="15" />
+        <enum name="condensedLight" value="16" />
+        <enum name="condensedLightItalic" value="17" />
+    </attr>
+
+    <declare-styleable name="RobotoButton">
+        <attr name="font" />
+    </declare-styleable>
+    <declare-styleable name="RobotoCheckBox">
+        <attr name="font" />
+    </declare-styleable>
+    <declare-styleable name="RobotoCheckedTextView">
+        <attr name="font" />
+    </declare-styleable>
+    <declare-styleable name="RobotoEditText">
+        <attr name="font" />
+    </declare-styleable>
+    <declare-styleable name="RobotoRadioButton">
+        <attr name="font" />
+    </declare-styleable>
+    <declare-styleable name="RobotoTextView">
+        <attr name="font" />
+    </declare-styleable>
+
+</resources>
