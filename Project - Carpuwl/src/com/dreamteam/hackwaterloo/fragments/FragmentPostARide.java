@@ -40,7 +40,6 @@ import com.dreamteam.hackwaterloo.common.Constants.Defaults;
 import com.dreamteam.hackwaterloo.common.Constants.Endpoint;
 import com.dreamteam.hackwaterloo.common.Constants.Extra;
 import com.dreamteam.hackwaterloo.models.Feed.Event;
-import com.dreamteam.hackwaterloo.models.Feed.SerializedNames;
 import com.dreamteam.hackwaterloo.utils.CrossFadeViewSwitcher;
 import com.dreamteam.hackwaterloo.utils.DateTimePickerHelper;
 import com.dreamteam.hackwaterloo.utils.DateTimePickerHelper.OnDateTimeSelectedListener;
@@ -227,13 +226,13 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
         Map<String, String> params = new HashMap<String, String>();
         params.put("fb_fk", String.valueOf(AppData.getFacebookForeginKey())); // TODO:
                                                                               // wtf?
-        params.put(SerializedNames.PRICE, mEditPrice.getText().toString());
-        params.put(SerializedNames.SEATS_REMAINING, mTextSeatsValue.getText().toString());
-        params.put(SerializedNames.DESCRIPTION, mEditDescription.getText().toString());
-        params.put(SerializedNames.DATE_DEPART, String.valueOf(mStartTime));
-        params.put(SerializedNames.DATE_ARRIVE, String.valueOf(mEndTime));
-        params.put(SerializedNames.LOCATION_START, mSpinnerStart.getSelectedItem().toString());
-        params.put(SerializedNames.LOCATION_END, mSpinnerEnd.getSelectedItem().toString());
+        params.put(Event.SerializedNames.PRICE, mEditPrice.getText().toString());
+        params.put(Event.SerializedNames.SEATS_REMAINING, mTextSeatsValue.getText().toString());
+        params.put(Event.SerializedNames.DESCRIPTION, mEditDescription.getText().toString());
+        params.put(Event.SerializedNames.DATE_DEPART, String.valueOf(mStartTime));
+        params.put(Event.SerializedNames.DATE_ARRIVE, String.valueOf(mEndTime));
+        params.put(Event.SerializedNames.LOCATION_START, mSpinnerStart.getSelectedItem().toString());
+        params.put(Event.SerializedNames.LOCATION_END, mSpinnerEnd.getSelectedItem().toString());
 
         Log.d("ryan", "PARAMETERS: " + params.toString());
 

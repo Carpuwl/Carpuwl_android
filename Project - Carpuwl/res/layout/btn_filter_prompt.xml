@@ -12,5 +12,4 @@
     android:padding="@dimen/touchable_ui_spacing"
     android:text="@string/find_ride_filter_prompt"
     android:textColor="@android:color/white"
-    android:visibility="gone"
     app:font="condensedRegularItalic" />

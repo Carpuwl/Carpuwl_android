@@ -187,10 +187,6 @@ public class FragmentFindARide extends SherlockFragment implements OnScrollToSho
         mButtonFilterPrompt = (Button) mViewStubFilterPrompt.inflate();
         mButtonFilterPrompt.setOnClickListener(this);
 
-        // Hide the view initially
-        ViewHelper.setAlpha(mButtonFilterPrompt, 0f);
-        mButtonFilterPrompt.setVisibility(View.VISIBLE);
-
         // Listen for when the view has been drawn so we can get its measured
         // height.
         final ViewTreeObserver viewTreeObserver = mButtonFilterPrompt.getViewTreeObserver();
@@ -201,18 +197,13 @@ public class FragmentFindARide extends SherlockFragment implements OnScrollToSho
                 @Override
                 public void onGlobalLayout() {
                     
-                    // Animate the view
-                    AnimatorSet animatorSet = new AnimatorSet();
-                    animatorSet.playTogether(
-                            ObjectAnimator.ofFloat(
-                                    mButtonFilterPrompt, 
-                                    "translationY",
-                                    (mButtonFilterPrompt.getBottom() - mButtonFilterPrompt.getTop()),
-                                    0),
-                            ObjectAnimator.ofFloat(mButtonFilterPrompt, "alpha", 0f, 1f)
-                            );
-                    animatorSet.setDuration(Constants.Animation.DURATION);
-                    animatorSet.start();
+                    ObjectAnimator.ofFloat(
+                            mButtonFilterPrompt, 
+                            "translationY",
+                            (mButtonFilterPrompt.getBottom() - mButtonFilterPrompt.getTop()),
+                            0)
+                            .setDuration(Constants.Animation.DURATION)
+                            .start();
 
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                         viewTreeObserver.removeOnGlobalLayoutListener(this);

@@ -34,7 +34,7 @@ import android.widget.TextView;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.dreamteam.carpuwl.R;
 import com.dreamteam.hackwaterloo.common.Constants.Defaults;
-import com.dreamteam.hackwaterloo.models.Feed.SerializedNames;
+import com.dreamteam.hackwaterloo.models.Feed.Event;
 import com.dreamteam.hackwaterloo.utils.DateTimePickerHelper;
 import com.dreamteam.hackwaterloo.utils.DateTimePickerHelper.OnDateTimeSelectedListener;
 import com.dreamteam.hackwaterloo.utils.TextWatcherPrice;
@@ -405,26 +405,26 @@ public class FragmentFilter extends SherlockFragment implements OnClickListener 
             Map<String, String> filterSettings = new HashMap<String, String>();
 
             if (mCheckBoxPrice.isChecked()) {
-                filterSettings.put(SerializedNames.PRICE, mEditPrice.getText().toString());
+                filterSettings.put(Event.SerializedNames.PRICE, mEditPrice.getText().toString());
             }
 
             if (mCheckBoxSeats.isChecked()) {
                 filterSettings
-                        .put(SerializedNames.SEATS_REMAINING, mTextSeats.getText().toString());
+                        .put(Event.SerializedNames.SEATS_REMAINING, mTextSeats.getText().toString());
             }
 
             if (mCheckBoxWhen.isChecked()) {
-                filterSettings.put(SerializedNames.DATE_DEPART, String.valueOf(mTimeWhen));
+                filterSettings.put(Event.SerializedNames.DATE_DEPART, String.valueOf(mTimeWhen));
             }
 
             if (mCheckBoxSpinnerDepart.isChecked()) {
-                filterSettings.put(SerializedNames.LOCATION_START, mSpinnerDepart
+                filterSettings.put(Event.SerializedNames.LOCATION_START, mSpinnerDepart
                         .getSelectedItem()
                         .toString());
             }
 
             if (mCheckBoxSpinnerArrive.isChecked()) {
-                filterSettings.put(SerializedNames.LOCATION_END, mSpinnerArrive
+                filterSettings.put(Event.SerializedNames.LOCATION_END, mSpinnerArrive
                         .getSelectedItem()
                         .toString());
             }

@@ -2,7 +2,6 @@
 package com.dreamteam.hackwaterloo.fragments;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,6 @@ import android.widget.TextView;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.android.volley.toolbox.NetworkImageView;
 import com.dreamteam.carpuwl.R;
-import com.dreamteam.hackwaterloo.AppData;
 import com.dreamteam.hackwaterloo.models.Feed.Event;
 import com.dreamteam.hackwaterloo.utils.Utils;
 import com.dreamteam.hackwaterloo.volley.MyVolley;
