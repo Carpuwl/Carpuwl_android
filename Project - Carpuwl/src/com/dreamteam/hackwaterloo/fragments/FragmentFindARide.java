@@ -7,7 +7,9 @@ import java.util.Map;
 import uk.co.senab.actionbarpulltorefresh.extras.actionbarsherlock.PullToRefreshLayout;
 import uk.co.senab.actionbarpulltorefresh.library.ActionBarPullToRefresh;
 import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
+import android.annotation.TargetApi;
 import android.app.Activity;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,13 +17,14 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewStub;
+import android.view.ViewTreeObserver;
+import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
-import com.actionbarsherlock.internal.nineoldandroids.animation.ObjectAnimator;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.android.volley.Request.Method;
@@ -30,14 +33,16 @@ import com.android.volley.VolleyError;
 import com.dreamteam.carpuwl.R;
 import com.dreamteam.hackwaterloo.adapters.FeedAdapter;
 import com.dreamteam.hackwaterloo.adapters.FeedAdapter.OnScrollToShowPromptListener;
-import com.dreamteam.hackwaterloo.common.OnAnimationEndListener;
+import com.dreamteam.hackwaterloo.common.Constants;
 import com.dreamteam.hackwaterloo.common.Constants.Endpoint;
+import com.dreamteam.hackwaterloo.common.OnAnimationEndListener;
 import com.dreamteam.hackwaterloo.models.Feed;
 import com.dreamteam.hackwaterloo.models.Feed.Event;
-import com.dreamteam.hackwaterloo.utils.AnimationBottomPeak;
 import com.dreamteam.hackwaterloo.utils.CrossFadeViewSwitcher;
 import com.dreamteam.hackwaterloo.volley.GsonRequest;
 import com.dreamteam.hackwaterloo.volley.MyVolley;
+import com.nineoldandroids.animation.AnimatorSet;
+import com.nineoldandroids.animation.ObjectAnimator;
 import com.nineoldandroids.view.ViewHelper;
 
 public class FragmentFindARide extends SherlockFragment implements OnScrollToShowPromptListener,
@@ -67,7 +72,7 @@ public class FragmentFindARide extends SherlockFragment implements OnScrollToSho
         }
         super.onAttach(activity);
     }
-    
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         setHasOptionsMenu(true);
@@ -142,7 +147,7 @@ public class FragmentFindARide extends SherlockFragment implements OnScrollToSho
             public void onErrorResponse(VolleyError error) {
                 if (error.networkResponse != null) {
                     Log.e(TAG, "Error: " + error.networkResponse.statusCode);
-                } 
+                }
                 // TODO: make a string perhaps
                 Toast.makeText(getActivity(), "Error getting results", Toast.LENGTH_SHORT).show();
             }
@@ -177,16 +182,47 @@ public class FragmentFindARide extends SherlockFragment implements OnScrollToSho
         if (mViewStubFilterPrompt == null || mViewStubFilterPrompt.getParent() == null) {
             return;
         }
-        
+
         // Instantiate the button
         mButtonFilterPrompt = (Button) mViewStubFilterPrompt.inflate();
         mButtonFilterPrompt.setOnClickListener(this);
 
-        // Animate the view
+        // Hide the view initially
         ViewHelper.setAlpha(mButtonFilterPrompt, 0f);
         mButtonFilterPrompt.setVisibility(View.VISIBLE);
-        ObjectAnimator.ofFloat(mButtonFilterPrompt, "alpha", 1f).start();
-        
+
+        // Listen for when the view has been drawn so we can get its measured
+        // height.
+        final ViewTreeObserver viewTreeObserver = mButtonFilterPrompt.getViewTreeObserver();
+        if (viewTreeObserver.isAlive()) {
+            viewTreeObserver.addOnGlobalLayoutListener(new OnGlobalLayoutListener() {
+                @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+                @SuppressWarnings("deprecation")
+                @Override
+                public void onGlobalLayout() {
+                    
+                    // Animate the view
+                    AnimatorSet animatorSet = new AnimatorSet();
+                    animatorSet.playTogether(
+                            ObjectAnimator.ofFloat(
+                                    mButtonFilterPrompt, 
+                                    "translationY",
+                                    (mButtonFilterPrompt.getBottom() - mButtonFilterPrompt.getTop()),
+                                    0),
+                            ObjectAnimator.ofFloat(mButtonFilterPrompt, "alpha", 0f, 1f)
+                            );
+                    animatorSet.setDuration(Constants.Animation.DURATION);
+                    animatorSet.start();
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                        viewTreeObserver.removeOnGlobalLayoutListener(this);
+                    } else {
+                        viewTreeObserver.removeGlobalOnLayoutListener(this);
+                    }
+                }
+            });
+        }
+
         // Allow GC to eat up the ViewStub
         mViewStubFilterPrompt = null;
     }
@@ -196,7 +232,11 @@ public class FragmentFindARide extends SherlockFragment implements OnScrollToSho
         switch (view.getId()) {
         case R.id.find_ride_button_filter_prompt:
             mListener.onFilterPromptToBeShown();
-            new AnimationBottomPeak(mButtonFilterPrompt, false).startAnimation();
+            ObjectAnimator
+                    .ofFloat(mButtonFilterPrompt, "translationY", 0,
+                            mButtonFilterPrompt.getBottom() - mButtonFilterPrompt.getTop())
+                    .setDuration(Constants.Animation.DURATION)
+                    .start();
             break;
         }
     }

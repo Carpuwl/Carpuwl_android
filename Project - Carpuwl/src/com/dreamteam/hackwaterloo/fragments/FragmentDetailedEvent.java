@@ -48,7 +48,8 @@ public class FragmentDetailedEvent extends SherlockFragment {
 
         NetworkImageView profilePicture = (NetworkImageView) rootView
                 .findViewById(R.id.event_details_profile_picture);
-        Log.d("ryan", "facebook id: " + AppData.getFacebookForeginKey());
+        
+        // TODO: this is sloppy
         profilePicture.setImageUrl("http://graph.facebook.com/" + mEvent.getFacebookId()
                 + "/picture?type=large", MyVolley.getImageLoader());
         
