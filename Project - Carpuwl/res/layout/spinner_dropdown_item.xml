@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<CheckedTextView.RobotoRegular xmlns:android="http://schemas.android.com/apk/res/android"
+<com.rperryng.roboto.RobotoCheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/com.dreamteam.carpuwl"
     android:id="@android:id/text1"
     style="?android:attr/spinnerDropDownItemStyle"
     android:layout_width="match_parent"
@@ -7,4 +8,5 @@
     android:ellipsize="marquee"
     android:singleLine="true"
     android:textAlignment="inherit"
-    android:textColor="@drawable/dream_text_color_selector" />
+    android:textColor="@drawable/dream_text_color_selector"
+    app:font="regular" />
