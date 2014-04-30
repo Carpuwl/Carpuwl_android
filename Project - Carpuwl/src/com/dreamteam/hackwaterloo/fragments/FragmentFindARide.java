@@ -27,6 +27,7 @@ import android.widget.Toast;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 import com.android.volley.Request.Method;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -41,9 +42,7 @@ import com.dreamteam.hackwaterloo.models.Feed.Event;
 import com.dreamteam.hackwaterloo.utils.CrossFadeViewSwitcher;
 import com.dreamteam.hackwaterloo.volley.GsonRequest;
 import com.dreamteam.hackwaterloo.volley.MyVolley;
-import com.nineoldandroids.animation.AnimatorSet;
 import com.nineoldandroids.animation.ObjectAnimator;
-import com.nineoldandroids.view.ViewHelper;
 
 public class FragmentFindARide extends SherlockFragment implements OnScrollToShowPromptListener,
         OnClickListener, OnRefreshListener {
@@ -204,7 +203,7 @@ public class FragmentFindARide extends SherlockFragment implements OnScrollToSho
                             0)
                             .setDuration(Constants.Animation.DURATION)
                             .start();
-
+        
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                         viewTreeObserver.removeOnGlobalLayoutListener(this);
                     } else {
