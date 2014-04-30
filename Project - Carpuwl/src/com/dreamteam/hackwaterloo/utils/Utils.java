@@ -155,6 +155,11 @@ public class Utils {
 
         currentTime.set(System.currentTimeMillis());
         eventTime.set(epochTime);
+        
+        // In the past.  (Invalid)
+        if (epochTime < System.currentTimeMillis()) {
+            return Utils.getString(R.string.time_old);
+        }
 
         // Same year
         if (currentTime.year == eventTime.year) {
