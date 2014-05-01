@@ -4,15 +4,15 @@
     android:id="@+id/find_ride_listview_item_parent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/activity_margin"
-    android:background="@drawable/google_now_style_card" >
+    android:padding="@dimen/touchable_ui_spacing"
+    android:background="@drawable/btn_gnow_selector" >
 
     <ImageView
         android:id="@+id/find_ride_listview_item_price_background"
         android:layout_width="@dimen/find_ride_listview_price_size"
         android:layout_height="@dimen/find_ride_listview_price_size"
         android:contentDescription="@string/app_name" />
-
+    
     <com.rperryng.roboto.RobotoTextView
         android:id="@+id/find_ride_listview_item_price"
         android:layout_width="@dimen/find_ride_listview_price_size"
