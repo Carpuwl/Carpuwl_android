@@ -7,6 +7,7 @@ import java.util.Map;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -172,6 +173,8 @@ public class FragmentPostARide extends SherlockFragment implements OnClickListen
             Log.d("ryan", "failed due to start time being later than end time");
         } else if (mStartTime < System.currentTimeMillis()) {
             Log.d("ryan", "failed due to start time being before current time");
+        } else if (TextUtils.isEmpty(mEditPrice.getText().toString())) {
+            Log.d("ryan", "failed due to price being empty");
         } else if (Double.parseDouble(mEditPrice.getText().toString()) < Defaults.MINIMUM_PRICE) {
             Log.d("ryan", "failed due to price being less than one dollar");
         } else if (mTextSeatsValue.getText().toString().equals("0")) {

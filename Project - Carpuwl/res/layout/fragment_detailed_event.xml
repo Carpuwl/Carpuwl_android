@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipToPadding="false"
-    android:paddingBottom="@dimen/activity_margin"
-    android:paddingTop="@dimen/activity_margin" >
+    android:padding="@dimen/activity_margin" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,7 +14,7 @@
             android:id="@+id/event_profile_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/touchable_ui_spacing"
+            android:padding="@dimen/touchable_ui_spacing"
             android:background="@drawable/google_now_style_card" >
 
             <com.android.volley.toolbox.NetworkImageView
@@ -60,8 +59,7 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/generic_item_height"
-            android:layout_margin="@dimen/touchable_ui_spacing"
-            android:layout_marginBottom="@dimen/activity_margin"
+            android:padding="@dimen/touchable_ui_spacing"
             android:background="@drawable/btn_search_filter_selector" >
 
             <LinearLayout
@@ -92,7 +90,7 @@
             android:id="@+id/event_details_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/touchable_ui_spacing"
+            android:padding="@dimen/touchable_ui_spacing"
             android:background="@drawable/google_now_style_card"
             android:orientation="vertical" >
 
