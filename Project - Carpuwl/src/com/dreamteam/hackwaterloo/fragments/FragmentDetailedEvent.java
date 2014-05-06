@@ -2,18 +2,19 @@
 package com.dreamteam.hackwaterloo.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockFragment;
-import com.android.volley.toolbox.NetworkImageView;
 import com.dreamteam.carpuwl.R;
 import com.dreamteam.hackwaterloo.models.Feed.Event;
 import com.dreamteam.hackwaterloo.utils.Utils;
-import com.dreamteam.hackwaterloo.volley.MyVolley;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class FragmentDetailedEvent extends SherlockFragment {
 
@@ -44,17 +45,25 @@ public class FragmentDetailedEvent extends SherlockFragment {
 
         Event mEvent = getArguments().getParcelable(KEY_PARCELABLE);
 
-        NetworkImageView profilePicture = (NetworkImageView) rootView
-                .findViewById(R.id.event_details_profile_picture);
+//        NetworkImageView profilePicture = (NetworkImageView) rootView
+//                .findViewById(R.id.event_details_profile_picture);
+//        
+//        // TODO: this is sloppy
+//        profilePicture.setImageUrl("http://graph.facebook.com/" + mEvent.getFacebookId()
+//                + "/picture?type=large", MyVolley.getImageLoader());
         
-        // TODO: this is sloppy
-        profilePicture.setImageUrl("http://graph.facebook.com/" + mEvent.getFacebookId()
-                + "/picture?type=large", MyVolley.getImageLoader());
         
-
-        mRatingBar = (RatingBar) rootView.findViewById(R.id.event_user_rating_bar);
-        mTextViewUserName = (TextView) rootView.findViewById(R.id.event_user_name);
-        mRatingNumber = (TextView) rootView.findViewById(R.id.event_user_num_ratings);
+        
+        ImageView profilePicture = (ImageView) rootView.findViewById(R.id.event_details_profile_picture);
+        profilePicture.setImageDrawable(null);
+        String url = "http://graph.facebook.com/" + mEvent.getFacebookId() + "/picture?type=square&height=200&width=200";
+        Log.d("ryan", "url: " + url);
+        
+        ImageLoader.getInstance().displayImage(url, profilePicture);
+        
+        mRatingBar = (RatingBar) rootView.findViewById(R.id.event_details_rating);
+        mTextViewUserName = (TextView) rootView.findViewById(R.id.event_details_name);
+        mRatingNumber = (TextView) rootView.findViewById(R.id.event_details_num_ratings);
         mTextViewStart = (TextView) rootView.findViewById(R.id.event_details_start);
         mTextViewEnd = (TextView) rootView.findViewById(R.id.event_details_end);
         mTextViewPrice = (TextView) rootView.findViewById(R.id.event_details_price);

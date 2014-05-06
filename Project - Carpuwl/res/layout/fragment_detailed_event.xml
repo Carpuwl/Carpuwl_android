@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipToPadding="false"
@@ -10,96 +11,112 @@
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
-        <RelativeLayout
-            android:id="@+id/event_profile_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/touchable_ui_spacing"
-            android:background="@drawable/google_now_style_card" >
-
-            <com.android.volley.toolbox.NetworkImageView
-                android:id="@+id/event_details_profile_picture"
-                android:layout_width="@dimen/event_user_profile_size"
-                android:layout_height="@dimen/event_user_profile_size"
-                android:contentDescription="@string/app_name" />
-
-            <TextView
-                android:id="@+id/event_user_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/touchable_ui_spacing"
-                android:layout_marginLeft="@dimen/touchable_ui_spacing"
-                android:layout_toRightOf="@id/event_details_profile_picture"
-                android:text="@string/event_user_name"
-                android:textSize="28sp"
-                android:textStyle="bold" />
-
-            <RatingBar
-                android:id="@+id/event_user_rating_bar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/event_details_profile_picture"
-                android:layout_marginTop="@dimen/touchable_ui_spacing"
-                android:isIndicator="true"
-                android:numStars="5" />
-
-            <TextView
-                android:id="@+id/event_user_num_ratings"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@id/event_user_rating_bar"
-                android:layout_alignTop="@id/event_user_rating_bar"
-                android:layout_marginLeft="@dimen/touchable_ui_spacing"
-                android:layout_toRightOf="@+id/event_user_rating_bar"
-                android:gravity="center"
-                android:text="@string/event_user_num_ratings"
-                android:textSize="32sp" />
-        </RelativeLayout>
+        <!-- New -->
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/generic_item_height"
-            android:padding="@dimen/touchable_ui_spacing"
-            android:background="@drawable/btn_search_filter_selector" >
+            android:layout_height="wrap_content"
+            android:background="@drawable/google_now_style_card" >
 
             <LinearLayout
-                android:id="@+id/event_request_button"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_horizontal"
-                android:orientation="horizontal" >
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/google_now_style_card"
+                android:orientation="vertical" >
 
-                <ImageView
-                    android:id="@+id/find_ride_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:contentDescription="@string/app_name"
-                    android:src="@drawable/ic_action_add_person" />
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:background="@color/purple" />
 
-                <TextView
-                    android:id="@+id/event_request_text"
+                <com.rperryng.roboto.RobotoTextView
+                    android:id="@+id/event_details_name"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="@dimen/touchable_ui_spacing"
-                    android:gravity="center_vertical"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="26dp"
+                    android:text="@string/app_name"
+                    android:textSize="26sp"
+                    app:font="light" />
+
+                <!-- Driver Rating -->
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/activity_margin" >
+
+                    <com.rperryng.roboto.RobotoTextView
+                        style="@style/DreamTextHeader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left|center_vertical"
+                        android:text="@string/event_details_driver_rating"
+                        app:font="light" />
+
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center" >
+
+                        <RatingBar
+                            android:id="@+id/event_details_rating"
+                            style="@style/RatingBarDreamTeam"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:isIndicator="true"
+                            android:numStars="5"
+                            android:scaleX=".7"
+                            android:scaleY=".7" />
+                    </FrameLayout>
+
+                    <com.rperryng.roboto.RobotoTextView
+                        android:id="@+id/event_details_num_ratings"
+                        style="@style/DreamTextHeader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right|center_vertical"
+                        android:layout_marginRight="8dp"
+                        android:text="@string/event_user_num_ratings"
+                        android:textSize="22sp"
+                        app:font="light" />
+                </FrameLayout>
+
+                <com.rperryng.roboto.RobotoButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/activity_margin"
+                    android:drawableLeft="@drawable/ic_action_new_event"
+                    android:drawablePadding="-30dp"
+                    android:gravity="center"
                     android:text="@string/event_status" />
             </LinearLayout>
+
+            <com.mikhaellopez.circularimageview.CircularImageView
+                android:id="@+id/event_details_profile_picture"
+                android:layout_width="@dimen/event_user_profile_size"
+                android:layout_height="@dimen/event_user_profile_size"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/project_hackathon"
+                app:shadow="true" />
         </FrameLayout>
 
+        <!-- Old -->
+
         <LinearLayout
-            android:id="@+id/event_details_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/touchable_ui_spacing"
+            android:layout_marginTop="@dimen/activity_margin"
             android:background="@drawable/google_now_style_card"
-            android:orientation="vertical" >
+            android:orientation="vertical"
+            android:padding="@dimen/activity_margin" >
 
             <LinearLayout
                 android:id="@+id/event_details_location_container"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/touchable_ui_spacing"
-                android:layout_marginTop="@dimen/touchable_ui_spacing" >
+                android:layout_height="wrap_content" >
 
                 <TextView
                     android:id="@+id/event_details_start"
@@ -169,7 +186,6 @@
                 android:id="@+id/event_details_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/touchable_ui_spacing"
                 android:gravity="center"
                 android:text="@string/event_details_description"
                 android:textSize="18sp" />

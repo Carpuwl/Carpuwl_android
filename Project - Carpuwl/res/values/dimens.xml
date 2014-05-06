@@ -10,6 +10,7 @@
     <dimen name="generic_item_height">48dp</dimen>
     <dimen name="corner_rounding">2dp</dimen>
     <dimen name="button_stroke_width">4dp</dimen>
+    <dimen name="generic_button_padding">10dp</dimen>
     
     <!-- Text Sizes -->
     <dimen name="title_large">22sp</dimen>

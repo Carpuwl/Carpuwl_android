@@ -9,6 +9,9 @@ import android.content.Context;
 
 import com.dreamteam.hackwaterloo.utils.Utils;
 import com.dreamteam.hackwaterloo.volley.MyVolley;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 /**
  * A singleton for all objects that must be instantiated at Application start
@@ -32,6 +35,19 @@ public class App extends Application {
         mDateFormat = new SimpleDateFormat(Utils.detectDateFormat(false));
         mDateFormatVerbose = new SimpleDateFormat(Utils.detectDateFormat(true));
         mTimeFormat = new SimpleDateFormat(Utils.detectTimeFormat());
+        
+        
+        // Universal Image Loader
+        DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
+                .cacheInMemory(true)
+                .cacheOnDisc(true)
+                .build();
+        
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this)
+                .defaultDisplayImageOptions(defaultOptions)
+                .build();
+        
+        ImageLoader.getInstance().init(config);
     }
 
     /**

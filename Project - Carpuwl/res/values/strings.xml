@@ -105,7 +105,7 @@
 
     <!-- Event Page Activity -->
     <string name="event_status">Request a Ride</string>
-    <string name="event_user_name">Christopher Ciufo</string>
+    <string name="event_details_driver_rating">Driver\nRating</string>
     <string name="event_user_num_ratings">(2)</string>
     <string name="event_details_price">Price: $15</string>
     <string name="event_details_seats_remaining">Seats Remaining: %d</string>
