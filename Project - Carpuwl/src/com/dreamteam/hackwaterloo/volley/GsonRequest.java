@@ -34,6 +34,11 @@ public class GsonRequest<T> extends Request<T> {
     public GsonRequest(int method, Endpoint endpoint, Class<T> clazz, Listener<T> listener,
             ErrorListener errorListener, Map<String, String> params) {
         super(method, VolleyHelper.getRequestUrl(method, endpoint, params), errorListener);
+        
+        // Ignore cache . . . 
+        MyVolley.getRequestQueue().getCache()
+                .remove(VolleyHelper.getRequestUrl(method, endpoint, params));
+        
         this.mClazz = clazz;
         this.mListener = listener;
         mParams = params;

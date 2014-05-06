@@ -112,6 +112,7 @@ public class FragmentFindARide extends SherlockFragment implements OnScrollToSho
                 GsonRequest<Feed> request = new GsonRequest<Feed>(Method.GET, Endpoint.FEED,
                         Feed.class,
                         createSuccessListener(), createErrorListeners(), params);
+
                 MyVolley.getRequestQueue().add(request);
             }
         });
