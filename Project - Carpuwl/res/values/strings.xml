@@ -16,11 +16,18 @@
     <string name="currency_symbol">$</string>
     <string name="success">Success</string>
     <string name="time_old">Can\'t use this time</string>
+    <string name="departing">Departing:&#160;</string>
+    <string name="arriving">Arriving:&#160;</string>
 
     <plurals name="plural_seat">
         <item quantity="one">Seat</item>
         <item quantity="other">Seats</item>
     </plurals>
+
+    <!-- Log In -->
+    <string name="get_started">To get started, log in using Facebook</string>
+    <string name="app_id">921710994512078</string>
+    <string name="title_activity_events_page">EventsPageActivity</string>
 
     <!-- Time units -->
     <string name="today">Today</string>
@@ -63,7 +70,6 @@
     <string name="find_ride_price_filler">$12</string>
     <string name="find_ride_seats">Seats: %s</string>
     <string name="find_ride_rating">Rating: 4.5</string>
-    <string name="find_ride_time">Departing:&#160;</string>
     <string name="find_ride_filter_max_price_hint">Maximum price</string>
     <string name="find_ride_filter_prompt">Didn\'t find what you\'re looking for?  Try applying a filter</string>
     <string name="dialog_filter_title">Filter results</string>
@@ -103,18 +109,13 @@
     <string name="drawer_item_post_a_ride">Post A Ride</string>
     <string name="drawer_item_log_out">Log Out</string>
 
-    <!-- Event Page Activity -->
+    <!-- Event Page Fragment -->
     <string name="event_status">Request a Ride</string>
     <string name="event_details_driver_rating">Driver\nRating</string>
     <string name="event_user_num_ratings">(2)</string>
     <string name="event_details_price">Price: $15</string>
-    <string name="event_details_seats_remaining">Seats Remaining: %d</string>
-    <string name="event_details_seats">Seats: 3</string>
-    <string name="event_details_start_time">Start Time: </string>
-    <string name="event_details_eta">ETA: </string>
+    <string name="event_details_seats_remaining">Seats Remaining:&#160;</string>
+    <string name="event_details_seats">3</string>
     <string name="event_details_description">Description: </string>
-    <string name="get_started">To get started, log in using Facebook</string>
-    <string name="app_id">921710994512078</string>
-    <string name="title_activity_events_page">EventsPageActivity</string>
 
 </resources>

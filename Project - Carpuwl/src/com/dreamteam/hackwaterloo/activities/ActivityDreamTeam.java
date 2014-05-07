@@ -4,9 +4,6 @@ import android.os.Build;
 import android.os.Bundle;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.dreamteam.carpuwl.R;
-import com.dreamteam.hackwaterloo.utils.Utils;
-import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 public class ActivityDreamTeam extends SherlockFragmentActivity {
 
@@ -20,9 +17,5 @@ public class ActivityDreamTeam extends SherlockFragmentActivity {
         } else {
             getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         }
-        SystemBarTintManager tintManager = new SystemBarTintManager(this);
-        
-        tintManager.setStatusBarTintEnabled(true);
-        tintManager.setTintColor(Utils.getColor(R.color.app_theme_color));
     }
 }

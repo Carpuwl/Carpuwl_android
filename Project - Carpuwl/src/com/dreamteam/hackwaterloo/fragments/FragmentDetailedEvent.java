@@ -1,6 +1,7 @@
 
 package com.dreamteam.hackwaterloo.fragments;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,7 +19,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class FragmentDetailedEvent extends SherlockFragment {
 
-    private static final String KEY_PARCELABLE = "keyParcelable";
+    private static final String KEY_EVENT = "keyParcelable";
 
     private RatingBar mRatingBar;
     private TextView mTextViewUserName;
@@ -34,7 +35,7 @@ public class FragmentDetailedEvent extends SherlockFragment {
     public static FragmentDetailedEvent newInstance(Event event) {
         FragmentDetailedEvent eventDetailFragment = new FragmentDetailedEvent();
         Bundle bundle = new Bundle();
-        bundle.putParcelable(KEY_PARCELABLE, event);
+        bundle.putParcelable(KEY_EVENT, event);
         eventDetailFragment.setArguments(bundle);
         return eventDetailFragment;
     }
@@ -43,7 +44,7 @@ public class FragmentDetailedEvent extends SherlockFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_detailed_event, container, false);
 
-        Event mEvent = getArguments().getParcelable(KEY_PARCELABLE);
+        Event mEvent = getArguments().getParcelable(KEY_EVENT);
 
 //        NetworkImageView profilePicture = (NetworkImageView) rootView
 //                .findViewById(R.id.event_details_profile_picture);
@@ -78,9 +79,7 @@ public class FragmentDetailedEvent extends SherlockFragment {
         mTextViewStart.setText(mEvent.getLocationStart());
         mTextViewEnd.setText(mEvent.getLocationEnd());
         mTextViewPrice.setText(String.format("$%.2f", mEvent.getPrice()));
-        mTextViewSeats
-                .setText(String.format(Utils.getString(R.string.event_details_seats_remaining),
-                        mEvent.getSeatsRemaining()));
+        mTextViewSeats.setText(String.valueOf(mEvent.getSeatsRemaining()));
         mTextViewStartTime.setText(Utils.multiCaseDateFormat((mEvent.getDateDepart())));
         mTextViewArrivalTime.setText(Utils.multiCaseDateFormat((mEvent.getDateArrive())));
         mTextViewDescription.setText(mEvent.getDescription());

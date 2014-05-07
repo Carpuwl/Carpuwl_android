@@ -20,8 +20,8 @@
         android:gravity="center"
         android:text="@string/find_ride_price_filler"
         android:textColor="@android:color/white"
-        android:textSize="24sp"
-        app:font="regular" />
+        android:textSize="26sp"
+        app:font="light" />
 
     <LinearLayout
         android:id="@+id/find_ride_listview_item_location_container"
@@ -37,8 +37,7 @@
             android:layout_marginLeft="@dimen/touchable_ui_spacing"
             android:text="@string/app_name"
             android:textSize="18sp"
-            android:textStyle="bold"
-            app:font="regular" />
+            app:font="light" />
 
         <ImageView
             android:id="@+id/find_ride_listview_item_arrow"
@@ -56,8 +55,7 @@
             android:singleLine="true"
             android:text="@string/app_name"
             android:textSize="18sp"
-            android:textStyle="bold"
-            app:font="regular" />
+            app:font="light" />
     </LinearLayout>
 
     <RatingBar
@@ -89,7 +87,7 @@
         android:layout_below="@id/find_ride_listview_item_seats"
         android:layout_marginLeft="@dimen/touchable_ui_spacing"
         android:layout_toRightOf="@id/find_ride_listview_item_price_background"
-        android:text="@string/find_ride_time"
+        android:text="@string/departing"
         app:font="light" />
 
     <com.rperryng.roboto.RobotoTextView
