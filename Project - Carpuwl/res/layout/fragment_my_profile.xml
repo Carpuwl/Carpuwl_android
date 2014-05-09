@@ -1,48 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-    	xmlns:facebook="http://schemas.android.com/apk/res-auto"
-    	android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"	>
-       
-        <com.facebook.widget.ProfilePictureView
-            android:id="@+id/selection_profile_pic"
-            android:background="@drawable/shape_oval"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            facebook:preset_size="large"
-            android:height="0dp"
-            android:layout_weight="2" />
-        
-        <TextView
-            android:id="@+id/name"
-            android:layout_width = "wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Shamak Dutta"
-            android:height="0dp"
-            android:layout_weight="1" />
-        
-        <TextView
-            android:id="@+id/phone_number"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="234342346"
-            android:height="0dp"
-            android:layout_weight="1" >
-            
-        </TextView>
-        
-        <RatingBar
-            android:id="@+id/rating_bar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:height="0dp"
-            android:layout_weight="1" >
-        </RatingBar>
-        
-        
-</LinearLayout>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:facebook="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res/com.dreamteam.carpuwl"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
 
- 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/activity_margin"
+        android:background="@drawable/google_now_style_card" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/google_now_style_card"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:background="@color/purple"
+                android:contentDescription="@string/app_name" />
+
+            <com.rperryng.roboto.RobotoTextView
+                android:id="@+id/profile_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="26dp"
+                android:text="@string/app_name"
+                android:textSize="26sp"
+                app:font="light" />
+
+            <!-- Driver Rating -->
+
+            <com.rperryng.roboto.RobotoTextView
+                style="@style/DreamTextHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="24dp"
+                android:text="@string/driver_rating"
+                app:font="light" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/rating_bar_to_title_spacing"
+                android:padding="@dimen/activity_margin" >
+
+                <RatingBar
+                    android:id="@+id/profile_driver_rating"
+                    style="@style/RatingBarDreamTeam"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="2dp"
+                    android:isIndicator="true"
+                    android:numStars="5"
+                    android:scaleX=".7"
+                    android:scaleY=".7" />
+
+                <com.rperryng.roboto.RobotoTextView
+                    android:id="@+id/profile_driver_num_ratings"
+                    style="@style/DreamTextHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|center_vertical"
+                    android:layout_marginRight="8dp"
+                    android:text="@string/event_user_num_ratings"
+                    android:textSize="22sp"
+                    app:font="light" />
+            </FrameLayout>
+
+            <com.rperryng.roboto.RobotoTextView
+                style="@style/DreamTextHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-14dp"
+                android:layout_gravity="center"
+                android:text="@string/passenger_rating"
+                app:font="light" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/rating_bar_to_title_spacing"
+                android:padding="@dimen/activity_margin" >
+
+                <RatingBar
+                    android:id="@+id/profile_passenger_rating"
+                    style="@style/RatingBarDreamTeam"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/dumb_rating_offset"
+                    android:isIndicator="true"
+                    android:numStars="5"
+                    android:scaleX=".7"
+                    android:scaleY=".7" />
+
+                <com.rperryng.roboto.RobotoTextView
+                    android:id="@+id/profile_passenger_num_ratings"
+                    style="@style/DreamTextHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|center_vertical"
+                    android:layout_marginRight="8dp"
+                    android:text="@string/event_user_num_ratings"
+                    android:textSize="22sp"
+                    app:font="light" />
+            </FrameLayout>
+        </LinearLayout>
+
+        <com.mikhaellopez.circularimageview.CircularImageView
+            android:id="@+id/profile_profile_picture"
+            android:layout_width="@dimen/event_user_profile_size"
+            android:layout_height="@dimen/event_user_profile_size"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/ic_drawer"
+            app:shadow="true" />
+    </FrameLayout>
+
+</ScrollView>

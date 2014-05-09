@@ -70,6 +70,8 @@ public class ActivityLogIn extends SherlockFragmentActivity implements OnClickLi
     
     @Override
     protected void onResume() {
+
+    	logKeyHash();
         if (mSharedPref.getBoolean(KEY_LOGGED_IN, false)) {
             mPhoneInput = mSharedPref.getString(KEY_PHONE_NUMBER, "0000000000");
             submiteFacebookRequest();
@@ -80,7 +82,7 @@ public class ActivityLogIn extends SherlockFragmentActivity implements OnClickLi
     private void logKeyHash() {
         PackageInfo info;
         try {
-            info = getPackageManager().getPackageInfo("com.dreamteam.hackwaterloo",
+            info = getPackageManager().getPackageInfo("com.dreamteam.carpuwl",
                     PackageManager.GET_SIGNATURES);
             for (Signature signature : info.signatures) {
                 MessageDigest md;
@@ -120,6 +122,8 @@ public class ActivityLogIn extends SherlockFragmentActivity implements OnClickLi
 
             @Override
             public void call(Session session, SessionState statel, Exception exception) {
+
+            	
                 if (session.isOpened()) {
 
                     mProgressDialog = Utils.customProgressDialog(ActivityLogIn.this, R.string.loading);

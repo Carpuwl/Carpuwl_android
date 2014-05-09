@@ -23,10 +23,10 @@
                 android:orientation="vertical" >
 
                 <ImageView
-                    android:contentDescription="@string/app_name"
                     android:layout_width="match_parent"
                     android:layout_height="120dp"
-                    android:background="@color/purple" />
+                    android:background="@color/purple"
+                    android:contentDescription="@string/app_name" />
 
                 <com.rperryng.roboto.RobotoTextView
                     android:id="@+id/event_details_name"
@@ -40,35 +40,32 @@
 
                 <!-- Driver Rating -->
 
+                <com.rperryng.roboto.RobotoTextView
+                    style="@style/DreamTextHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/driver_rating"
+                    app:font="light" />
+
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/rating_bar_to_title_spacing"
                     android:padding="@dimen/activity_margin" >
 
-                    <com.rperryng.roboto.RobotoTextView
-                        style="@style/DreamTextHeader"
+                    <RatingBar
+                        android:id="@+id/event_details_rating"
+                        style="@style/RatingBarDreamTeam"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="left|center_vertical"
-                        android:text="@string/event_details_driver_rating"
-                        app:font="light" />
-
-                    <FrameLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center" >
-
-                        <RatingBar
-                            android:id="@+id/event_details_rating"
-                            style="@style/RatingBarDreamTeam"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:isIndicator="true"
-                            android:numStars="5"
-                            android:scaleX=".7"
-                            android:scaleY=".7" />
-                    </FrameLayout>
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/dumb_rating_offset"
+                        android:isIndicator="true"
+                        android:numStars="5"
+                        android:scaleX=".7"
+                        android:scaleY=".7" />
 
                     <com.rperryng.roboto.RobotoTextView
                         android:id="@+id/event_details_num_ratings"
@@ -85,7 +82,10 @@
                 <com.rperryng.roboto.RobotoButton
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/activity_margin"
+                    android:layout_marginBottom="@dimen/activity_margin"
+                    android:layout_marginLeft="@dimen/activity_margin"
+                    android:layout_marginRight="@dimen/activity_margin"
+                    android:layout_marginTop="-8dp"
                     android:drawableLeft="@drawable/ic_action_new_event"
                     android:drawablePadding="-30dp"
                     android:gravity="center"

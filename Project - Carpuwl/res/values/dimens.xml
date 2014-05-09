@@ -36,6 +36,8 @@
 
     <!-- Profile Page -->
     <dimen name="profile_picture_size">200dp</dimen>
+    <dimen name="dumb_rating_offset">4dp</dimen>
+    <dimen name="rating_bar_to_title_spacing">-20dp</dimen>
 
 
 </resources>
