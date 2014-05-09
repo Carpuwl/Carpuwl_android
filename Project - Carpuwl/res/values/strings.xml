@@ -87,9 +87,9 @@
         <item>Arriving</item>
     </string-array>
 
-    <!-- Cities -->
-    <string-array name="cities">
-        <item>Select One</item>
+    <!-- Cities Departure -->
+    <string-array name="cities_departure">
+        <item>Start Point</item>
         <item>Toronto</item>
         <item>Etobicoke</item>
         <item>Brampton</item>
@@ -102,7 +102,21 @@
         <item>Newmarket</item>
         <item>Vaughn</item>
     </string-array>
-
+	<!-- Cities Destination-->
+    <string-array name="cities_arrival">
+        <item>Destination</item>
+        <item>Toronto</item>
+        <item>Etobicoke</item>
+        <item>Brampton</item>
+        <item>Scarborough</item>
+        <item>Richmond Hill</item>
+        <item>Waterloo</item>
+        <item>London</item>
+        <item>Kitchener</item>
+        <item>Mississauga</item>
+        <item>Newmarket</item>
+        <item>Vaughn</item>
+    </string-array>
     <!-- Navigation Drawer Titles -->
     <string name="drawer_item_my_profile">My Profile</string>
     <string name="drawer_item_find_a_ride">Find a Ride</string>

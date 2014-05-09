@@ -156,15 +156,18 @@ public class FragmentFilter extends SherlockFragment implements OnClickListener 
         ArrayAdapter<CharSequence> spinnerAdapterWhen = ArrayAdapter.createFromResource(
                 getActivity(), R.array.filter_when_type, R.layout.spinner_selected_item);
 
-        ArrayAdapter<CharSequence> spinnerAdapterCities = ArrayAdapter.createFromResource(
-                getActivity(), R.array.cities, R.layout.spinner_selected_item);
+        ArrayAdapter<CharSequence> spinnerAdapterCitiesDeparture = ArrayAdapter.createFromResource(
+                getActivity(), R.array.cities_departure, R.layout.spinner_selected_item);
+        ArrayAdapter<CharSequence> spinnerAdapterCitiesArrival = ArrayAdapter.createFromResource(
+                getActivity(), R.array.cities_arrival, R.layout.spinner_selected_item);
 
         spinnerAdapterWhen.setDropDownViewResource(R.layout.spinner_dropdown_item);
-        spinnerAdapterCities.setDropDownViewResource(R.layout.spinner_dropdown_item);
-
+        spinnerAdapterCitiesDeparture.setDropDownViewResource(R.layout.spinner_dropdown_item);
+        spinnerAdapterCitiesArrival.setDropDownViewResource(R.layout.spinner_dropdown_item);
+        
         mSpinnerWhen.setAdapter(spinnerAdapterWhen);
-        mSpinnerDepart.setAdapter(spinnerAdapterCities);
-        mSpinnerArrive.setAdapter(spinnerAdapterCities);
+        mSpinnerDepart.setAdapter(spinnerAdapterCitiesDeparture);
+        mSpinnerArrive.setAdapter(spinnerAdapterCitiesArrival);
 
         SpinnerButtonEnabler spinnerListener = new SpinnerButtonEnabler();
         mSpinnerDepart.setOnItemSelectedListener(spinnerListener);
